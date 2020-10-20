@@ -8,15 +8,15 @@ import ee.nx01.tonclient.types.AccountFilterInput
 import ee.nx01.tonclient.types.StringFilterInput
 
 
-class Accounts(private val net: NetModule) {
+class Accounts(private val net: NetModule): NetCollection<Account, AccountFilterInput> {
 
-    suspend fun query(filter: AccountFilterInput, result: String): List<Account> {
+    override suspend fun query(filter: AccountFilterInput, result: String): List<Account> {
         val response = net.query(Query("accounts", filter, result))
 
         return JsonUtils.mapper.readValue<AccountResponse>(response).result
     }
 
-    suspend fun subscribe(filter: AccountFilterInput, result: String, onResult: (result: Account) -> Unit): Long {
+    override suspend fun subscribe(filter: AccountFilterInput, result: String, onResult: (result: Account) -> Unit): Long {
         return net.subscribe(Query("accounts", filter, result)) {
             onResult(JsonUtils.mapper.readValue<AccountSubscriptionResponse>(it).result)
         }

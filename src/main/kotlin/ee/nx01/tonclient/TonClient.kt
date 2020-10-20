@@ -89,6 +89,10 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
         request("net.unsubscribe", SubscriptionResponse(handle))
     }
 
+    suspend fun version(): String {
+        val response = request("client.version", "")
+        return JsonUtils.mapper.readValue<Map<String, String>>(response)["version"] ?: ""
+    }
 
     private suspend fun requestToSuspend(method: String, params: String): TonClientResponse = suspendCoroutine { cont ->
         requestAsync(method, params) {
