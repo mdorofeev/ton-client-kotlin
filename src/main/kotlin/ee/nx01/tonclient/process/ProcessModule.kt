@@ -17,7 +17,18 @@ class ProcessModule(private val tonClient: TonClient) {
         return JsonUtils.mapper.readValue(tonClient.request("processing.send_message", params))
     }
 
+    suspend fun waitForTransaction(params: ParamsOfWaitForTransaction): ResultOfProcessMessage {
+        return JsonUtils.mapper.readValue(tonClient.request("processing.send_message", params))
+    }
+
 }
+
+data class ParamsOfWaitForTransaction(
+    val abi: Abi?,
+    val message: String,
+    val shard_block_id: String,
+    val send_events: Boolean
+)
 
 data class ParamsOfSendMessage(
     val message: String,

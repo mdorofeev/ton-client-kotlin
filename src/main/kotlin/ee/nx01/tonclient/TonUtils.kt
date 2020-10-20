@@ -12,4 +12,8 @@ object TonUtils {
     fun convertToken(token: BigDecimal): Long {
         return token.multiply(TOKEN_AMOUNT).toLong()
     }
+
+    fun convertHexToToken(hex: String): BigDecimal {
+        return convertNano(hex.replace("0x", "").toLong(radix = 16))
+    }
 }

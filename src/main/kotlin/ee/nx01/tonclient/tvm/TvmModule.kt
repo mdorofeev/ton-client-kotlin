@@ -1,6 +1,5 @@
 package ee.nx01.tonclient.tvm
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.readValue
 import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonClient
@@ -9,12 +8,25 @@ import java.math.BigInteger
 
 
 class TvmModule(private val tonClient: TonClient) {
-
     suspend fun executeMessage(params: ParamsOfExecuteMessage): ResultOfExecuteMessage {
         return JsonUtils.mapper.readValue(tonClient.request("tvm.execute_message", params))
     }
 
+    suspend fun executeGet(params: ParamsOfExecuteGet): ResultOfExecuteMessage {
+        return JsonUtils.mapper.readValue(tonClient.request("tvm.execute_get", params))
+    }
 }
+
+data class ParamsOfExecuteGet(
+    val account: String,
+    val function_name: String,
+    val input: Map<String, Any>?,
+    val execution_options: ExecutionOptions?
+)
+
+data class ResultOfExecuteGet(
+    val output: Map<String, Any>
+)
 
 data class ResultOfExecuteMessage(
     val transaction: Any? = null,

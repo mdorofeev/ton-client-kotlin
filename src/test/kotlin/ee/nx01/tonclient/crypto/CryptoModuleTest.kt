@@ -6,7 +6,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
 
-class CryptoTest : StringSpec({
+class CryptoModuleTest : StringSpec({
     "Created key pair should have not empty values" {
         val client = TonClient()
 

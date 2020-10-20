@@ -27,5 +27,5 @@ data class ParamsOfParse(
 )
 
 data class ResultOfParse(
-    val parsed: Any
+    val parsed: Map<String, Any>
 )
