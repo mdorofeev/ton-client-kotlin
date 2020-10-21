@@ -12,8 +12,6 @@ import kotlinx.coroutines.sync.Mutex
 import mu.KotlinLogging
 import org.scijava.nativelib.NativeLoader
 import ton.sdk.TONSDKJsonApi
-import java.lang.Exception
-import java.lang.RuntimeException
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import kotlin.random.Random
@@ -94,20 +92,26 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
         return JsonUtils.mapper.readValue<Map<String, String>>(response)["version"] ?: ""
     }
 
-    private suspend fun requestToSuspend(method: String, params: String): TonClientResponse = suspendCoroutine { cont ->
+    private suspend fun requestToSuspend(
+        method: String, params: String,
+        eventCallback: ((result: String) -> Unit)? = null
+    ): TonClientResponse = suspendCoroutine { cont ->
+
         requestAsync(method, params) {
             if (it.responseType == TonResponseType.Success || it.responseType == TonResponseType.Error) {
                 cont.resume(it)
+            } else if (eventCallback != null) {
+                eventCallback(it.result)
             }
         }
     }
 
-    suspend fun request(method: String, params: Any): String {
+    suspend fun request(method: String, params: Any, eventCallback: ((result: String) -> Unit)? = null): String {
         val requestString = mapper.writeValueAsString(params)
 
         logger.info { "Request: $requestString" }
 
-        val response = requestToSuspend(method, requestString)
+        val response = requestToSuspend(method, requestString, eventCallback)
 
         logger.info { "Response: $response" }
 

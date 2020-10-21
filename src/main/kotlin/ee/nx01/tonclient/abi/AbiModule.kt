@@ -100,7 +100,7 @@ data class DeploySet(
     val workchain_id: Int? = 0,
 
     /// List of initial values for contract's public variables.
-    val initial_data: Any? = null,
+    val initial_data: Map<String, Any>? = null,
 )
 
 data class CallSet(
@@ -115,7 +115,7 @@ data class CallSet(
     val header: FunctionHeader?,
 
     /// Function input according to ABI.
-    val input: Any?,
+    val input: Map<String, Any>?,
 )
 
 data class FunctionHeader(
