@@ -20,7 +20,10 @@ class ProcessModule(private val tonClient: TonClient) {
         return JsonUtils.mapper.readValue(tonClient.request("processing.send_message", params))
     }
 
-    suspend fun waitForTransaction(params: ParamsOfWaitForTransaction, onResult: ((result: ProcessingEvent) -> Unit)? = null): ResultOfProcessMessage {
+    suspend fun waitForTransaction(
+        params: ParamsOfWaitForTransaction,
+        onResult: ((result: ProcessingEvent) -> Unit)? = null
+    ): ResultOfProcessMessage {
         return JsonUtils.mapper.readValue(tonClient.request("processing.wait_for_transaction", params) {
             onResult?.invoke(
                 JsonUtils.mapper.readValue(it)
@@ -33,18 +36,18 @@ class ProcessModule(private val tonClient: TonClient) {
 data class ParamsOfWaitForTransaction(
     val abi: Abi? = null,
     val message: String,
-    val shard_block_id: String,
-    val send_events: Boolean = false
+    val shardBlockId: String,
+    val sendEvents: Boolean = false
 )
 
 data class ParamsOfSendMessage(
     val message: String,
     val abi: Abi? = null,
-    val send_events: Boolean = false
+    val sendEvents: Boolean = false
 )
 
 data class ResultOfSendMessage(
-    val shard_block_id: String
+    val shardBlockId: String
 )
 
 

@@ -8,57 +8,77 @@ import java.math.BigInteger
 
 
 class TvmModule(private val tonClient: TonClient) {
-    suspend fun executeMessage(params: ParamsOfExecuteMessage): ResultOfExecuteMessage {
-        return JsonUtils.mapper.readValue(tonClient.request("tvm.execute_message", params))
+    suspend fun runExecutor(params: ParamsOfRunExecutor): ResultOfRunExecutor {
+        return JsonUtils.mapper.readValue(tonClient.request("tvm.run_executor", params))
     }
 
-    suspend fun executeGet(params: ParamsOfExecuteGet): ResultOfExecuteMessage {
+    suspend fun runTvm(params: ParamsOfRunExecutor): ResultOfRunTvm {
+        return JsonUtils.mapper.readValue(tonClient.request("tvm.run_tvm", params))
+    }
+
+    suspend fun executeGet(params: ParamsOfExecuteGet): ResultOfRunExecutor {
         return JsonUtils.mapper.readValue(tonClient.request("tvm.execute_get", params))
     }
 }
 
+data class ResultOfRunTvm(
+    val outMessages: List<String>,
+    val decoded: DecodedOutput?,
+    val account: String
+)
+
 data class ParamsOfExecuteGet(
     val account: String,
-    val function_name: String,
+    val functionName: String,
     val input: Map<String, Any>?,
-    val execution_options: ExecutionOptions?
+    val executionOptions: ExecutionOptions?
 )
 
 data class ResultOfExecuteGet(
     val output: Map<String, Any>
 )
 
-data class ResultOfExecuteMessage(
+data class ResultOfRunExecutor(
     val transaction: Any? = null,
-    val out_messages: List<Any>? = null,
+    val outMessages: List<String>? = null,
     val decoded: DecodedOutput? = null,
-    val account: Any? = null
+    val account: Any? = null,
+    val fees: TransactionFees
+)
+
+data class TransactionFees(
+    val inMsgFwdFee: Long,
+    val storageFee: Long,
+    val gasFee: Long,
+    val outMsgsFwdFee: Long,
+    val totalAccountFees: Long,
+    val totalOutput: Long,
 )
 
 data class DecodedOutput(
-    val out_messages: DecodedMessageBody? = null,
+    val outMessages: DecodedMessageBody? = null,
     val output: Any? = null
 )
 
 data class DecodedMessageBody(
-    val message_type: String,
+    val messageType: String,
     val name: String,
     val value: Any,
     val header: FunctionHeader?
 )
 
-data class ParamsOfExecuteMessage(
-    val message: MessageSource,
-    val account: String,
-    val mode: ExecutionMode,
-    val execution_options: ExecutionOptions? = null
+data class ParamsOfRunExecutor(
+    val message: String,
+    val account: String? = null,
+    val mode: ExecutionMode = ExecutionMode.Full,
+    val executionOptions: ExecutionOptions? = null
 )
 
 data class ExecutionOptions(
-    val blockchain_config: String? = null,
-    val block_time: Long? = null,
-    val block_lt: BigInteger? = null,
-    val transaction_lt: BigInteger? = null
+    val blockchainConfig: String? = null,
+    val blockTime: Long? = null,
+    val blockLt: BigInteger? = null,
+    val transactionLt: BigInteger? = null
 )
 
 data class MessageSource(

@@ -132,30 +132,29 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
         }
     }
 
-    data class TonClientResponse(val result: String, val error: String, val responseType: TonResponseType)
-
-    enum class TonResponseType(val code: Int) {
-        Success(0),
-        Error(1),
-        Nop(2),
-        Custom(100);
-
-        companion object {
-            @JsonCreator
-            @JvmStatic fun fromIntRepresentation(intValue: Int): TonResponseType {
-                return TonResponseType.values().firstOrNull { it.code == intValue } ?: Success
-            }
-        }
-    }
-
-
-    data class CreateContextResponse(val result: Int)
-    data class SubscriptionResponse(val handle: Long)
-
-
-    interface Handler {
-        fun invoke(result: String, error: String, responseType: Int)
-    }
-
 }
 
+data class TonClientResponse(val result: String, val error: String, val responseType: TonResponseType)
+
+enum class TonResponseType(val code: Int) {
+    Success(0),
+    Error(1),
+    Nop(2),
+    Custom(100);
+
+    companion object {
+        @JsonCreator
+        @JvmStatic fun fromIntRepresentation(intValue: Int): TonResponseType {
+            return TonResponseType.values().firstOrNull { it.code == intValue } ?: Success
+        }
+    }
+}
+
+
+data class CreateContextResponse(val result: Int)
+data class SubscriptionResponse(val handle: Long)
+
+
+interface Handler {
+    fun invoke(result: String, error: String, responseType: Int)
+}

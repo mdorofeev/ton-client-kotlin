@@ -14,7 +14,22 @@ class AbiModule(private val tonClient: TonClient) {
     suspend fun decodeMessage(params: ParamsOfDecodeMessage): DecodedMessageBody {
         return JsonUtils.mapper.readValue(tonClient.request("abi.decode_message", params))
     }
+
+    suspend fun attachSignatureToMessageBody(params: ParamsOfAttachSignatureToMessageBody): ResultOfAttachSignatureToMessageBody {
+        return JsonUtils.mapper.readValue(tonClient.request("abi.attach_signature_to_message_body", params))
+    }
 }
+
+data class ParamsOfAttachSignatureToMessageBody(
+    val abi: Abi,
+    val publicKey: String,
+    val message: String,
+    val signature: String
+)
+
+data class ResultOfAttachSignatureToMessageBody(
+    val body: String
+)
 
 data class ParamsOfDecodeMessage(
     val abi: Abi,
@@ -29,7 +44,7 @@ enum class MessageBodyType {
 }
 
 class DecodedMessageBody(
-    val body_type: MessageBodyType,
+    val bodyType: MessageBodyType,
     val name: String,
     val value: Any? = null,
     val header: FunctionHeader?
@@ -42,10 +57,11 @@ data class Abi(
 
 data class ResultOfEncodeMessage(
     val message: String,
-    val data_to_sign: String? = null,
+    val dataToSign: String? = null,
     val address: String? = null,
-    val message_id: String? = null
+    val messageId: String? = null
 )
+
 
 data class ParamsOfEncodeMessage(
     /// Contract ABI.
@@ -59,14 +75,14 @@ data class ParamsOfEncodeMessage(
     /// Deploy parameters.
     ///
     /// Must be specified in case of deploy message.
-    val deploy_set: DeploySet? = null,
+    val deploySet: DeploySet? = null,
 
     /// Function call parameters.
     ///
     /// Must be specified in non deploy message.
     ///
     /// In case of deploy message contains parameters of constructor.
-    val call_set: CallSet? = null,
+    val callSet: CallSet? = null,
 
     /// Signing parameters.
     val signer: Signer? = null,
@@ -81,7 +97,7 @@ data class ParamsOfEncodeMessage(
     /// Expiration timeouts will grow with every retry.
     ///
     /// Default value is 0.
-    val processing_try_index: Int? = 0,
+    val processingTryIndex: Int? = 0,
 )
 data class Signer(val type: String = "Keys", val keys: KeyPair)
 
@@ -97,15 +113,15 @@ data class DeploySet(
     val tvc: String,
 
     /// Target workchain for destination address. Default is `0`.
-    val workchain_id: Int? = 0,
+    val workchainId: Int? = 0,
 
     /// List of initial values for contract's public variables.
-    val initial_data: Map<String, Any>? = null,
+    val initialData: Map<String, Any>? = null,
 )
 
 data class CallSet(
     /// Function name.
-    val function_name: String,
+    val functionName: String,
 
     /// Function header.
     ///

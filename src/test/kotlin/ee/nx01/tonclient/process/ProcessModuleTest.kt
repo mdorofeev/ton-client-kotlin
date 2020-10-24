@@ -20,7 +20,7 @@ class ProcessModuleTest : StringSpec({
         val message = ParamsOfEncodeMessage(
             Abi(value = JsonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json")),
             address = "0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3",
-            call_set = CallSet(
+            callSet = CallSet(
                 "submitTransaction",
                 input = mapOf(
                     "dest" to "0:ee946898dee44b9b7d4ed452fae4dba773ec339974b2e75223e868214ac01dfe",
@@ -52,7 +52,7 @@ class ProcessModuleTest : StringSpec({
         val message = ParamsOfEncodeMessage(
             Abi(value = JsonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json")),
             address = "0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3",
-            call_set = CallSet(
+            callSet = CallSet(
                 "submitTransaction",
                 input = mapOf(
                     "dest" to "0:ee946898dee44b9b7d4ed452fae4dba773ec339974b2e75223e868214ac01dfe",
@@ -75,7 +75,7 @@ class ProcessModuleTest : StringSpec({
         val params = ParamsOfSendMessage(message = response.message)
         val responseSend = client.processing.sendMessage(params)
 
-        val paramsWaitForTransaction = ParamsOfWaitForTransaction(message = response.message, shard_block_id = responseSend.shard_block_id, send_events = true)
+        val paramsWaitForTransaction = ParamsOfWaitForTransaction(message = response.message, shardBlockId = responseSend.shardBlockId, sendEvents = true)
 
         val responseWaitForTransaction = client.processing.waitForTransaction(paramsWaitForTransaction) {
             println(it)

@@ -24,7 +24,37 @@ class CryptoModule(private val tonClient: TonClient) {
     suspend fun mnemonicDeriveSignKeys(params: TONMnemonicDeriveSignKeysParams): KeyPair {
         return JsonUtils.mapper.readValue(this.tonClient.request("crypto.mnemonic_derive_sign_keys", params))
     }
+
+    suspend fun sign(params: ParamsOfSign): ResultOfSign {
+        return JsonUtils.mapper.readValue(this.tonClient.request("crypto.sign", params))
+    }
+
+    suspend fun verifySignature(params: ParamsOfVerifySignature): ResultOfVerifySignature {
+        return JsonUtils.mapper.readValue(this.tonClient.request("crypto.verify_signature", params))
+    }
+
+
 }
+
+data class ParamsOfVerifySignature(
+    val signed: String,
+    val public: String
+)
+
+data class ResultOfVerifySignature(
+    val unsigned: String
+)
+
+
+data class ParamsOfSign(
+    val unsigned: String,
+    val keys: KeyPair
+)
+
+data class ResultOfSign(
+    val signed: String,
+    val signature: String
+)
 
 enum class TONMnemonicDictionaryType {
     TON,
