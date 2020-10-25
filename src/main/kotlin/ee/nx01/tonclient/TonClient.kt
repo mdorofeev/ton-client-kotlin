@@ -1,7 +1,6 @@
 package ee.nx01.tonclient
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.module.kotlin.readValue
 import ee.nx01.tonclient.abi.AbiModule
 import ee.nx01.tonclient.boc.BocModule
 import ee.nx01.tonclient.crypto.CryptoModule
@@ -20,7 +19,6 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     private val logger = KotlinLogging.logger {}
 
     private var context: Int = 0
-    private val mapper = JsonUtils.mapper
 
     val net = NetModule(this)
     val abi = AbiModule(this)
@@ -30,9 +28,9 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     val boc = BocModule(this)
 
     init {
-        val result = TONSDKJsonApi.createContext(mapper.writeValueAsString(config))
+        val result = TONSDKJsonApi.createContext(JsonUtils.write(config))
         logger.info { "Context created: $result" }
-        val response = mapper.readValue<CreateContextResponse>(result)
+        val response = JsonUtils.read<CreateContextResponse>(result)
         context = response.result
     }
 
@@ -52,7 +50,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     }
 
     suspend fun subscribe(method: String, params: Any, onResult: (result: String) -> Unit): Long {
-        val requestString = mapper.writeValueAsString(params)
+        val requestString = JsonUtils.write(params)
 
         val mutex = Mutex(true)
 
@@ -62,7 +60,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
             logger.info { "Response: $it"}
 
             if (it.responseType == TonResponseType.Success) {
-                val response = mapper.readValue<SubscriptionResponse>(it.result)
+                val response = JsonUtils.read<SubscriptionResponse>(it.result)
 
                 handle = response.handle
 
@@ -89,7 +87,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
 
     suspend fun version(): String {
         val response = request("client.version", "")
-        return mapper.readValue<Map<String, String>>(response)["version"] ?: ""
+        return JsonUtils.read<Map<String, String>>(response)["version"] ?: ""
     }
 
     private suspend fun requestToSuspend(
@@ -107,7 +105,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     }
 
     suspend fun request(method: String, params: Any, eventCallback: ((result: String) -> Unit)? = null): String {
-        val requestString = mapper.writeValueAsString(params)
+        val requestString = JsonUtils.write(params)
 
         logger.info { "Request: $requestString" }
 
@@ -119,7 +117,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
             return response.result
         }
 
-        throw TonClientException(mapper.readValue(response.error))
+        throw TonClientException(JsonUtils.read(response.error))
     }
 
     fun destroy() {

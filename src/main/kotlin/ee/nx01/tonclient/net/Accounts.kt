@@ -2,7 +2,6 @@ package ee.nx01.tonclient.net
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
-import com.fasterxml.jackson.module.kotlin.readValue
 import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.types.AccountFilterInput
 import ee.nx01.tonclient.types.StringFilterInput
@@ -13,12 +12,12 @@ class Accounts(private val net: NetModule): NetCollection<Account, AccountFilter
     override suspend fun query(filter: AccountFilterInput, result: String): List<Account> {
         val response = net.query(Query("accounts", filter, result))
 
-        return JsonUtils.mapper.readValue<AccountResponse>(response).result
+        return JsonUtils.read<AccountResponse>(response).result
     }
 
     override suspend fun subscribe(filter: AccountFilterInput, result: String, onResult: (result: Account) -> Unit): Long {
         return net.subscribe(Query("accounts", filter, result)) {
-            onResult(JsonUtils.mapper.readValue<AccountSubscriptionResponse>(it).result)
+            onResult(JsonUtils.read<AccountSubscriptionResponse>(it).result)
         }
     }
 

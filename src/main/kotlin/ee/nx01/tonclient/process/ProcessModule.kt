@@ -58,14 +58,14 @@ data class ParamsOfProcessMessage(
 
 data class ResultOfProcessMessage(
     val transaction: Transaction,
-    val out_messages: List<String>,
+    val outMessages: List<String>,
     val decoded: DecodedOutput? = null,
     val fees: TransactionFees
 )
 
 data class ProcessingEvent(
     val type: ProcessingEventType,
-    val shard_block_id: String? = null,
+    val shardBlockId: String? = null,
     val message_id: String? = null,
     val message: String? = null,
     val result: ResultOfProcessMessage? = null,

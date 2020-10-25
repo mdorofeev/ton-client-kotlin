@@ -17,5 +17,8 @@ object JsonUtils {
         .setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
         .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
 
+    inline fun <reified T> read(json: String): T = mapper.readValue(json)
+
+    fun write(obj: Any): String = mapper.writeValueAsString(obj)
 
 }

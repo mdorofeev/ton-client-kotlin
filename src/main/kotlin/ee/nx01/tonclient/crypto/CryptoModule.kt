@@ -3,14 +3,13 @@ package ee.nx01.tonclient.crypto
 import com.fasterxml.jackson.annotation.JsonValue
 import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonClient
-import com.fasterxml.jackson.module.kotlin.readValue
 import ee.nx01.tonclient.abi.KeyPair
 
 
 class CryptoModule(private val tonClient: TonClient) {
 
     suspend fun ed25519Keypair(): KeyPair {
-        return JsonUtils.mapper.readValue(this.tonClient.request("crypto.generate_random_sign_keys", ""))
+        return JsonUtils.read(this.tonClient.request("crypto.generate_random_sign_keys", ""))
     }
 
     suspend fun mnemonicWords(params: TONMnemonicWordsParams): String {
@@ -22,15 +21,15 @@ class CryptoModule(private val tonClient: TonClient) {
     }
 
     suspend fun mnemonicDeriveSignKeys(params: TONMnemonicDeriveSignKeysParams): KeyPair {
-        return JsonUtils.mapper.readValue(this.tonClient.request("crypto.mnemonic_derive_sign_keys", params))
+        return JsonUtils.read(this.tonClient.request("crypto.mnemonic_derive_sign_keys", params))
     }
 
     suspend fun sign(params: ParamsOfSign): ResultOfSign {
-        return JsonUtils.mapper.readValue(this.tonClient.request("crypto.sign", params))
+        return JsonUtils.read(this.tonClient.request("crypto.sign", params))
     }
 
     suspend fun verifySignature(params: ParamsOfVerifySignature): ResultOfVerifySignature {
-        return JsonUtils.mapper.readValue(this.tonClient.request("crypto.verify_signature", params))
+        return JsonUtils.read(this.tonClient.request("crypto.verify_signature", params))
     }
 
 

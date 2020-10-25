@@ -1,6 +1,5 @@
 package ee.nx01.tonclient.tvm
 
-import com.fasterxml.jackson.module.kotlin.readValue
 import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.abi.Abi
@@ -10,15 +9,15 @@ import java.math.BigInteger
 
 class TvmModule(private val tonClient: TonClient) {
     suspend fun runExecutor(params: ParamsOfRunExecutor): ResultOfRunExecutor {
-        return JsonUtils.mapper.readValue(tonClient.request("tvm.run_executor", params))
+        return JsonUtils.read(tonClient.request("tvm.run_executor", params))
     }
 
     suspend fun runTvm(params: ParamsOfRunExecutor): ResultOfRunTvm {
-        return JsonUtils.mapper.readValue(tonClient.request("tvm.run_tvm", params))
+        return JsonUtils.read(tonClient.request("tvm.run_tvm", params))
     }
 
     suspend fun executeGet(params: ParamsOfExecuteGet): ResultOfRunExecutor {
-        return JsonUtils.mapper.readValue(tonClient.request("tvm.execute_get", params))
+        return JsonUtils.read(tonClient.request("tvm.execute_get", params))
     }
 }
 

@@ -1,6 +1,5 @@
 package ee.nx01.tonclient.process
 
-import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.TonUtils
 import ee.nx01.tonclient.abi.*
