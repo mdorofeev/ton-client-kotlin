@@ -11,6 +11,10 @@ class AbiModule(private val tonClient: TonClient) {
         return JsonUtils.mapper.readValue(tonClient.request("abi.encode_message", params))
     }
 
+    suspend fun encodeMessageBody(params: ParamsOfEncodeMessageBody): ResultOfEncodeMessageBody {
+        return JsonUtils.mapper.readValue(tonClient.request("abi.encode_message_body", params))
+    }
+
     suspend fun decodeMessage(params: ParamsOfDecodeMessage): DecodedMessageBody {
         return JsonUtils.mapper.readValue(tonClient.request("abi.decode_message", params))
     }
@@ -19,6 +23,19 @@ class AbiModule(private val tonClient: TonClient) {
         return JsonUtils.mapper.readValue(tonClient.request("abi.attach_signature_to_message_body", params))
     }
 }
+
+data class ParamsOfEncodeMessageBody(
+    val abi: Abi,
+    val callSet: CallSet,
+    val isInternal: Boolean = true,
+    val signer: Signer,
+    val processingTryIndex: Int? = null
+)
+
+data class ResultOfEncodeMessageBody(
+    val body: String,
+    val dataToSign: String? = null
+)
 
 data class ParamsOfAttachSignatureToMessageBody(
     val abi: Abi,
@@ -99,7 +116,20 @@ data class ParamsOfEncodeMessage(
     /// Default value is 0.
     val processingTryIndex: Int? = 0,
 )
-data class Signer(val type: String = "Keys", val keys: KeyPair)
+
+enum class SignerType {
+    Keys,
+    None,
+    External
+}
+data class Signer(val type: SignerType = SignerType.Keys, val keys: KeyPair? = null, val publicKey: String? = null) {
+    companion object {
+        fun none(): Signer {
+            return Signer(SignerType.None)
+        }
+    }
+}
+
 
 data class KeyPair(
     /// Public key. Encoded with `hex`.
@@ -128,7 +158,7 @@ data class CallSet(
     /// If an application omit some parameters required by the
     /// contract's ABI, the library will set the default values for
     /// it.
-    val header: FunctionHeader?,
+    val header: FunctionHeader? = null,
 
     /// Function input according to ABI.
     val input: Map<String, Any>?,

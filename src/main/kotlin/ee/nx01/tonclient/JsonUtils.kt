@@ -17,10 +17,5 @@ object JsonUtils {
         .setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
         .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
 
-    fun readAbi(abiName: String): Map<Any, Any> {
-        val abiStream = JsonUtils::class.java.getResourceAsStream(("/contracts/$abiName"))
-        return mapper.readValue(abiStream)
-    }
-
 
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.abi.Abi
+import ee.nx01.tonclient.abi.MessageBodyType
 import java.math.BigInteger
 
 
@@ -56,14 +57,14 @@ data class TransactionFees(
 )
 
 data class DecodedOutput(
-    val outMessages: DecodedMessageBody? = null,
+    val outMessages: List<DecodedMessageBody?>? = null,
     val output: Any? = null
 )
 
 data class DecodedMessageBody(
-    val messageType: String,
+    val body_type: MessageBodyType,
     val name: String,
-    val value: Any,
+    val value: Any?,
     val header: FunctionHeader?
 )
 

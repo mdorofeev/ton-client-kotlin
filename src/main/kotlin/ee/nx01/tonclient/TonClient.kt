@@ -89,7 +89,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
 
     suspend fun version(): String {
         val response = request("client.version", "")
-        return JsonUtils.mapper.readValue<Map<String, String>>(response)["version"] ?: ""
+        return mapper.readValue<Map<String, String>>(response)["version"] ?: ""
     }
 
     private suspend fun requestToSuspend(

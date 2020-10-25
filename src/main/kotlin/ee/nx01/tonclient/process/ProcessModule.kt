@@ -5,9 +5,9 @@ import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.TonClientError
 import ee.nx01.tonclient.abi.Abi
+import ee.nx01.tonclient.abi.ParamsOfEncodeMessage
 import ee.nx01.tonclient.tvm.DecodedOutput
-import ee.nx01.tonclient.tvm.MessageSource
-import ee.nx01.tonclient.types.Message
+import ee.nx01.tonclient.tvm.TransactionFees
 import ee.nx01.tonclient.types.Transaction
 
 class ProcessModule(private val tonClient: TonClient) {
@@ -52,14 +52,15 @@ data class ResultOfSendMessage(
 
 
 data class ParamsOfProcessMessage(
-    val message: MessageSource,
+    val messageEncodeParams: ParamsOfEncodeMessage,
     val send_events: Boolean = false
 )
 
 data class ResultOfProcessMessage(
     val transaction: Transaction,
-    val out_messages: List<Message>,
-    val decoded: DecodedOutput? = null
+    val out_messages: List<String>,
+    val decoded: DecodedOutput? = null,
+    val fees: TransactionFees
 )
 
 data class ProcessingEvent(

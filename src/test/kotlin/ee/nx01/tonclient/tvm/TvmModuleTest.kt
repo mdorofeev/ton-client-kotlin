@@ -18,7 +18,7 @@ class TvmModuleTest : StringSpec({
         val client = TonClient()
 
         val message = ParamsOfEncodeMessage(
-            Abi(value = JsonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json")),
+            abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
             address = "0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3",
             callSet = CallSet(
                 "submitTransaction",
@@ -53,7 +53,7 @@ class TvmModuleTest : StringSpec({
         val client = TonClient()
 
         val message = ParamsOfEncodeMessage(
-            Abi(value = JsonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json")),
+            abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
             address = "0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3",
             callSet = CallSet(
                 "submitTransaction",
@@ -88,7 +88,7 @@ class TvmModuleTest : StringSpec({
         val client = TonClient()
 
         val message = ParamsOfEncodeMessage(
-            Abi(value = JsonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json")),
+            abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
             address = "0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3",
             callSet = CallSet(
                 "submitTransaction",
