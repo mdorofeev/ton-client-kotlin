@@ -1,25 +1,24 @@
 package ee.nx01.tonclient.abi
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonClient
 
 
 class AbiModule(private val tonClient: TonClient) {
     suspend fun encodeMessage(params: ParamsOfEncodeMessage): ResultOfEncodeMessage {
-        return JsonUtils.read(tonClient.request("abi.encode_message", params))
+        return tonClient.request("abi.encode_message", params)
     }
 
     suspend fun encodeMessageBody(params: ParamsOfEncodeMessageBody): ResultOfEncodeMessageBody {
-        return JsonUtils.read(tonClient.request("abi.encode_message_body", params))
+        return tonClient.request("abi.encode_message_body", params)
     }
 
     suspend fun decodeMessage(params: ParamsOfDecodeMessage): DecodedMessageBody {
-        return JsonUtils.read(tonClient.request("abi.decode_message", params))
+        return tonClient.request("abi.decode_message", params)
     }
 
     suspend fun attachSignatureToMessageBody(params: ParamsOfAttachSignatureToMessageBody): ResultOfAttachSignatureToMessageBody {
-        return JsonUtils.read(tonClient.request("abi.attach_signature_to_message_body", params))
+        return tonClient.request("abi.attach_signature_to_message_body", params)
     }
 }
 

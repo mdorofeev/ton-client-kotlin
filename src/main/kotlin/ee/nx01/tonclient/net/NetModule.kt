@@ -10,7 +10,7 @@ class NetModule(private val tonClient: TonClient) {
     val messages = Messages(this)
 
     suspend fun query(query: Query): String {
-        return tonClient.request("net.query_collection", query)
+        return tonClient.requestString("net.query_collection", query)
     }
 
     suspend fun subscribe(query: Query, onResult: (result: String) -> Unit): Long {

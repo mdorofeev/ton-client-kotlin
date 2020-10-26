@@ -1,6 +1,5 @@
 package ee.nx01.tonclient.tvm
 
-import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.abi.Abi
 import ee.nx01.tonclient.abi.MessageBodyType
@@ -9,15 +8,15 @@ import java.math.BigInteger
 
 class TvmModule(private val tonClient: TonClient) {
     suspend fun runExecutor(params: ParamsOfRunExecutor): ResultOfRunExecutor {
-        return JsonUtils.read(tonClient.request("tvm.run_executor", params))
+        return tonClient.request("tvm.run_executor", params)
     }
 
     suspend fun runTvm(params: ParamsOfRunExecutor): ResultOfRunTvm {
-        return JsonUtils.read(tonClient.request("tvm.run_tvm", params))
+        return tonClient.request("tvm.run_tvm", params)
     }
 
     suspend fun executeGet(params: ParamsOfExecuteGet): ResultOfRunExecutor {
-        return JsonUtils.read(tonClient.request("tvm.execute_get", params))
+        return tonClient.request("tvm.execute_get", params)
     }
 }
 

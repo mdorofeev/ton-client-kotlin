@@ -13,22 +13,22 @@ import ee.nx01.tonclient.types.Transaction
 class ProcessModule(private val tonClient: TonClient) {
 
     suspend fun processMessage(params: ParamsOfProcessMessage): ResultOfProcessMessage {
-        return JsonUtils.mapper.readValue(tonClient.request("processing.process_message", params))
+        return tonClient.request("processing.process_message", params)
     }
 
     suspend fun sendMessage(params: ParamsOfSendMessage): ResultOfSendMessage {
-        return JsonUtils.mapper.readValue(tonClient.request("processing.send_message", params))
+        return tonClient.request("processing.send_message", params)
     }
 
     suspend fun waitForTransaction(
         params: ParamsOfWaitForTransaction,
         onResult: ((result: ProcessingEvent) -> Unit)? = null
     ): ResultOfProcessMessage {
-        return JsonUtils.mapper.readValue(tonClient.request("processing.wait_for_transaction", params) {
+        return tonClient.request("processing.wait_for_transaction", params) {
             onResult?.invoke(
                 JsonUtils.mapper.readValue(it)
             )
-        })
+        }
     }
 
 }

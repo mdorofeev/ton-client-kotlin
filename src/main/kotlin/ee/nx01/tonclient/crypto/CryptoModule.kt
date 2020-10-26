@@ -10,29 +10,29 @@ class CryptoModule(private val tonClient: TonClient) {
     val HD_PATH = "m/44'/396'/0'/0/0"
 
     suspend fun ed25519Keypair(): KeyPair {
-        return JsonUtils.read(this.tonClient.request("crypto.generate_random_sign_keys", ""))
+        return this.tonClient.request("crypto.generate_random_sign_keys", "")
     }
 
     suspend fun mnemonicFromRandom(params: MnemonicFromRandomParams): String {
-        val response = this.tonClient.request("crypto.mnemonic_from_random", params)
+        val response = this.tonClient.requestString("crypto.mnemonic_from_random", params)
         return JsonUtils.read<Map<String,String>>(response)["phrase"] ?: ""
     }
 
     suspend fun mnemonicVerify(params: ParamsOfMnemonicVerify): Boolean {
-        val response = this.tonClient.request("crypto.mnemonic_verify", params)
+        val response = this.tonClient.requestString("crypto.mnemonic_verify", params)
         return JsonUtils.read<Map<String,Boolean>>(response)["valid"] ?: false
     }
 
     suspend fun mnemonicDeriveSignKeys(params: MnemonicDeriveSignKeysParams): KeyPair {
-        return JsonUtils.read(this.tonClient.request("crypto.mnemonic_derive_sign_keys", params))
+        return this.tonClient.request("crypto.mnemonic_derive_sign_keys", params)
     }
 
     suspend fun sign(params: ParamsOfSign): ResultOfSign {
-        return JsonUtils.read(this.tonClient.request("crypto.sign", params))
+        return this.tonClient.request("crypto.sign", params)
     }
 
     suspend fun verifySignature(params: ParamsOfVerifySignature): ResultOfVerifySignature {
-        return JsonUtils.read(this.tonClient.request("crypto.verify_signature", params))
+        return this.tonClient.request("crypto.verify_signature", params)
     }
 
     suspend fun keyPairFromSurfMnemonicPhrase(phrase: String): KeyPair {

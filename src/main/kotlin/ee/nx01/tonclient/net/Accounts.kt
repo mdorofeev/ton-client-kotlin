@@ -3,8 +3,10 @@ package ee.nx01.tonclient.net
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import ee.nx01.tonclient.JsonUtils
+import ee.nx01.tonclient.TonUtils
 import ee.nx01.tonclient.types.AccountFilterInput
 import ee.nx01.tonclient.types.StringFilterInput
+import java.math.BigDecimal
 
 
 class Accounts(private val net: NetModule): NetCollection<Account, AccountFilterInput> {
@@ -43,7 +45,9 @@ data class Account(
     val code_hash: String? = null,
     val data_hash: String? = null,
     val balance: String? = null
-)
+){
+    fun getBalance(): BigDecimal = TonUtils.convertHexToToken(balance ?: "0x0")
+}
 
 
 data class AccountResponse(val result: List<Account>)

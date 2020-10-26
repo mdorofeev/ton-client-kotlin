@@ -82,11 +82,11 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     }
 
     suspend fun unsubscribe(handle: Long) {
-        request("net.unsubscribe", SubscriptionResponse(handle))
+        requestString("net.unsubscribe", SubscriptionResponse(handle))
     }
 
     suspend fun version(): String {
-        val response = request("client.version", "")
+        val response = requestString("client.version", "")
         return JsonUtils.read<Map<String, String>>(response)["version"] ?: ""
     }
 
@@ -104,7 +104,11 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
         }
     }
 
-    suspend fun request(method: String, params: Any, eventCallback: ((result: String) -> Unit)? = null): String {
+    suspend inline fun <reified T> request(method: String, params: Any, noinline eventCallback: ((result: String) -> Unit)? = null): T {
+        return JsonUtils.read(requestString(method, params, eventCallback))
+    }
+
+    suspend fun requestString(method: String, params: Any, eventCallback: ((result: String) -> Unit)? = null): String {
         val requestString = JsonUtils.write(params)
 
         logger.info { "Request: $requestString" }

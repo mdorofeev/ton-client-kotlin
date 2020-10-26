@@ -4,9 +4,11 @@ import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.types.AccountFilterInput
 import ee.nx01.tonclient.types.StringFilterInput
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.bigdecimal.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import kotlinx.coroutines.sync.Mutex
+import java.math.BigDecimal
 
 class AccountTest : StringSpec({
     "Get account list from blockchain" {
@@ -20,6 +22,7 @@ class AccountTest : StringSpec({
         accountList shouldNotBe null
         accountList.size shouldBe 1
         accountList[0].accType shouldBe  AccountType.ACTIVE
+        accountList[0].getBalance() shouldBeGreaterThan BigDecimal.TEN
     }
 
     "Subscribe on account" {
