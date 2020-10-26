@@ -1,6 +1,7 @@
 package ee.nx01.tonclient.abi
 
 import ee.nx01.tonclient.TonClient
+import ee.nx01.tonclient.TonClientErrorCode
 import ee.nx01.tonclient.TonClientException
 import ee.nx01.tonclient.TonUtils
 import io.kotest.assertions.throwables.shouldThrow
@@ -132,7 +133,7 @@ class AbiModuleTest : StringSpec({
             client.abi.decodeMessage(ParamsOfDecodeMessage(abi, message))
         }
 
-        exception.tonClientError.code shouldBe 3
+        exception.tonClientError.code shouldBe TonClientErrorCode.InvalidBase64
 
     }
 

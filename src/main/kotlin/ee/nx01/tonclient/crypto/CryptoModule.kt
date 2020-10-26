@@ -7,20 +7,23 @@ import ee.nx01.tonclient.abi.KeyPair
 
 
 class CryptoModule(private val tonClient: TonClient) {
+    val HD_PATH = "m/44'/396'/0'/0/0"
 
     suspend fun ed25519Keypair(): KeyPair {
         return JsonUtils.read(this.tonClient.request("crypto.generate_random_sign_keys", ""))
     }
 
-    suspend fun mnemonicWords(params: TONMnemonicWordsParams): String {
-        return this.tonClient.request("crypto.mnemonic.words", "")
+    suspend fun mnemonicFromRandom(params: MnemonicFromRandomParams): String {
+        val response = this.tonClient.request("crypto.mnemonic_from_random", params)
+        return JsonUtils.read<Map<String,String>>(response)["phrase"] ?: ""
     }
 
-    suspend fun mnemonicFromRandom(params: TONMnemonicFromRandomParams): String {
-        return this.tonClient.request("crypto.mnemonic.from.random", "")
+    suspend fun mnemonicVerify(params: ParamsOfMnemonicVerify): Boolean {
+        val response = this.tonClient.request("crypto.mnemonic_verify", params)
+        return JsonUtils.read<Map<String,Boolean>>(response)["valid"] ?: false
     }
 
-    suspend fun mnemonicDeriveSignKeys(params: TONMnemonicDeriveSignKeysParams): KeyPair {
+    suspend fun mnemonicDeriveSignKeys(params: MnemonicDeriveSignKeysParams): KeyPair {
         return JsonUtils.read(this.tonClient.request("crypto.mnemonic_derive_sign_keys", params))
     }
 
@@ -32,8 +35,22 @@ class CryptoModule(private val tonClient: TonClient) {
         return JsonUtils.read(this.tonClient.request("crypto.verify_signature", params))
     }
 
+    suspend fun keyPairFromSurfMnemonicPhrase(phrase: String): KeyPair {
+        return tonClient.crypto.mnemonicDeriveSignKeys(
+            MnemonicDeriveSignKeysParams(
+                MnemonicDictionaryType.ENGLISH, MnemonicWordCountType.WORDS12,
+                phrase, HD_PATH
+            )
+        )
+    }
 
 }
+
+data class ParamsOfMnemonicVerify(
+    val phrase: String,
+    val dictionary: Int? = null,
+    val wordCount: Int? = null
+)
 
 data class ParamsOfVerifySignature(
     val signed: String,
@@ -55,7 +72,7 @@ data class ResultOfSign(
     val signature: String
 )
 
-enum class TONMnemonicDictionaryType {
+enum class MnemonicDictionaryType {
     TON,
     ENGLISH,
     CHINESE_SIMPLIFIED,
@@ -71,7 +88,7 @@ enum class TONMnemonicDictionaryType {
         return ordinal
     }
 }
-enum class TONMnemonicWordCountType(val count: Int) {
+enum class MnemonicWordCountType(val count: Int) {
     WORDS12(12),
     WORDS15(15),
     WORDS18(18),
@@ -84,19 +101,19 @@ enum class TONMnemonicWordCountType(val count: Int) {
     }
 }
 
-data class TONMnemonicWordsParams(
-    val dictionary: TONMnemonicDictionaryType,
-    val wordCount: TONMnemonicWordCountType
+data class MnemonicWordsParams(
+    val dictionary: MnemonicDictionaryType,
+    val wordCount: MnemonicWordCountType
 )
 
-data class TONMnemonicFromRandomParams(
-    val dictionary: TONMnemonicDictionaryType,
-    val wordCount: TONMnemonicWordCountType,
+data class MnemonicFromRandomParams(
+    val dictionary: MnemonicDictionaryType = MnemonicDictionaryType.ENGLISH,
+    val wordCount: MnemonicWordCountType = MnemonicWordCountType.WORDS12,
 )
 
-data class TONMnemonicDeriveSignKeysParams(
-    val dictionary: TONMnemonicDictionaryType,
-    val wordCount: TONMnemonicWordCountType,
+data class MnemonicDeriveSignKeysParams(
+    val dictionary: MnemonicDictionaryType,
+    val wordCount: MnemonicWordCountType,
     val phrase: String,
     val path: String,
     val compliant: Boolean = false,

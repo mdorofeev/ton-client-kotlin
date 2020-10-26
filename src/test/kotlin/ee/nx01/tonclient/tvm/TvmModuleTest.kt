@@ -1,6 +1,7 @@
 package ee.nx01.tonclient.tvm
 
 import ee.nx01.tonclient.TonClient
+import ee.nx01.tonclient.TonClientErrorCode
 import ee.nx01.tonclient.TonClientException
 import ee.nx01.tonclient.TonUtils
 import ee.nx01.tonclient.abi.CallSet
@@ -119,6 +120,6 @@ class TvmModuleTest : StringSpec({
             client.tvm.runExecutor(params)
         }
 
-        exception.tonClientError.code shouldBe 404
+        exception.tonClientError.code shouldBe TonClientErrorCode.ContractExecutionError
     }
 })

@@ -1,6 +1,7 @@
 package ee.nx01.tonclient.boc
 
 import ee.nx01.tonclient.TonClient
+import ee.nx01.tonclient.TonClientErrorCode
 import ee.nx01.tonclient.TonClientException
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
@@ -31,7 +32,7 @@ class BocModuleTest : StringSpec({
             client.boc.parseAccount(ParamsOfParse(message))
         }
 
-        exception.tonClientError.code shouldBe 201
+        exception.tonClientError.code shouldBe TonClientErrorCode.InvalidBoc
 
     }
 

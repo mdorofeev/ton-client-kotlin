@@ -27,7 +27,6 @@ class ProcessModuleTest : StringSpec({
                     "allBalance" to false,
                     "payload" to ""
                 ),
-                header = null
             ),
             signer = Signer(keys = KeyPair(
                 "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
