@@ -45,7 +45,7 @@ class TvmModuleTest : StringSpec({
 
         val account = client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3")?.boc!!
 
-        val params = ParamsOfRunExecutor(message = response.message, account = account)
+        val params = ParamsOfRunExecutor(message = response.message, account = AccountForExecutor(boc = account))
         val response2 = client.tvm.runExecutor(params)
 
         response2 shouldNotBe null
@@ -80,7 +80,7 @@ class TvmModuleTest : StringSpec({
 
         val account = client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3")?.boc!!
 
-        val params = ParamsOfRunExecutor(message = response.message, account = account)
+        val params = ParamsOfRunTvm(message = response.message, account = account)
         val response2 = client.tvm.runTvm(params)
 
         response2 shouldNotBe null
@@ -114,12 +114,12 @@ class TvmModuleTest : StringSpec({
 
         val account = client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3")?.boc!!
 
-        val params = ParamsOfRunExecutor(message = response.message, account = account)
+        val params = ParamsOfRunExecutor(message = response.message, account = AccountForExecutor(boc = account))
 
         val exception = shouldThrow<TonClientException> {
             client.tvm.runExecutor(params)
         }
 
-        exception.tonClientError.code shouldBe TonClientErrorCode.ContractExecutionError
+        exception.tonClientError.code shouldBe TonClientErrorCode.InternalError
     }
 })

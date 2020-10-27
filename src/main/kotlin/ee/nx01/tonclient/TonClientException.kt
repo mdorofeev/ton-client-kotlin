@@ -38,6 +38,9 @@ enum class TonClientErrorCode(val code: Int) {
     CannotConvertJsValueToJson(20),
     CannotReceiveSpawnedResult(21),
     SetTimerError(22),
+    InvalidParams(23),
+    ContractsAddressConversionFailed(24),
+    UnknownFunction( 25),
     // Crypto
     InvalidPublicKey(100),
     InvalidSecretKey(101),

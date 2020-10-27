@@ -24,7 +24,7 @@ object TonUtils {
         val abiStream = JsonUtils::class.java.getResourceAsStream(("/contracts/$abiName"))
 
         abiStream.use {
-            return Abi(value = JsonUtils.mapper.readValue(abiStream))
+            return Abi(value = JsonUtils.mapper.readValue(it))
         }
     }
 
@@ -32,7 +32,7 @@ object TonUtils {
         val tvcStream = JsonUtils::class.java.getResourceAsStream(("/contracts/$tvcName"))
 
         tvcStream.use {
-            return Base64.getEncoder().encodeToString(tvcStream.readAllBytes())
+            return Base64.getEncoder().encodeToString(it.readAllBytes())
         }
     }
 }

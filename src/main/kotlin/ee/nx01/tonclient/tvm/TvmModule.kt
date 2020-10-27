@@ -11,7 +11,7 @@ class TvmModule(private val tonClient: TonClient) {
         return tonClient.request("tvm.run_executor", params)
     }
 
-    suspend fun runTvm(params: ParamsOfRunExecutor): ResultOfRunTvm {
+    suspend fun runTvm(params: ParamsOfRunTvm): ResultOfRunTvm {
         return tonClient.request("tvm.run_tvm", params)
     }
 
@@ -19,6 +19,13 @@ class TvmModule(private val tonClient: TonClient) {
         return tonClient.request("tvm.execute_get", params)
     }
 }
+
+data class ParamsOfRunTvm(
+    val message: String,
+    val account: String,
+    val executionOptions: ExecutionOptions? = null,
+    val abi: Abi? = null
+)
 
 data class ResultOfRunTvm(
     val outMessages: List<String>,
@@ -68,10 +75,22 @@ data class DecodedMessageBody(
 
 data class ParamsOfRunExecutor(
     val message: String,
-    val account: String? = null,
+    val account: AccountForExecutor? = null,
     val mode: ExecutionMode = ExecutionMode.Full,
     val executionOptions: ExecutionOptions? = null
 )
+
+data class AccountForExecutor(
+    val type: AccountForExecutorType = AccountForExecutorType.Account,
+    val boc: String,
+    val unlimitedBalance: Boolean? = false
+)
+
+enum class AccountForExecutorType {
+    None,
+    Uninit,
+    Account
+}
 
 data class ExecutionOptions(
     val blockchainConfig: String? = null,
