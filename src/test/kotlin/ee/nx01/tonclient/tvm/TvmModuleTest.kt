@@ -17,6 +17,19 @@ import java.math.BigDecimal
 class TvmModuleTest : StringSpec({
     val INTEGRATION_TEST_ENABLED = false
 
+
+    "Should be able run get method" {
+
+        val client = TonClient()
+
+        val elector = client.net.accounts.getAccount("-1:3333333333333333333333333333333333333333333333333333333333333333")!!
+
+        val response = client.tvm.runGet(ParamsOfRunGet(account = elector.boc!!, functionName = "participant_list"))
+
+        response shouldNotBe null
+        response.output shouldNotBe null
+    }
+
     "Should be able execute message" {
         val client = TonClient()
 
@@ -34,16 +47,18 @@ class TvmModuleTest : StringSpec({
                 ),
                 header = null
             ),
-            signer = Signer(keys = KeyPair(
-                "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
-                "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
-            )
+            signer = Signer(
+                keys = KeyPair(
+                    "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
+                    "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
+                )
             )
         )
 
         val response = client.abi.encodeMessage(message)
 
-        val account = client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3")?.boc!!
+        val account =
+            client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3")?.boc!!
 
         val params = ParamsOfRunExecutor(message = response.message, account = AccountForExecutor(boc = account))
         val response2 = client.tvm.runExecutor(params)
@@ -69,16 +84,18 @@ class TvmModuleTest : StringSpec({
                 ),
                 header = null
             ),
-            signer = Signer(keys = KeyPair(
-                "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
-                "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
-            )
+            signer = Signer(
+                keys = KeyPair(
+                    "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
+                    "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
+                )
             )
         )
 
         val response = client.abi.encodeMessage(message)
 
-        val account = client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3")?.boc!!
+        val account =
+            client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3")?.boc!!
 
         val params = ParamsOfRunTvm(message = response.message, account = account)
         val response2 = client.tvm.runTvm(params)
@@ -104,15 +121,18 @@ class TvmModuleTest : StringSpec({
                 ),
                 header = null
             ),
-            signer = Signer(keys = KeyPair(
-                "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
-                "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c2"
-            ))
+            signer = Signer(
+                keys = KeyPair(
+                    "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
+                    "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c2"
+                )
+            )
         )
 
         val response = client.abi.encodeMessage(message)
 
-        val account = client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3")?.boc!!
+        val account =
+            client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3")?.boc!!
 
         val params = ParamsOfRunExecutor(message = response.message, account = AccountForExecutor(boc = account))
 

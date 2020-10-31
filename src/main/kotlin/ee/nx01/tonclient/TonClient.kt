@@ -7,7 +7,6 @@ import ee.nx01.tonclient.crypto.CryptoModule
 import ee.nx01.tonclient.net.NetModule
 import ee.nx01.tonclient.process.ProcessModule
 import ee.nx01.tonclient.tvm.TvmModule
-import kotlinx.coroutines.sync.Mutex
 import mu.KotlinLogging
 import org.scijava.nativelib.NativeLoader
 import ton.sdk.TONSDKJsonApi
@@ -50,35 +49,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     }
 
     suspend fun subscribe(method: String, params: Any, onResult: (result: String) -> Unit): Long {
-        val requestString = JsonUtils.write(params)
-
-        val mutex = Mutex(true)
-
-        var handle = 0L
-
-        requestAsync(method, requestString) {
-            logger.info { "Response: $it"}
-
-            if (it.responseType == TonResponseType.Success) {
-                val response = JsonUtils.read<SubscriptionResponse>(it.result)
-
-                handle = response.handle
-
-                if (mutex.isLocked) {
-                    mutex.unlock()
-                }
-            } else if (it.responseType == TonResponseType.Custom) {
-                onResult(it.result)
-            }
-        }
-
-        mutex.lock()
-
-        if (handle == 0L) {
-            throw RuntimeException()
-        }
-
-        return handle
+        return JsonUtils.read<SubscriptionResponse>(requestString(method, params, onResult)).handle
     }
 
     suspend fun unsubscribe(handle: Long) {
@@ -90,12 +61,23 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
         return JsonUtils.read<Map<String, String>>(response)["version"] ?: ""
     }
 
+    suspend fun buildInfo(): Any {
+        val response = requestString("client.build_info", "")
+        return JsonUtils.read<Map<String, Any>>(response)["buildInfo"] ?: ""
+    }
+
+    suspend fun getApiReference(): Any {
+        val response = requestString("client.get_api_reference", "")
+        return JsonUtils.read<Map<String, Any>>(response)["api"] ?: ""
+    }
+
     private suspend fun requestToSuspend(
         method: String, params: String,
         eventCallback: ((result: String) -> Unit)? = null
     ): TonClientResponse = suspendCoroutine { cont ->
 
         requestAsync(method, params) {
+            logger.info { "Response: $it" }
             if (it.responseType == TonResponseType.Success || it.responseType == TonResponseType.Error) {
                 cont.resume(it)
             } else if (eventCallback != null) {
@@ -104,7 +86,11 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
         }
     }
 
-    suspend inline fun <reified T> request(method: String, params: Any, noinline eventCallback: ((result: String) -> Unit)? = null): T {
+    suspend inline fun <reified T> request(
+        method: String,
+        params: Any,
+        noinline eventCallback: ((result: String) -> Unit)? = null
+    ): T {
         return JsonUtils.read(requestString(method, params, eventCallback))
     }
 
@@ -114,8 +100,6 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
         logger.info { "Request: $requestString" }
 
         val response = requestToSuspend(method, requestString, eventCallback)
-
-        logger.info { "Response: $response" }
 
         if (response.result.isNotEmpty()) {
             return response.result
@@ -146,7 +130,8 @@ enum class TonResponseType(val code: Int) {
 
     companion object {
         @JsonCreator
-        @JvmStatic fun fromIntRepresentation(intValue: Int): TonResponseType {
+        @JvmStatic
+        fun fromIntRepresentation(intValue: Int): TonResponseType {
             return TonResponseType.values().firstOrNull { it.code == intValue } ?: Success
         }
     }

@@ -9,7 +9,7 @@ import ee.nx01.tonclient.types.StringFilterInput
 import java.math.BigDecimal
 
 
-class Accounts(private val net: NetModule): NetCollection<Account, AccountFilterInput> {
+class Accounts(private val net: NetModule) : NetCollection<Account, AccountFilterInput> {
 
     override suspend fun query(filter: AccountFilterInput, result: String): List<Account> {
         val response = net.query(Query("accounts", filter, result))
@@ -17,7 +17,11 @@ class Accounts(private val net: NetModule): NetCollection<Account, AccountFilter
         return JsonUtils.read<AccountResponse>(response).result
     }
 
-    override suspend fun subscribe(filter: AccountFilterInput, result: String, onResult: (result: Account) -> Unit): Long {
+    override suspend fun subscribe(
+        filter: AccountFilterInput,
+        result: String,
+        onResult: (result: Account) -> Unit
+    ): Long {
         return net.subscribe(Query("accounts", filter, result)) {
             onResult(JsonUtils.read<AccountSubscriptionResponse>(it).result)
         }
@@ -45,7 +49,7 @@ data class Account(
     val code_hash: String? = null,
     val data_hash: String? = null,
     val balance: String? = null
-){
+) {
     fun getBalance(): BigDecimal = TonUtils.convertHexToToken(balance ?: "0x0")
 }
 
