@@ -31,10 +31,6 @@ class AbiModule(private val tonClient: TonClient) {
     Use `attach_signature` method with the result signature to get the signed message.
 
     `Signer::Keys` creates a signed message with provided key pair.
-
-    [SOON] `Signer::SigningBox` Allows using a special interface to imlepement signing
-    without private key disclosure to SDK. For instance, in case of using a cold wallet or HSM,
-    when application calls some API to sign data.
      */
     suspend fun encodeMessage(params: ParamsOfEncodeMessage): ResultOfEncodeMessage {
         return tonClient.request("abi.encode_message", params)
@@ -42,6 +38,10 @@ class AbiModule(private val tonClient: TonClient) {
 
     suspend fun encodeMessageBody(params: ParamsOfEncodeMessageBody): ResultOfEncodeMessageBody {
         return tonClient.request("abi.encode_message_body", params)
+    }
+
+    suspend fun decodeMessageBody(params: ParamsOfDecodeMessageBody): DecodedMessageBody {
+        return tonClient.request("abi.decode_message_body", params)
     }
 
     suspend fun decodeMessage(params: ParamsOfDecodeMessage): DecodedMessageBody {

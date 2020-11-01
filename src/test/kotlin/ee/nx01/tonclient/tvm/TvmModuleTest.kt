@@ -15,8 +15,6 @@ import io.kotest.matchers.shouldNotBe
 import java.math.BigDecimal
 
 class TvmModuleTest : StringSpec({
-    val INTEGRATION_TEST_ENABLED = false
-
 
     "Should be able run get method" {
 

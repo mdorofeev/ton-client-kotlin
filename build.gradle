@@ -2,6 +2,7 @@ plugins {
     id "com.jfrog.bintray" version "1.8.5"
     id 'org.jetbrains.kotlin.jvm' version '1.4.0'
     id 'com.adarshr.test-logger' version '2.1.0'
+    id 'org.jetbrains.dokka' version "1.4.10.2"
     id 'maven-publish'
 }
 
@@ -36,8 +37,7 @@ test {
 bintray {
     user = System.getenv('BINTRAY_USER')
     key = System.getenv('BINTRAY_KEY')
-
-    configurations = ['archives']
+    publications = ['mavenJava']
 
     pkg {
         repo = 'ton-client-kotlin'
@@ -45,18 +45,34 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/mdorofeev/ton-client-kotlin.git'
         version {
-            name = version
-            released = new Date()
-            vcsTag = version
+            attributes = ['gradle-plugin': 'com.jfrog.bintray:com.jfrog.bintray.gradle:gradle-bintray-plugin']
         }
     }
 
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/dokka/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }

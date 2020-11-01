@@ -147,4 +147,62 @@ class CryptoModuleTest : StringSpec({
         response shouldBe "363edc6ba27fdbb2fb911fd933ca317625d857e72ccf3a83e80ae778f21c7285"
 
     }
+
+    "Should be able get SHA256 hash" {
+        val client = TonClient()
+
+        val response = client.crypto.sha256("test")
+        response shouldBe "6617aa88a72e6b526b88cbceda388a7b52a0e856148a12d9b8429cd2a53a3ea4"
+
+    }
+
+    "Should be able get SHA512 hash" {
+        val client = TonClient()
+
+        val response = client.crypto.sha512("test")
+        response shouldBe "2005a1f1c71118e3b53b8be55c27b67e28bd81f84bf8462cf6d02288c107ccde8c2dccd41cea98b53941b15384c8397c2e56a4e0e7ef177c6562d8eeb9b2d0b6"
+
+    }
+
+    "Should be able get TON src16 hash" {
+        val client = TonClient()
+
+        val response = client.crypto.tonCrc16("test")
+        response shouldBe 11400
+
+    }
+
+
+    "Should be able generate random bytes" {
+        val client = TonClient()
+
+        val response = client.crypto.generateRandomBytes(32)
+        response.size shouldBe 32
+
+    }
+
+    "Should be able convert public key to ton format" {
+        val client = TonClient()
+
+        val response = client.crypto.convertPublicKeyToTonSafeFormat("7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca")
+        response shouldBe "PuZ-82TQK99ImlZxRVPdZiYGZtUtSwPFq9bOYux_-8Ciyvr8"
+
+    }
+
+    "Should be able factorize" {
+        val client = TonClient()
+
+        val response = client.crypto.factorize("17ED48941A08F981")
+        response[0] shouldBe "494C553B"
+        response[1] shouldBe "53911073"
+
+    }
+
+    "Should be able call modularPower" {
+        val client = TonClient()
+
+        val response = client.crypto.modularPower( base="0123456789ABCDEF", exponent="0123", modulus="01234567")
+        response shouldBe "63bfdf"
+
+    }
 })

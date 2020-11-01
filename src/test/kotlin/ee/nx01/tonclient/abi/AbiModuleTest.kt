@@ -68,6 +68,19 @@ class AbiModuleTest : StringSpec({
 
     }
 
+    "Should be able decode message body" {
+        val client = TonClient()
+
+        val params = ParamsOfDecodeMessageBody(abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
+            body = "te6ccgEBAwEAqwAB4cW+aLMt1Ud3Gi0X7Nh9so6RsaLyHo3kU0wJoUeu5K6ZpHtEQe1TtZVV+Ys1ccX3kqgr7Oeaa10ejT746FMySQTfvNk0CvfSJpWcUVT3WYmBmbVLUsDxavWzmLsf/vAosoAAAF1gqYlAl+eX+8THYLNgAQFjgB3SjRMb3Ilzb6nail9cm3TufYZzLpZc6kR9DQQpWAO/wAAAAAAAAAAAAAAAAL68IAQCAAA=",
+            false)
+
+        val response = client.abi.decodeMessageBody(params)
+
+        response shouldNotBe null
+
+    }
+
     "Should be able encode account" {
         val client = TonClient()
 

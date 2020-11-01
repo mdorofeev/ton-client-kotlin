@@ -11,6 +11,12 @@ data class ParamsOfEncodeAccount(
     val lastPaid: Int? = null
 )
 
+data class ParamsOfDecodeMessageBody(
+    val abi: Abi,
+    val body: String,
+    val isInternal: Boolean
+)
+
 data class StateInitSource(
     val type: String = "Message",
     val source: MessageSource,
@@ -123,7 +129,7 @@ data class ParamsOfEncodeMessage(
     /// Expiration timeouts will grow with every retry.
     ///
     /// Default value is 0.
-    val processingTryIndex: Int? = 0,
+    val processingTryIndex: Int = 0,
 )
 
 enum class SignerType {

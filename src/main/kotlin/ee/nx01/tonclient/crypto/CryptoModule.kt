@@ -3,6 +3,7 @@ package ee.nx01.tonclient.crypto
 import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.abi.KeyPair
+import java.util.*
 
 
 class CryptoModule(private val tonClient: TonClient) {
@@ -27,7 +28,61 @@ class CryptoModule(private val tonClient: TonClient) {
      */
     suspend fun scrypt(params: ParamsOfScrypt): String {
         val response = this.tonClient.requestString("crypto.scrypt", params)
-        return JsonUtils.read<Map<String,String>>(response)["key"] ?: throw RuntimeException()
+        return JsonUtils.read<Map<String, String>>(response)["key"] ?: throw RuntimeException()
+    }
+
+    suspend fun sha256(data: String): String {
+        val response = this.tonClient.requestString("crypto.sha256", mapOf("data" to data))
+        return JsonUtils.read<Map<String, String>>(response)["hash"] ?: throw RuntimeException()
+    }
+
+    /**
+    ## factorize
+
+    Performs prime factorization – decomposition of a composite number into a product of smaller prime integers (factors). See [https://en.wikipedia.org/wiki/Integer_factorization]
+     */
+    suspend fun factorize(composite: String): List<String> {
+        val response = this.tonClient.requestString("crypto.factorize", mapOf("composite" to composite))
+        return JsonUtils.read<Map<String, List<String>>>(response)["factors"] ?: throw RuntimeException()
+    }
+
+
+    /**
+    ## modular_power
+
+    Performs modular exponentiation for big integers (`base`^`exponent` mod `modulus`). See [https://en.wikipedia.org/wiki/Modular_exponentiation]
+     */
+    suspend fun modularPower(base: String, exponent: String, modulus: String): String {
+        val response = this.tonClient.requestString("crypto.modular_power",
+            mapOf("base" to base, "exponent" to exponent, "modulus" to modulus))
+        return JsonUtils.read<Map<String, String>>(response)["modular_power"] ?: throw RuntimeException()
+    }
+
+    suspend fun tonCrc16(data: String): Int {
+        val response = this.tonClient.requestString("crypto.ton_crc16", mapOf("data" to data))
+        return JsonUtils.read<Map<String, Int>>(response)["crc"] ?: throw RuntimeException()
+    }
+
+    suspend fun generateRandomBytesBase64(length: Int): String {
+        val response = this.tonClient.requestString("crypto.generate_random_bytes", mapOf("length" to length))
+        return JsonUtils.read<Map<String, String>>(response)["bytes"] ?: throw RuntimeException()
+    }
+
+    suspend fun generateRandomBytes(length: Int): ByteArray {
+        return Base64.getDecoder().decode(generateRandomBytesBase64(length))
+    }
+
+    suspend fun sha512(data: String): String {
+        val response = this.tonClient.requestString("crypto.sha512", mapOf("data" to data))
+        return JsonUtils.read<Map<String, String>>(response)["hash"] ?: throw RuntimeException()
+    }
+
+    suspend fun convertPublicKeyToTonSafeFormat(publicKey: String): String {
+        val response = this.tonClient.requestString(
+            "crypto.convert_public_key_to_ton_safe_format",
+            mapOf("public_key" to publicKey)
+        )
+        return JsonUtils.read<Map<String, String>>(response)["ton_public_key"] ?: throw RuntimeException()
     }
 
     suspend fun ed25519Keypair(): KeyPair {
@@ -36,7 +91,7 @@ class CryptoModule(private val tonClient: TonClient) {
 
     suspend fun mnemonicFromRandom(params: MnemonicFromRandomParams): String {
         val response = this.tonClient.requestString("crypto.mnemonic_from_random", params)
-        return JsonUtils.read<Map<String,String>>(response)["phrase"] ?: ""
+        return JsonUtils.read<Map<String, String>>(response)["phrase"] ?: throw RuntimeException()
     }
 
     /**
@@ -46,7 +101,7 @@ class CryptoModule(private val tonClient: TonClient) {
      */
     suspend fun mnemonicVerify(params: ParamsOfMnemonicVerify): Boolean {
         val response = this.tonClient.requestString("crypto.mnemonic_verify", params)
-        return JsonUtils.read<Map<String,Boolean>>(response)["valid"] ?: false
+        return JsonUtils.read<Map<String, Boolean>>(response)["valid"] ?: false
     }
 
     suspend fun mnemonicDeriveSignKeys(params: MnemonicDeriveSignKeysParams): KeyPair {
