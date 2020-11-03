@@ -94,41 +94,26 @@ data class ResultOfEncodeMessage(
     val messageId: String? = null
 )
 
-
+/**
+ * @property abi Contract ABI
+ * @property address Contract address. Must be specified in case of non deploy message.
+ * @property deploySet  Deploy parameters. Must be specified in case of deploy message.
+ * @property callSet Function call parameters. Must be specified in non deploy message. In case of deploy message contains parameters of constructor.
+ * @property signer Signing parameters.
+ * @property processingTryIndex  Processing try index. Used in message processing with retries. Encoder uses the provided try index to calculate message
+/// expiration time. Expiration timeouts will grow with every retry. Default value is 0.
+ */
 data class ParamsOfEncodeMessage(
-    /// Contract ABI.
     val abi: Abi,
 
-    /// Contract address.
-    ///
-    /// Must be specified in case of non deploy message.
     val address: String? = null,
 
-    /// Deploy parameters.
-    ///
-    /// Must be specified in case of deploy message.
     val deploySet: DeploySet? = null,
 
-    /// Function call parameters.
-    ///
-    /// Must be specified in non deploy message.
-    ///
-    /// In case of deploy message contains parameters of constructor.
     val callSet: CallSet? = null,
 
-    /// Signing parameters.
     val signer: Signer? = null,
 
-    /// Processing try index.
-    ///
-    /// Used in message processing with retries.
-    ///
-    /// Encoder uses the provided try index to calculate message
-    /// expiration time.
-    ///
-    /// Expiration timeouts will grow with every retry.
-    ///
-    /// Default value is 0.
     val processingTryIndex: Int = 0,
 )
 
@@ -147,45 +132,40 @@ data class Signer(val type: SignerType = SignerType.Keys, val keys: KeyPair? = n
 
 
 data class KeyPair(
-    /// Public key. Encoded with `hex`.
     val public: String,
-    /// Private key. Encoded with `hex`.
     val secret: String,
 )
 
+/**
+ * @property tvc Content of TVC file. Must be encoded with `base64`.
+ * @property workchainId Target workchain for destination address. Default is `0`.
+ * @property initialData List of initial values for contract's public variables.
+ */
 data class DeploySet(
-    /// Content of TVC file. Must be encoded with `base64`.
     val tvc: String,
-
-    /// Target workchain for destination address. Default is `0`.
     val workchainId: Int? = 0,
-
-    /// List of initial values for contract's public variables.
     val initialData: Map<String, Any>? = null,
 )
 
+/**
+ * @property functionName Function name.
+ * @property header Function header. If an application omit some parameters required by the contract's ABI, the library will set the default values for it.
+ * @property input Function input according to ABI.
+ */
 data class CallSet(
-    /// Function name.
     val functionName: String,
-
-    /// Function header.
-    ///
-    /// If an application omit some parameters required by the
-    /// contract's ABI, the library will set the default values for
-    /// it.
     val header: FunctionHeader? = null,
-
-    /// Function input according to ABI.
     val input: Map<String, Any>?,
 )
 
+/**
+ * @property expire Message expiration time in seconds.
+ * @property time Message creation time in milliseconds.
+ * @property pubkey Public key used to sign message. Encoded with `hex`.
+ *
+ */
 data class FunctionHeader(
-    /// Message expiration time in seconds.
     val expire: Long?,
-
-    /// Message creation time in milliseconds.
     val time: Long?,
-
-    /// Public key used to sign message. Encoded with `hex`.
     val pubkey: String?,
 )

@@ -1,4 +1,4 @@
-package ton.sdk;
+package ton.sdk
 
 object TONSDKJsonApi {
     external fun createContext(config: String):String

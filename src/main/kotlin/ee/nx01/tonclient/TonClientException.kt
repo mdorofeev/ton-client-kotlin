@@ -3,8 +3,7 @@ package ee.nx01.tonclient
 import com.fasterxml.jackson.annotation.JsonCreator
 
 class TonClientException(val tonClientError: TonClientError) :
-        RuntimeException("${tonClientError.message}, Details: $tonClientError") {
-}
+        RuntimeException("${tonClientError.message}, Details: $tonClientError")
 
 data class TonClientError(
     val message: String,

@@ -1,7 +1,6 @@
 package ee.nx01.tonclient.utils
 
 import ee.nx01.tonclient.TonClient
-import java.lang.RuntimeException
 
 class UtilsModule(private val tonClient: TonClient) {
     /**

@@ -130,6 +130,8 @@ class AbiModuleTest : StringSpec({
             response.message,
             "xxx"
         ))
+
+        signatureResponse.body shouldNotBe null
     }
 
     "Should be able decode message" {

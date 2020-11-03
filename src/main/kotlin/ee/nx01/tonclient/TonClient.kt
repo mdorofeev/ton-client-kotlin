@@ -116,7 +116,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
 
     companion object {
         init {
-            NativeLoader.loadLibrary("tonclientjni");
+            NativeLoader.loadLibrary("tonclientjni")
         }
     }
 
