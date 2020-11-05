@@ -79,7 +79,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     ): TonClientResponse = suspendCoroutine { cont ->
 
         requestAsync(method, params) {
-            logger.info { "Response: $it" }
+            logger.debug { "Response: $it" }
             if (it.responseType == TonResponseType.Success || it.responseType == TonResponseType.Error) {
                 cont.resume(it)
             } else if (eventCallback != null) {
@@ -99,7 +99,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     suspend fun requestString(method: String, params: Any, eventCallback: ((result: String) -> Unit)? = null): String {
         val requestString = JsonUtils.write(params)
 
-        logger.info { "Request: $requestString" }
+        logger.debug { "Request: $requestString" }
 
         val response = requestToSuspend(method, requestString, eventCallback)
 

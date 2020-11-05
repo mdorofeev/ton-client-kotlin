@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'ee.nx01.tonclient'
-version '0.0.7'
+version '0.0.14'
 
 sourceCompatibility = 8
 targetCompatibility = 8

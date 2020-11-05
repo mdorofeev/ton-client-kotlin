@@ -1,6 +1,5 @@
 package ee.nx01.tonclient.abi
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import java.math.BigInteger
 
 
@@ -84,7 +83,7 @@ class DecodedMessageBody(
 
 data class Abi(
     val type: String = "Serialized",
-    @JsonProperty("value") val value: Any
+    val value: Any
 )
 
 data class ResultOfEncodeMessage(
