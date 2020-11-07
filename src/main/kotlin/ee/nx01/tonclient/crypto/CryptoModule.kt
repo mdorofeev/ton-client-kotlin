@@ -144,6 +144,49 @@ class CryptoModule(private val tonClient: TonClient) {
         )
     }
 
+    suspend fun naclSignKeypairFromSecretKey(secret: String): KeyPair {
+        return this.tonClient.request("crypto.nacl_sign_keypair_from_secret_key", mapOf("secret" to secret))
+    }
+
+    suspend fun naclSign(unsigned: String, secret: String): String {
+        val paramsOfNaClSign = mapOf("unsigned" to unsigned, "secret" to secret)
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_sign", paramsOfNaClSign)["signed"] ?: ""
+    }
+
+    suspend fun naclSignOpen(signed: String, public: String): String {
+        val paramsOfNaClSignOpen = mapOf("signed" to signed, "public" to public)
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_sign_open", paramsOfNaClSignOpen)["unsigned"] ?: ""
+    }
+
+    suspend fun naclSignDetached(unsigned: String, secret: String): String {
+        val paramsOfNaClSignDetached = mapOf("unsigned" to unsigned, "secret" to secret)
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_sign_detached", paramsOfNaClSignDetached)["signature"] ?: ""
+    }
+
+    suspend fun naclBoxKeypair(): KeyPair {
+        return this.tonClient.request("crypto.nacl_box_keypair", "")
+    }
+
+    suspend fun naclBoxKeypairFromSecretKey(secret: String): KeyPair {
+        return this.tonClient.request("crypto.nacl_box_keypair_from_secret_key", mapOf("secret" to secret))
+    }
+
+    suspend fun naclBox(params: ParamsOfNaclBox): String {
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_box", params)["encrypted"] ?: ""
+    }
+
+    suspend fun naclBoxOpen(params: ParamsOfNaclBoxOpen): String {
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_box_open", params)["decrypted"] ?: ""
+    }
+
+    suspend fun naclSecretBox(params: ParamsOfNaclSecretBox): String {
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_secret_box", params)["encrypted"] ?: ""
+    }
+
+    suspend fun naclSecretBoxOpen(params: ParamsOfNaclSecretBoxOpen): String {
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_secret_box_open", params)["decrypted"] ?: ""
+    }
+
     companion object {
         val HD_PATH = "m/44'/396'/0'/0/0"
     }

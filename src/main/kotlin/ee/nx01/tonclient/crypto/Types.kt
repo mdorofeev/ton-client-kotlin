@@ -133,3 +133,30 @@ data class MnemonicDeriveSignKeysParams(
     val path: String,
     val compliant: Boolean = false,
 )
+
+data class ParamsOfNaclSecretBoxOpen(
+    val encrypted: String,
+    val nonce: String,
+    val key: String
+)
+
+data class ParamsOfNaclSecretBox(
+    val decrypted: String,
+    val nonce: String,
+    val key: String
+)
+
+data class ParamsOfNaclBox(
+    val decrypted: String,
+    val nonce: String,
+    val theirPublic: String,
+    val secret: String
+)
+
+data class ParamsOfNaclBoxOpen(
+    val encrypted: String,
+    val nonce: String,
+    val theirPublic: String,
+    val secret: String
+)
+

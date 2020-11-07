@@ -16,12 +16,12 @@ implementation "ee.nx01.tonclient.todo"
 
 ## Supported OS 
 
-Platform | Status    
+Platform | Arch    
 -------- |-----------
-Windows  | Done 
-Linux    | Done
-Mac OS X | In progress
-Android  | In progress
+Windows  | x64 
+Linux    | x64
+Mac OS X | x64
+Android  | arm64, armeabi-v7a
 
 ## Example
 

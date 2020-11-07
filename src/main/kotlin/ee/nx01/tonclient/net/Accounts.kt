@@ -1,6 +1,5 @@
 package ee.nx01.tonclient.net
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonUtils
@@ -35,12 +34,12 @@ class Accounts(private val net: NetModule) : NetCollection<Account, AccountFilte
 
 data class Account(
     val id: String,
-    @JsonProperty("acc_type") val accType: AccountType? = null,
-    @JsonProperty("last_paid") val lastPaid: Long = 0,
-    @JsonProperty("due_payment") val duePayment: Long = 0,
-    @JsonProperty("last_trans_lt") val lastTransLt: Long = 0,
-    @JsonProperty("balance_other") val balanceOther: Map<Int, Long>? = null,
-    @JsonProperty("split_depth") val splitDepth: Int? = null,
+    val accType: AccountType? = null,
+    val lastPaid: Long = 0,
+    val duePayment: Long = 0,
+    val lastTransLt: Long = 0,
+    val balanceOther: Map<Int, Long>? = null,
+    val splitDepth: Int? = null,
     val tick: Boolean? = null,
     val code: String? = null,
     val data: String? = null,
