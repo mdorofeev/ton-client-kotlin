@@ -61,8 +61,8 @@ data class Account(
     val data: String? = null,
     val proof: String? = null,
     val boc: String? = null,
-    val code_hash: String? = null,
-    val data_hash: String? = null,
+    val codeHash: String? = null,
+    val dataHash: String? = null,
     val balance: String? = null
 ) {
     fun getBalance(): BigDecimal = TonUtils.convertHexToToken(balance ?: "0x0")
