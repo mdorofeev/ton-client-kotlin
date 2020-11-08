@@ -1,5 +1,7 @@
 package ee.nx01.tonclient.types
 
+import com.fasterxml.jackson.annotation.JsonValue
+
 /**
  * Due to GraphQL limitations big numbers are returned as a string.
  * You can specify format used to string representation for big integers.
@@ -2071,7 +2073,7 @@ data class AccountFilterInput(
 )
 
 /** Specify sort order direction */
-enum class QueryOrderByDirection(val label: String) {
+enum class QueryOrderByDirection(@JsonValue val label: String) {
     Asc("ASC"),
     Desc("DESC");
 

@@ -4,16 +4,32 @@ import com.fasterxml.jackson.annotation.JsonValue
 import ee.nx01.tonclient.JsonUtils
 import ee.nx01.tonclient.TonUtils
 import ee.nx01.tonclient.types.AccountFilterInput
+import ee.nx01.tonclient.types.QueryOrderByInput
 import ee.nx01.tonclient.types.StringFilterInput
 import java.math.BigDecimal
 
 
 class Accounts(private val net: NetModule) : NetCollection<Account, AccountFilterInput> {
 
-    override suspend fun query(filter: AccountFilterInput, result: String): List<Account> {
-        val response = net.query(Query("accounts", filter, result))
+    override suspend fun query(
+        filter: AccountFilterInput,
+        result: String,
+        order: List<QueryOrderByInput>?,
+        limit: Int?
+    ): List<Account> {
+        val response = net.query(Query("accounts", filter, result, order, limit))
 
         return JsonUtils.read<AccountResponse>(response).result
+    }
+
+    override suspend fun waitForCollection(
+        filter: AccountFilterInput?,
+        result: String,
+        timeout: Int?
+    ): Account {
+        val response = net.waitForCollection(ParamsOfWaitForCollection("accounts", filter, result, timeout))
+
+        return JsonUtils.read<AccountSubscriptionResponse>(response).result
     }
 
     override suspend fun subscribe(

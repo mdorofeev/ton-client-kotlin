@@ -1,17 +1,17 @@
 # TON-CLIENT-KOTLIN
 
-TON-CLIENT-KOTLIN - is a async Kotlin bindings for TON Client Library 
+TON-CLIENT-KOTLIN - is an async Kotlin bindings for TON Client Library 
 
 ## How to build
 
-    gradlew build
+    ./gradlew build
 
 ## How to use
 
 Add to build gradle:
 
 ```groovy
-implementation "ee.nx01.tonclient.todo"
+implementation "ee.nx01.tonclient:ton-client-kotlin:0.0.12"
 ```
 
 ## Supported OS 
