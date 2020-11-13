@@ -74,10 +74,10 @@ enum class MessageBodyType {
     Event
 }
 
-class DecodedMessageBody(
+data class DecodedMessageBody(
     val bodyType: MessageBodyType,
     val name: String,
-    val value: Any? = null,
+    val value: Map<String,Any>? = null,
     val header: FunctionHeader?
 )
 

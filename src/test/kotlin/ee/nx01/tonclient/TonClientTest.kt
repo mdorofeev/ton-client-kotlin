@@ -1,14 +1,14 @@
 package ee.nx01.tonclient
 
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import io.kotest.matchers.string.shouldStartWith
 
 class TonClientTest : StringSpec({
 
     "Should be able get version" {
         val client = TonClient()
-        client.version() shouldBe "1.0.0"
+        client.version() shouldStartWith "1."
     }
 
     "Should be able get build info" {

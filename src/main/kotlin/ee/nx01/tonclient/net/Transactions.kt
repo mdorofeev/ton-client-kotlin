@@ -1,7 +1,6 @@
 package ee.nx01.tonclient.net
 
 import ee.nx01.tonclient.JsonUtils
-import ee.nx01.tonclient.types.AccountFilterInput
 import ee.nx01.tonclient.types.QueryOrderByInput
 import ee.nx01.tonclient.types.Transaction
 import ee.nx01.tonclient.types.TransactionFilterInput

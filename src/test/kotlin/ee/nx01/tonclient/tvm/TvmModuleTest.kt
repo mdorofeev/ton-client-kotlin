@@ -1,13 +1,7 @@
 package ee.nx01.tonclient.tvm
 
-import ee.nx01.tonclient.TonClient
-import ee.nx01.tonclient.TonClientErrorCode
-import ee.nx01.tonclient.TonClientException
-import ee.nx01.tonclient.TonUtils
-import ee.nx01.tonclient.abi.CallSet
-import ee.nx01.tonclient.abi.KeyPair
-import ee.nx01.tonclient.abi.ParamsOfEncodeMessage
-import ee.nx01.tonclient.abi.Signer
+import ee.nx01.tonclient.*
+import ee.nx01.tonclient.abi.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -20,7 +14,8 @@ class TvmModuleTest : StringSpec({
 
         val client = TonClient()
 
-        val elector = client.net.accounts.getAccount("-1:3333333333333333333333333333333333333333333333333333333333333333")!!
+        val elector =
+            client.net.accounts.getAccount("-1:3333333333333333333333333333333333333333333333333333333333333333")!!
 
         val response = client.tvm.runGet(ParamsOfRunGet(account = elector.boc!!, functionName = "participant_list"))
 
@@ -99,6 +94,37 @@ class TvmModuleTest : StringSpec({
         val response2 = client.tvm.runTvm(params)
 
         response2 shouldNotBe null
+    }
+
+    "Should be able run tvm depool".config(enabled = false) {
+        val client = TonClient(TonClientConfig(network = NetworkConfig(serverAddress = "main.ton.dev")))
+
+        val abi = TonUtils.readAbi("depool/DePool.abi.json")
+        val message = ParamsOfEncodeMessage(
+            abi = abi,
+            address = "0:33518b4fc28e5f01b8e2ed24c2610add385c62827eac6e9c6926a215ab29c140",
+            callSet = CallSet(
+                "getParticipantInfo",
+                input = mapOf(
+                    "addr" to "0:4ad982cab6f55e2338bbb40463297d873ae239d637f95b5d26e713df716c5217",
+                )
+            ),
+            signer = Signer.none()
+        )
+
+        val response = client.abi.encodeMessage(message)
+
+        val account =
+            client.net.accounts.getAccount("0:33518b4fc28e5f01b8e2ed24c2610add385c62827eac6e9c6926a215ab29c140")?.boc!!
+
+        val params = ParamsOfRunTvm(message = response.message, account = account)
+        val response2 = client.tvm.runTvm(params)
+
+        val msg = client.abi.decodeMessage(ParamsOfDecodeMessage(abi = abi, message = response2.outMessages[0]))
+
+        println(msg)
+
+        msg.value shouldNotBe null
     }
 
 

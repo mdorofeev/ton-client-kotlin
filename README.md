@@ -20,12 +20,12 @@ repositories {
 ```
 
 ```groovy
-implementation "ee.nx01.tonclient:ton-client-kotlin:0.0.12"
+implementation "ee.nx01.tonclient:ton-client-kotlin:0.0.14"
 ```
 
 ## Supported OS 
 
-Platform | Arch    
+OS       | Arch    
 -------- |-----------
 Windows  | x64 
 Linux    | x64
