@@ -28,10 +28,11 @@ class ProcessModuleTest : StringSpec({
                     "payload" to ""
                 ),
             ),
-            signer = Signer(keys = KeyPair(
-                "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
-                "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
-            )
+            signer = Signer(
+                keys = KeyPair(
+                    "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
+                    "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
+                )
             )
         )
 
@@ -45,17 +46,20 @@ class ProcessModuleTest : StringSpec({
     "Should be able deploy contract".config(enabled = INTEGRATION_TEST_ENABLED) {
         val client = TonClient()
 
-        val key = KeyPair("9fd726d4ceb783c76e2f97fe21c88f46e43e4093ba6046378840294793650ef4",
-            "d30a41ff36a53e324d717d96b0b4c0e568ce1a7103045b6a0fece898754f1286")
+        val key = KeyPair(
+            "9fd726d4ceb783c76e2f97fe21c88f46e43e4093ba6046378840294793650ef4",
+            "d30a41ff36a53e324d717d96b0b4c0e568ce1a7103045b6a0fece898754f1286"
+        )
 
         val message = ParamsOfEncodeMessage(
             abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
             deploySet = DeploySet(
-              tvc = TonUtils.readTvc("setcodemultisig/SetcodeMultisigWallet.tvc"),
-              initialData = mapOf()
+                tvc = TonUtils.readTvc("setcodemultisig/SetcodeMultisigWallet.tvc"),
+                initialData = mapOf()
             ),
-            callSet = CallSet("constructor", input =  mapOf("owners" to listOf("0x" + key.public), "reqConfirms" to 1)),
-            signer = Signer(keys = key
+            callSet = CallSet("constructor", input = mapOf("owners" to listOf("0x" + key.public), "reqConfirms" to 1)),
+            signer = Signer(
+                keys = key
             )
         )
 
@@ -86,10 +90,11 @@ class ProcessModuleTest : StringSpec({
                 ),
                 header = null
             ),
-            signer = Signer(keys = KeyPair(
-                "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
-                "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
-            )
+            signer = Signer(
+                keys = KeyPair(
+                    "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
+                    "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
+                )
             )
         )
 
@@ -98,7 +103,11 @@ class ProcessModuleTest : StringSpec({
         val params = ParamsOfSendMessage(message = response.message)
         val responseSend = client.processing.sendMessage(params)
 
-        val paramsWaitForTransaction = ParamsOfWaitForTransaction(message = response.message, shardBlockId = responseSend.shardBlockId, sendEvents = true)
+        val paramsWaitForTransaction = ParamsOfWaitForTransaction(
+            message = response.message,
+            shardBlockId = responseSend.shardBlockId,
+            sendEvents = true
+        )
 
         val responseWaitForTransaction = client.processing.waitForTransaction(paramsWaitForTransaction) {
             println(it)

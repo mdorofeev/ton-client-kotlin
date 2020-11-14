@@ -15,7 +15,8 @@ class MessagesTest : StringSpec({
             MessageFilterInput(id = StringFilterInput(eq = "08e6abfe03422d16499c90b06269e5a911fc770d5ee1cfa8c6293861400d5fc8"))
 
 
-        val messagesList = client.net.messages.query(filter,
+        val messagesList = client.net.messages.query(
+            filter,
             "id status boc"
         )
 

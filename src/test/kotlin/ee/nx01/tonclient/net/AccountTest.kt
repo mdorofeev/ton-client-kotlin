@@ -21,7 +21,7 @@ class AccountTest : StringSpec({
 
         accountList shouldNotBe null
         accountList.size shouldBe 1
-        accountList[0].accType shouldBe  AccountType.ACTIVE
+        accountList[0].accType shouldBe AccountType.ACTIVE
         accountList[0].getBalance() shouldBeGreaterThan BigDecimal.TEN
     }
 
@@ -51,7 +51,8 @@ class AccountTest : StringSpec({
     "search account with wrong id" {
         val client = TonClient()
 
-        val account = client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3x")
+        val account =
+            client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3x")
 
         account shouldBe null
 

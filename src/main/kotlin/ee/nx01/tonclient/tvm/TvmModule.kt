@@ -13,9 +13,9 @@ class TvmModule(private val tonClient: TonClient) {
     }
 
     /**
-     ## run_get
+    ## run_get
 
-     Executes getmethod and returns data from TVM stack
+    Executes getmethod and returns data from TVM stack
      */
     suspend fun runGet(params: ParamsOfRunGet): ResultOfRunGet {
         return tonClient.request("tvm.run_get", params)

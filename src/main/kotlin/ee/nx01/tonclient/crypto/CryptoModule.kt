@@ -27,12 +27,12 @@ class CryptoModule(private val tonClient: TonClient) {
      */
     suspend fun scrypt(params: ParamsOfScrypt): String {
         val response = this.tonClient.request<Map<String, String>>("crypto.scrypt", params)
-        return response["key"] ?: throw RuntimeException()
+        return response["key"] ?: error("Incorrect response")
     }
 
     suspend fun sha256(data: String): String {
         val response = this.tonClient.request<Map<String, String>>("crypto.sha256", mapOf("data" to data))
-        return response["hash"] ?: throw RuntimeException()
+        return response["hash"] ?: error("Incorrect response")
     }
 
     /**
@@ -41,8 +41,9 @@ class CryptoModule(private val tonClient: TonClient) {
     Performs prime factorization – decomposition of a composite number into a product of smaller prime integers (factors). See [https://en.wikipedia.org/wiki/Integer_factorization]
      */
     suspend fun factorize(composite: String): List<String> {
-        val response = this.tonClient.request<Map<String, List<String>>>("crypto.factorize", mapOf("composite" to composite))
-        return response["factors"] ?: throw RuntimeException()
+        val response =
+            this.tonClient.request<Map<String, List<String>>>("crypto.factorize", mapOf("composite" to composite))
+        return response["factors"] ?: error("Incorrect response")
     }
 
 
@@ -52,19 +53,22 @@ class CryptoModule(private val tonClient: TonClient) {
     Performs modular exponentiation for big integers (`base`^`exponent` mod `modulus`). See [https://en.wikipedia.org/wiki/Modular_exponentiation]
      */
     suspend fun modularPower(base: String, exponent: String, modulus: String): String {
-        val response = this.tonClient.request<Map<String, String>>("crypto.modular_power",
-            mapOf("base" to base, "exponent" to exponent, "modulus" to modulus))
-        return response["modular_power"] ?: throw RuntimeException()
+        val response = this.tonClient.request<Map<String, String>>(
+            "crypto.modular_power",
+            mapOf("base" to base, "exponent" to exponent, "modulus" to modulus)
+        )
+        return response["modular_power"] ?: error("Incorrect response")
     }
 
     suspend fun tonCrc16(data: String): Int {
         val response = this.tonClient.request<Map<String, Int>>("crypto.ton_crc16", mapOf("data" to data))
-        return response["crc"] ?: throw RuntimeException()
+        return response["crc"] ?: error("Incorrect response")
     }
 
     suspend fun generateRandomBytesBase64(length: Int): String {
-        val response = this.tonClient.request<Map<String, String>>("crypto.generate_random_bytes", mapOf("length" to length))
-        return response["bytes"] ?: throw RuntimeException()
+        val response =
+            this.tonClient.request<Map<String, String>>("crypto.generate_random_bytes", mapOf("length" to length))
+        return response["bytes"] ?: error("Incorrect response")
     }
 
     suspend fun generateRandomBytes(length: Int): ByteArray {
@@ -73,7 +77,7 @@ class CryptoModule(private val tonClient: TonClient) {
 
     suspend fun sha512(data: String): String {
         val response = this.tonClient.request<Map<String, String>>("crypto.sha512", mapOf("data" to data))
-        return response["hash"] ?: throw RuntimeException()
+        return response["hash"] ?: error("Incorrect response")
     }
 
     suspend fun convertPublicKeyToTonSafeFormat(publicKey: String): String {
@@ -81,7 +85,7 @@ class CryptoModule(private val tonClient: TonClient) {
             "crypto.convert_public_key_to_ton_safe_format",
             mapOf("public_key" to publicKey)
         )
-        return response["ton_public_key"] ?: throw RuntimeException()
+        return response["ton_public_key"] ?: error("Incorrect response")
     }
 
     suspend fun ed25519Keypair(): KeyPair {
@@ -90,7 +94,7 @@ class CryptoModule(private val tonClient: TonClient) {
 
     suspend fun mnemonicFromRandom(params: MnemonicFromRandomParams): String {
         val response = this.tonClient.request<Map<String, String>>("crypto.mnemonic_from_random", params)
-        return response["phrase"] ?: throw RuntimeException()
+        return response["phrase"] ?: error("Incorrect response")
     }
 
     /**
@@ -150,17 +154,23 @@ class CryptoModule(private val tonClient: TonClient) {
 
     suspend fun naclSign(unsigned: String, secret: String): String {
         val paramsOfNaClSign = mapOf("unsigned" to unsigned, "secret" to secret)
-        return this.tonClient.request<Map<String, String>>("crypto.nacl_sign", paramsOfNaClSign)["signed"] ?: ""
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_sign", paramsOfNaClSign)["signed"]
+            ?: error("Incorrect response")
     }
 
     suspend fun naclSignOpen(signed: String, public: String): String {
         val paramsOfNaClSignOpen = mapOf("signed" to signed, "public" to public)
-        return this.tonClient.request<Map<String, String>>("crypto.nacl_sign_open", paramsOfNaClSignOpen)["unsigned"] ?: ""
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_sign_open", paramsOfNaClSignOpen)["unsigned"]
+            ?: error("Incorrect response")
     }
 
     suspend fun naclSignDetached(unsigned: String, secret: String): String {
         val paramsOfNaClSignDetached = mapOf("unsigned" to unsigned, "secret" to secret)
-        return this.tonClient.request<Map<String, String>>("crypto.nacl_sign_detached", paramsOfNaClSignDetached)["signature"] ?: ""
+        return this.tonClient.request<Map<String, String>>(
+            "crypto.nacl_sign_detached",
+            paramsOfNaClSignDetached
+        )["signature"]
+            ?: error("Incorrect response")
     }
 
     suspend fun naclBoxKeypair(): KeyPair {
@@ -172,19 +182,23 @@ class CryptoModule(private val tonClient: TonClient) {
     }
 
     suspend fun naclBox(params: ParamsOfNaclBox): String {
-        return this.tonClient.request<Map<String, String>>("crypto.nacl_box", params)["encrypted"] ?: ""
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_box", params)["encrypted"]
+            ?: error("Incorrect response")
     }
 
     suspend fun naclBoxOpen(params: ParamsOfNaclBoxOpen): String {
-        return this.tonClient.request<Map<String, String>>("crypto.nacl_box_open", params)["decrypted"] ?: ""
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_box_open", params)["decrypted"]
+            ?: error("Incorrect response")
     }
 
     suspend fun naclSecretBox(params: ParamsOfNaclSecretBox): String {
-        return this.tonClient.request<Map<String, String>>("crypto.nacl_secret_box", params)["encrypted"] ?: ""
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_secret_box", params)["encrypted"]
+            ?: error("Incorrect response")
     }
 
     suspend fun naclSecretBoxOpen(params: ParamsOfNaclSecretBoxOpen): String {
-        return this.tonClient.request<Map<String, String>>("crypto.nacl_secret_box_open", params)["decrypted"] ?: ""
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_secret_box_open", params)["decrypted"]
+            ?: error("Incorrect response")
     }
 
     companion object {

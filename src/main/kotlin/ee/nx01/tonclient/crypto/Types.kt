@@ -103,6 +103,7 @@ enum class MnemonicDictionaryType {
         return ordinal
     }
 }
+
 enum class MnemonicWordCountType(val count: Int) {
     WORDS12(12),
     WORDS15(15),

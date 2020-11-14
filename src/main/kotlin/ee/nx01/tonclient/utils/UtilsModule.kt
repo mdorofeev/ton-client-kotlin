@@ -12,8 +12,10 @@ class UtilsModule(private val tonClient: TonClient) {
         address: String,
         outputFormat: AddressStringFormat
     ): String {
-        return tonClient.request<Map<String, String>>("utils.convert_address",
-            mapOf("address" to address, "output_format" to outputFormat))["address"] ?: throw RuntimeException()
+        return tonClient.request<Map<String, String>>(
+            "utils.convert_address",
+            mapOf("address" to address, "output_format" to outputFormat)
+        )["address"] ?: throw RuntimeException()
     }
 }
 

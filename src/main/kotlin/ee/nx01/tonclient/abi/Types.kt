@@ -28,7 +28,7 @@ data class StateInitSource(
 )
 
 data class MessageSource(
-    val type: String =  "Encoded",
+    val type: String = "Encoded",
     val message: String,
     val abi: Abi? = null
 )
@@ -77,7 +77,7 @@ enum class MessageBodyType {
 data class DecodedMessageBody(
     val bodyType: MessageBodyType,
     val name: String,
-    val value: Map<String,Any>? = null,
+    val value: Map<String, Any>? = null,
     val header: FunctionHeader?
 )
 
@@ -86,6 +86,15 @@ data class Abi(
     val value: Any
 )
 
+/**
+ * @property message Message BOC encoded with base64
+ * @property dataToSign  Optional data to be signed encoded in base64.
+Returned in case of Signer::External. Can be used for external
+message signing. Is this case you need to use this data to create signature and
+then produce signed message using abi.attach_signature.
+ * @property address Destination address.
+ * @property messageId Message id.
+ */
 data class ResultOfEncodeMessage(
     val message: String,
     val dataToSign: String? = null,
@@ -121,6 +130,7 @@ enum class SignerType {
     None,
     External
 }
+
 data class Signer(val type: SignerType = SignerType.Keys, val keys: KeyPair? = null, val publicKey: String? = null) {
     companion object {
         fun none(): Signer {

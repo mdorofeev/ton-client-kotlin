@@ -3,9 +3,9 @@ package ee.nx01.tonclient.abi
 import ee.nx01.tonclient.TonClient
 
 /**
-    # Module abi
+# Module abi
 
-    Provides message encoding and decoding according to the ABI specification.
+Provides message encoding and decoding according to the ABI specification.
  */
 class AbiModule(private val tonClient: TonClient) {
     /**
@@ -36,14 +36,26 @@ class AbiModule(private val tonClient: TonClient) {
         return tonClient.request("abi.encode_message", params)
     }
 
+    /**
+     * ## encode_message_body
+     * Encodes message body according to ABI function call.
+     */
     suspend fun encodeMessageBody(params: ParamsOfEncodeMessageBody): ResultOfEncodeMessageBody {
         return tonClient.request("abi.encode_message_body", params)
     }
 
+    /**
+     * ## decode_message_body
+     * Decodes message body using provided body BOC and ABI.
+     */
     suspend fun decodeMessageBody(params: ParamsOfDecodeMessageBody): DecodedMessageBody {
         return tonClient.request("abi.decode_message_body", params)
     }
 
+    /**
+     * ## decode_message
+     * Decodes message body using provided message BOC and ABI.
+     */
     suspend fun decodeMessage(params: ParamsOfDecodeMessage): DecodedMessageBody {
         return tonClient.request("abi.decode_message", params)
     }

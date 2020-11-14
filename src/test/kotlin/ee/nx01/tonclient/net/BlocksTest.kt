@@ -12,10 +12,13 @@ class BlocksTest : StringSpec({
     "Get block from blockchain" {
         val client = TonClient()
 
-        val filter = BlockFilterInput(seq_no = FloatFilterInput(eq = 150517f),
-            workchain_id = IntFilterInput(eq = -1))
+        val filter = BlockFilterInput(
+            seq_no = FloatFilterInput(eq = 150517f),
+            workchain_id = IntFilterInput(eq = -1)
+        )
 
-        val blockList = client.net.blocks.query(filter,
+        val blockList = client.net.blocks.query(
+            filter,
             "global_id status"
         )
 

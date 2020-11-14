@@ -3,7 +3,7 @@ package ee.nx01.tonclient
 import com.fasterxml.jackson.annotation.JsonCreator
 
 class TonClientException(val tonClientError: TonClientError) :
-        RuntimeException("${tonClientError.message}, Details: $tonClientError")
+    RuntimeException("${tonClientError.message}, Details: $tonClientError")
 
 data class TonClientError(
     val message: String,
@@ -14,6 +14,7 @@ data class TonClientError(
 
 enum class TonClientErrorCode(val code: Int) {
     Unknown(0),
+
     // Client
     NotImplemented(1),
     InvalidHex(2),
@@ -39,7 +40,8 @@ enum class TonClientErrorCode(val code: Int) {
     SetTimerError(22),
     InvalidParams(23),
     ContractsAddressConversionFailed(24),
-    UnknownFunction( 25),
+    UnknownFunction(25),
+
     // Crypto
     InvalidPublicKey(100),
     InvalidSecretKey(101),
@@ -56,11 +58,13 @@ enum class TonClientErrorCode(val code: Int) {
     Bip39InvalidWordCount(118),
     MnemonicGenerationFailed(119),
     MnemonicFromEntropyFailed(120),
+
     // BOC
     InvalidBoc(201),
     SerializationError(202),
     InappropriateBlock(203),
     MissingSourceBoc(204),
+
     // ABI
     RequiredAddressMissingForEncodeMessage(301),
     RequiredCallSetMissingForEncodeMessage(302),
@@ -72,6 +76,7 @@ enum class TonClientErrorCode(val code: Int) {
     InvalidTvcImage(308),
     RequiredPublicKeyMissingForFunctionHeader(309),
     InvalidSigner(310),
+
     // TVM
     CanNotReadTransaction(401),
     CanNotReadBlockchainConfig(402),
@@ -87,8 +92,9 @@ enum class TonClientErrorCode(val code: Int) {
     InvalidAccountBoc(412),
     InvalidMessageType(413),
     InternalError(414),
+
     // Processing
-    MessageAlreadyExpired( 501),
+    MessageAlreadyExpired(501),
     MessageHasNotDestinationAddress(502),
     CanNotBuildMessageCell(503),
     FetchBlockFailed(504),
@@ -101,6 +107,7 @@ enum class TonClientErrorCode(val code: Int) {
     BlockNotFound(511),
     InvalidData(512),
     ExternalSignerMustNotBeUsed(513),
+
     // Net
     QueryFailed(601),
     SubscribeFailed(602),
@@ -113,7 +120,9 @@ enum class TonClientErrorCode(val code: Int) {
 
 
     companion object {
-        @JsonCreator @JvmStatic fun fromIntRepresentation(intValue: Int): TonClientErrorCode {
+        @JsonCreator
+        @JvmStatic
+        fun fromIntRepresentation(intValue: Int): TonClientErrorCode {
             return values().firstOrNull { it.code == intValue } ?: Unknown
         }
     }

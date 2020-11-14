@@ -20,7 +20,7 @@ repositories {
 ```
 
 ```groovy
-implementation "ee.nx01.tonclient:ton-client-kotlin:0.0.14"
+implementation "ee.nx01.tonclient:ton-client-kotlin:0.0.16"
 ```
 
 ## Supported OS 
@@ -59,10 +59,11 @@ val message = ParamsOfEncodeMessage(
             "payload" to ""
         )
     ),
-    signer = Signer(keys = KeyPair(
-        "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
-        "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
-    )
+    signer = Signer(
+        keys = KeyPair(
+            "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
+            "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
+        )
     )
 )
 
