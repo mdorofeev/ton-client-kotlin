@@ -60,17 +60,17 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
 
     suspend fun version(): String {
         val response = requestString("client.version", "")
-        return JsonUtils.read<Map<String, String>>(response)["version"] ?: ""
+        return JsonUtils.read<Map<String, String>>(response)["version"] ?: error("Incorrect response")
     }
 
     suspend fun buildInfo(): Any {
         val response = requestString("client.build_info", "")
-        return JsonUtils.read<Map<String, Any>>(response)["buildInfo"] ?: ""
+        return JsonUtils.read<Map<String, Any>>(response)["build_info"] ?: error("Incorrect response")
     }
 
     suspend fun getApiReference(): Any {
         val response = requestString("client.get_api_reference", "")
-        return JsonUtils.read<Map<String, Any>>(response)["api"] ?: ""
+        return JsonUtils.read<Map<String, Any>>(response)["api"] ?: error("Incorrect response")
     }
 
     private suspend fun requestToSuspend(

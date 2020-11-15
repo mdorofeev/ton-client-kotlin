@@ -85,14 +85,14 @@ data class ExecutionOptions(
     val transactionLt: BigInteger? = null
 )
 
+/**
+ * @property expire Message expiration time in seconds.
+ * @property time Message creation time in milliseconds.
+ * @property pubkey Public key used to sign message. Encoded with `hex`.
+ */
 data class FunctionHeader(
-    /// Message expiration time in seconds.
     val expire: Long?,
-
-    /// Message creation time in milliseconds.
     val time: Long?,
-
-    /// Public key used to sign message. Encoded with `hex`.
     val pubkey: String?,
 )
 
