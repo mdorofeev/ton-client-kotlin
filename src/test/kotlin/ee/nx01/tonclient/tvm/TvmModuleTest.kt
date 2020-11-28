@@ -17,7 +17,7 @@ class TvmModuleTest : StringSpec({
         val elector =
             client.net.accounts.getAccount("-1:3333333333333333333333333333333333333333333333333333333333333333")!!
 
-        val response = client.tvm.runGet(ParamsOfRunGet(account = elector.boc!!, functionName = "participant_list"))
+        val response = client.tvm.runGet(ParamsOfRunGet(account = elector.boc!!, functionName = "active_election_id"))
 
         response shouldNotBe null
         response.output shouldNotBe null
@@ -96,7 +96,7 @@ class TvmModuleTest : StringSpec({
         response2 shouldNotBe null
     }
 
-    "Should be able run tvm depool".config(enabled = false) {
+    "Should be able run tvm depool" {
         val client = TonClient(TonClientConfig(network = NetworkConfig(serverAddress = "main.ton.dev")))
 
         val abi = TonUtils.readAbi("depool/DePool.abi.json")
