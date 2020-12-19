@@ -32,7 +32,7 @@ object TonUtils {
         val tvcStream = JsonUtils::class.java.getResourceAsStream(("/contracts/$tvcName"))
 
         tvcStream.use {
-            return Base64.getEncoder().encodeToString(it.readAllBytes())
+            return Base64.getEncoder().encodeToString(it.readBytes())
         }
     }
 }

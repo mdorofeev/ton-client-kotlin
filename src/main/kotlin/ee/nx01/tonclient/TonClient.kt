@@ -65,7 +65,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
 
     suspend fun buildInfo(): Any {
         val response = requestString("client.build_info", "")
-        return JsonUtils.read<Map<String, Any>>(response)["build_info"] ?: error("Incorrect response")
+        return JsonUtils.read<Map<String, Any>>(response)["build_number"] ?: error("Incorrect response")
     }
 
     suspend fun getApiReference(): Any {

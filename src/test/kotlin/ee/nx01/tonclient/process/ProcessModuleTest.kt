@@ -42,6 +42,71 @@ class ProcessModuleTest : StringSpec({
         response2 shouldNotBe null
     }
 
+    "Should be able ticktock depool".config(enabled = INTEGRATION_TEST_ENABLED) {
+        val client = TonClient()
+
+        val message = ParamsOfEncodeMessage(
+            abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
+            address = "0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3",
+            callSet = CallSet(
+                "sendTransaction",
+                input = mapOf(
+                    "dest" to "0:33518b4fc28e5f01b8e2ed24c2610add385c62827eac6e9c6926a215ab29c140",
+                    "value" to TonUtils.convertToken(BigDecimal(1)),
+                    "bounce" to true,
+                    "flags" to 3,
+                    "payload" to "te6ccgEBAQEABgAACCiAmCM="
+                ),
+            ),
+            signer = Signer(
+                keys = KeyPair(
+                    "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
+                    "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
+                )
+            )
+        )
+
+        val params = ParamsOfProcessMessage(message)
+        val response2 = client.processing.processMessage(params)
+
+        response2 shouldNotBe null
+    }
+
+    "Should be able add stake depool".config(enabled = INTEGRATION_TEST_ENABLED) {
+        val client = TonClient()
+
+        val payload = client.abi.encodeMessageBody(ParamsOfEncodeMessageBody(TonUtils.readAbi("depool/DePool.abi.json"),
+            callSet = CallSet("addOrdinaryStake", input = mapOf("stake" to TonUtils.convertToken(BigDecimal(10)))
+            ), signer = Signer.none())).body
+
+        val message = ParamsOfEncodeMessage(
+            abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
+            address = "0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3",
+            callSet = CallSet(
+                "sendTransaction",
+                input = mapOf(
+                    "dest" to "0:33518b4fc28e5f01b8e2ed24c2610add385c62827eac6e9c6926a215ab29c140",
+                    "value" to TonUtils.convertToken(BigDecimal(11)),
+                    "bounce" to true,
+                    "flags" to 3,
+                    "payload" to payload
+                ),
+            ),
+            signer = Signer(
+                keys = KeyPair(
+                    "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca",
+                    "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
+                )
+            )
+        )
+
+
+        val params = ParamsOfProcessMessage(message)
+        val response2 = client.processing.processMessage(params)
+
+        response2 shouldNotBe null
+    }
+
 
     "Should be able deploy contract".config(enabled = INTEGRATION_TEST_ENABLED) {
         val client = TonClient()
