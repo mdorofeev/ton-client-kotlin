@@ -102,7 +102,7 @@ class TvmModuleTest : StringSpec({
         val abi = TonUtils.readAbi("depool/DePool.abi.json")
         val message = ParamsOfEncodeMessage(
             abi = abi,
-            address = "0:33518b4fc28e5f01b8e2ed24c2610add385c62827eac6e9c6926a215ab29c140",
+            address = "0:09cc6748428b48892aa2af278a6e1eb44efac2064195e10efd76c9056e0269ab",
             callSet = CallSet(
                 "getParticipantInfo",
                 input = mapOf(
@@ -115,7 +115,7 @@ class TvmModuleTest : StringSpec({
         val response = client.abi.encodeMessage(message)
 
         val account =
-            client.net.accounts.getAccount("0:33518b4fc28e5f01b8e2ed24c2610add385c62827eac6e9c6926a215ab29c140")?.boc!!
+            client.net.accounts.getAccount("0:09cc6748428b48892aa2af278a6e1eb44efac2064195e10efd76c9056e0269ab")?.boc!!
 
         val params = ParamsOfRunTvm(message = response.message, account = account)
         val response2 = client.tvm.runTvm(params)

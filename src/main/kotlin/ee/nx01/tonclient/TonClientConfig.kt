@@ -22,7 +22,6 @@ data class CryptoConfig(
     val mnemonicDictionary: Int? = null,
     val mnemonicWordCount: Int? = null,
     val hdkeyDerivationPath: String? = null,
-    val hdkeyCompliant: Boolean? = null
 )
 
 data class AbiConfig(
