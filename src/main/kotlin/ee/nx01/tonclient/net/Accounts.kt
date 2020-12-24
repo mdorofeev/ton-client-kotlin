@@ -76,7 +76,8 @@ data class AccountSubscriptionResponse(val result: Account)
 enum class AccountType {
     UNINITIALIZED,
     ACTIVE,
-    FROZEN;
+    FROZEN,
+    NON_EXIST;
 
     @JsonValue
     open fun toValue(): Int {
