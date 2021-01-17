@@ -1,5 +1,6 @@
 package ee.nx01.tonclient.net
 
+import ee.nx01.tonclient.TestConstants
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.types.QueryOrderByDirection
 import ee.nx01.tonclient.types.QueryOrderByInput
@@ -15,7 +16,7 @@ class TransactionTest : StringSpec({
         val client = TonClient()
 
         val transactionList = client.net.transactions.query(
-            TransactionFilterInput(id = StringFilterInput(eq = "e5834711fb25932aa93c8dda283ac0f75481c70b61b9d26eced01a0a47638b17")),
+            TransactionFilterInput(id = StringFilterInput(eq = TestConstants.TRANSACTION_ID)),
             "id balance_delta"
         )
 
@@ -28,7 +29,7 @@ class TransactionTest : StringSpec({
         val client = TonClient()
 
         val transactionList = client.net.transactions.query(
-            TransactionFilterInput(id = StringFilterInput(gt = "e5834711fb25932aa93c8dda283ac0f75481c70b61b9d26eced01a0a47638b17")),
+            TransactionFilterInput(id = StringFilterInput(gt = TestConstants.TRANSACTION_ID)),
             "id balance_delta", listOf(QueryOrderByInput("id", QueryOrderByDirection.Desc)), 10
         )
 
@@ -41,7 +42,7 @@ class TransactionTest : StringSpec({
         val client = TonClient()
 
         val transaction = client.net.transactions.waitForCollection(
-            TransactionFilterInput(id = StringFilterInput(eq = "e5834711fb25932aa93c8dda283ac0f75481c70b61b9d26eced01a0a47638b17")),
+            TransactionFilterInput(id = StringFilterInput(eq = TestConstants.TRANSACTION_ID)),
             "id balance_delta"
         )
 

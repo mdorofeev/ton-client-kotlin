@@ -1,5 +1,6 @@
 package ee.nx01.tonclient.net
 
+import ee.nx01.tonclient.TestConstants
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.types.AccountFilterInput
 import io.kotest.core.spec.style.StringSpec
@@ -38,7 +39,7 @@ class NetModuletTest : StringSpec({
     "Get last shard block" {
         val client = TonClient()
 
-        val response = client.net.findLastShardBlock(ParamsOfFindLastShardBlock("0:09cc6748428b48892aa2af278a6e1eb44efac2064195e10efd76c9056e0269ab"))
+        val response = client.net.findLastShardBlock(ParamsOfFindLastShardBlock(TestConstants.WALLET_ADDRESS))
 
         response.blockId shouldNotBe null
 

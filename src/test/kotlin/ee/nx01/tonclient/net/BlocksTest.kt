@@ -1,5 +1,6 @@
 package ee.nx01.tonclient.net
 
+import ee.nx01.tonclient.TestConstants
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.types.BlockFilterInput
 import ee.nx01.tonclient.types.FloatFilterInput
@@ -13,7 +14,7 @@ class BlocksTest : StringSpec({
         val client = TonClient()
 
         val filter = BlockFilterInput(
-            seq_no = FloatFilterInput(eq = 150517f),
+            seq_no = FloatFilterInput(eq = TestConstants.BLOCK_ID),
             workchain_id = IntFilterInput(eq = -1)
         )
 

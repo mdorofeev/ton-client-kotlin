@@ -1,5 +1,6 @@
 package ee.nx01.tonclient.boc
 
+import ee.nx01.tonclient.TestConstants
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.TonClientErrorCode
 import ee.nx01.tonclient.TonClientException
@@ -76,7 +77,7 @@ class BocModuleTest : StringSpec({
         val client = TonClient()
 
         val blockResponse = client.net.blocks.query(
-            BlockFilterInput(id = StringFilterInput(eq = "2019a9e9ea66191b272c20173e57bc892435a76f4e2d69acfc18327b6891e648")),
+            BlockFilterInput(id = StringFilterInput(eq = TestConstants.KEY_BLOCK_ID)),
             "id boc"
         )
 

@@ -1,5 +1,6 @@
 package ee.nx01.tonclient.crypto
 
+import ee.nx01.tonclient.TestConstants
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.TonClientErrorCode
 import ee.nx01.tonclient.TonClientException
@@ -35,8 +36,7 @@ class CryptoModuleTest : StringSpec({
 
         val result = client.crypto.mnemonicVerify(
             ParamsOfMnemonicVerify(
-                "summer property whisper " +
-                        "strategy input limb bag party saddle shoot cook bracket"
+                TestConstants.WALLET_PHRASE
             )
         )
 
@@ -60,12 +60,11 @@ class CryptoModuleTest : StringSpec({
         val client = TonClient()
 
         val keyPair = client.crypto.keyPairFromSurfMnemonicPhrase(
-            "draw motion powder someone shoot fantasy " +
-                    "sunny recycle steel name unveil opinion"
+            TestConstants.WALLET_PHRASE
         )
 
-        keyPair.secret shouldBe "db5da80d3bdeb607d17cf29d1c68489b5071637b3a0d8d747b7ad6ce7e89e5c0"
-        keyPair.public shouldBe "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca"
+        keyPair.secret shouldBe TestConstants.WALLET_SECRET
+        keyPair.public shouldBe TestConstants.WALLET_PUBLIC
 
     }
 

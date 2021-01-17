@@ -1,5 +1,6 @@
 package ee.nx01.tonclient.net
 
+import ee.nx01.tonclient.TestConstants
 import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.types.AccountFilterInput
 import ee.nx01.tonclient.types.StringFilterInput
@@ -15,7 +16,7 @@ class AccountTest : StringSpec({
         val client = TonClient()
 
         val accountList = client.net.accounts.query(
-            AccountFilterInput(id = StringFilterInput(eq = "0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3")),
+            AccountFilterInput(id = StringFilterInput(eq = TestConstants.WALLET_ADDRESS)),
             "id acc_type boc last_paid balance"
         )
 
@@ -52,7 +53,7 @@ class AccountTest : StringSpec({
         val client = TonClient()
 
         val account =
-            client.net.accounts.getAccount("0:1072926c848133157d63e8c1691bce79bbbd459347be47dab85536903894aeb3x")
+            client.net.accounts.getAccount("0:c1c52894eb07f12ba110ff4be2d115ab09d0b06ba44ff9d6d31459a00d4e58ed")
 
         account shouldBe null
 
