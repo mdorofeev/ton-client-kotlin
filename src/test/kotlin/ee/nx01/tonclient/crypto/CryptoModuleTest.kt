@@ -339,4 +339,15 @@ class CryptoModuleTest : StringSpec({
         open shouldBe decrypted
 
     }
+
+
+    "Should be able call crypto.chacha20" {
+        val client = TonClient()
+
+        val text = Base64.getEncoder().encodeToString("teststring".toByteArray())
+        val response = client.crypto.chacha20(ParamsOfChaCha20(text, "0x7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca", "0x7ef364d02bdf489a56714555"))
+
+        response shouldBe "iT48EUCm7zmgIw=="
+
+    }
 })

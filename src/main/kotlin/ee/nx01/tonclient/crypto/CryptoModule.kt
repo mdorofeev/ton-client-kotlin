@@ -201,8 +201,14 @@ class CryptoModule(private val tonClient: TonClient) {
             ?: error("Incorrect response")
     }
 
+    suspend fun chacha20(params: ParamsOfChaCha20): String {
+        return this.tonClient.request<Map<String, String>>("crypto.chacha20", params)["data"]
+            ?: error("Incorrect response")
+    }
+
     companion object {
         val HD_PATH = "m/44'/396'/0'/0/0"
     }
 
 }
+

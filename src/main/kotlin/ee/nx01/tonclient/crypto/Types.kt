@@ -161,3 +161,13 @@ data class ParamsOfNaclBoxOpen(
     val secret: String
 )
 
+/**
+ *   @property data: string – Source data to be encrypted or decrypted. Must be encoded with base64.
+ *   @property key string – 256-bit key. Must be encoded with hex.
+ *   @property nonce string – 96-bit nonce. Must be encoded with hex
+ */
+data class ParamsOfChaCha20(
+    val data: String,
+    val key: String,
+    val nonce: String
+)
