@@ -23,6 +23,33 @@ class TvmModuleTest : StringSpec({
         response.output shouldNotBe null
     }
 
+    "Should be able run get method on rust network" {
+
+        val client = TonClient(TonClientConfig(NetworkConfig(serverAddress = "rustnet.ton.dev")))
+
+        val elector =
+            client.net.accounts.getAccount("-1:3333333333333333333333333333333333333333333333333333333333333333")!!
+
+        val message = ParamsOfEncodeMessage(
+            abi = TonUtils.readAbi("elector/Elector.abi.json"),
+            address = "-1:3333333333333333333333333333333333333333333333333333333333333333",
+            callSet = CallSet(
+                "get",
+                input = mapOf(
+                )
+            ),
+            signer = Signer.none()
+        )
+
+        val response = client.abi.encodeMessage(message)
+
+        val params = ParamsOfRunTvm(message = response.message, account = elector.boc!!, abi = TonUtils.readAbi("elector/Elector.abi.json"))
+        val response2 = client.tvm.runTvm(params)
+
+        response2 shouldNotBe null
+
+    }
+
     "Should be able execute message" {
         val client = TonClient()
 
@@ -102,7 +129,7 @@ class TvmModuleTest : StringSpec({
         val abi = TonUtils.readAbi("depool/DePool.abi.json")
         val message = ParamsOfEncodeMessage(
             abi = abi,
-            address = "0:09cc6748428b48892aa2af278a6e1eb44efac2064195e10efd76c9056e0269ab",
+            address = "0:866b902a4034122b96f6312e3a00e167dd33a69e662f7b104e82d82edacb506e",
             callSet = CallSet(
                 "getParticipantInfo",
                 input = mapOf(
@@ -115,7 +142,7 @@ class TvmModuleTest : StringSpec({
         val response = client.abi.encodeMessage(message)
 
         val account =
-            client.net.accounts.getAccount("0:09cc6748428b48892aa2af278a6e1eb44efac2064195e10efd76c9056e0269ab")?.boc!!
+            client.net.accounts.getAccount("0:866b902a4034122b96f6312e3a00e167dd33a69e662f7b104e82d82edacb506e")?.boc!!
 
         val params = ParamsOfRunTvm(message = response.message, account = account)
         val response2 = client.tvm.runTvm(params)
