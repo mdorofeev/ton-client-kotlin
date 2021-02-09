@@ -23,7 +23,7 @@ class TvmModuleTest : StringSpec({
         response.output shouldNotBe null
     }
 
-    "Should be able run get method on rust network" {
+    "Should be able run get method on rust network".config(enabled = false) {
 
         val client = TonClient(TonClientConfig(NetworkConfig(serverAddress = "rustnet.ton.dev")))
 

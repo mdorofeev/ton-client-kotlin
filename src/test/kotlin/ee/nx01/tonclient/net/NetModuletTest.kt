@@ -1,7 +1,9 @@
 package ee.nx01.tonclient.net
 
+import ee.nx01.tonclient.NetworkConfig
 import ee.nx01.tonclient.TestConstants
 import ee.nx01.tonclient.TonClient
+import ee.nx01.tonclient.TonClientConfig
 import ee.nx01.tonclient.types.AccountFilterInput
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldNotBe
@@ -51,5 +53,26 @@ class NetModuletTest : StringSpec({
         val response = client.net.query(ParamsOfQuery("{info{version}}", variables = null))
 
         response.result shouldNotBe null
+    }
+
+    "Should be able set endpoints" {
+        val client = TonClient(
+            TonClientConfig(
+                NetworkConfig(
+                    endpoints = listOf(
+                        "https://net.ton.dev",
+                        "https://rustnet.ton.dev"
+                    )
+                )
+            )
+        )
+
+        val endpointSet = EndpointsSet(listOf("https://net.ton.dev", "https://rustnet.ton.dev"))
+
+        val fetchEndpoints = client.net.fetchEndpoints().endpoints
+
+        fetchEndpoints shouldNotBe null
+
+        client.net.setEndpoints(endpointSet)
     }
 })

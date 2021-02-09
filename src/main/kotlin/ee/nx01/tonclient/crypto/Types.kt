@@ -171,3 +171,9 @@ data class ParamsOfChaCha20(
     val key: String,
     val nonce: String
 )
+
+data class ParamsOfNaclSignDetachedVerify(
+    val unsigned: String,
+    val signature: String,
+    val public: String
+)

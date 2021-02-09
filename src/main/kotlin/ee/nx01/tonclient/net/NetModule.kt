@@ -55,44 +55,45 @@ class NetModule(private val tonClient: TonClient) {
     }
 
     /**
+     * #batch_query
+     *  Performs multiple queries per single fetch.
+     */
+    suspend fun batchQuery(query: ParamsOfBatchQuery): ResultOfQuery {
+        return tonClient.request("net.batch_query", query)
+    }
+
+
+    /**
+     * #aggregate_collection
+     *   Aggregates collection data.
+     *   Aggregates values from the specified fields for records that satisfies the filter conditions,
+     */
+    suspend fun aggregateCollection(params: ParamsOfAggregateCollection): ResultOfQuery {
+        return tonClient.request("net.aggregate_collection", params)
+    }
+
+    /**
      * Returns ID of the last block in a specified account shard
      */
     suspend fun findLastShardBlock(params: ParamsOfFindLastShardBlock): ResultOfFindLastShardBlock {
         return tonClient.request("net.find_last_shard_block", params)
     }
 
+    /**
+     * fetch_endpoints
+     * Requests the list of alternative endpoints from server
+     */
+    suspend fun fetchEndpoints(): EndpointsSet {
+        return tonClient.request("net.fetch_endpoints", "")
+    }
+
+    /**
+     * set_endpoints
+     * Sets the list of endpoints to use on reinit
+     */
+    suspend fun setEndpoints(params: EndpointsSet) {
+        return tonClient.request("net.set_endpoints", params)
+    }
+
 
 }
-
-data class ParamsOfQuery(
-    val query: String,
-    val variables: Any? = null
-)
-
-data class ResultOfQuery(
-    val result: Any
-)
-
-
-data class ParamsOfFindLastShardBlock(
-    val address: String
-)
-
-data class ResultOfFindLastShardBlock(
-    val blockId: String
-)
-
-data class ParamsOfWaitForCollection(
-    val collection: String,
-    val filter: Any?,
-    val result: String,
-    val timeout: Int?
-)
-
-data class Query(
-    val collection: String,
-    val filter: Any,
-    val result: String,
-    val order: List<QueryOrderByInput>? = null,
-    val limit: Int? = null
-)
