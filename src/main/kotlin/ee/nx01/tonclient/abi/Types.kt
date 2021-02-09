@@ -152,6 +152,7 @@ data class KeyPair(
  */
 data class DeploySet(
     val tvc: String,
+    val initialPubkey: String? = null,
     val workchainId: Int? = 0,
     val initialData: Map<String, Any>? = null,
 )

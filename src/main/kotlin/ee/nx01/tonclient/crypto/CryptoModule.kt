@@ -201,6 +201,10 @@ class CryptoModule(private val tonClient: TonClient) {
             ?: error("Incorrect response")
     }
 
+    suspend fun naclSignDetachedVerify(params: ParamsOfNaclSignDetachedVerify): Boolean {
+        return this.tonClient.request<Map<String, String>>("crypto.nacl_sign_detached_verify", params)["succeeded"].toBoolean()
+    }
+
     suspend fun chacha20(params: ParamsOfChaCha20): String {
         return this.tonClient.request<Map<String, String>>("crypto.chacha20", params)["data"]
             ?: error("Incorrect response")

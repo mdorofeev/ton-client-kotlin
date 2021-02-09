@@ -78,12 +78,18 @@ class BocModuleTest : StringSpec({
 
         val blockResponse = client.net.blocks.query(
             BlockFilterInput(id = StringFilterInput(eq = TestConstants.KEY_BLOCK_ID)),
-            "id boc"
+            "id boc master { config { p15 {\n" +
+                    "        validators_elected_for\n" +
+                    "        elections_start_before\n" +
+                    "        elections_end_before\n" +
+                    "        stake_held_for\n" +
+                    "      } } }"
         )
 
         val response = client.boc.getBlockchainConfig(ParamsOfGetBlockchainConfig(blockResponse[0].boc!!))
 
         response shouldNotBe null
+
         response.configBoc shouldNotBe null
 
     }

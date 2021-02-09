@@ -10,7 +10,8 @@ data class TonClientConfig(
 
 data class NetworkConfig(
     val serverAddress: String = "net.ton.dev",
-    val networkRetriesCount: Int? = null,
+    val endpoints: List<String>? = null,
+    val maxReconnectTimeout: Int? = null,
     val messageRetriesCount: Int? = null,
     val messageProcessingTimeout: Int? = null,
     val waitForTimeout: Int? = null,
