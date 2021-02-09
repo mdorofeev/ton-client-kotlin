@@ -23,8 +23,10 @@ jobs:
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: Create temp dir
+        run: mkdir tmp/
       - name: Build with Gradle
-        run: ./gradlew -Pversion=${{ steps.get_version.outputs.VERSION }} dokkaJavadoc build bintrayUpload
+        run: ./gradlew -Djava.io.tmpdir=./tmp/ -Pversion=${{ steps.get_version.outputs.VERSION }} dokkaJavadoc build bintrayUpload
       - uses: actions/upload-artifact@v1
         with:
           name: Package
