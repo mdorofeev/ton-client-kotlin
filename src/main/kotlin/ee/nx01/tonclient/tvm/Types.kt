@@ -27,7 +27,8 @@ data class ParamsOfRunGet(
     val account: String,
     val functionName: String,
     val input: Map<String, Any>? = null,
-    val executionOptions: ExecutionOptions? = null
+    val executionOptions: ExecutionOptions? = null,
+    val tupleListAsArray: Boolean? = false
 )
 
 data class ResultOfRunExecutor(

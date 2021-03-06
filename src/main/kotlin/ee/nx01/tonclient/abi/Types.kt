@@ -41,7 +41,7 @@ data class StateInitParams(
 data class ParamsOfEncodeMessageBody(
     val abi: Abi,
     val callSet: CallSet,
-    val isInternal: Boolean = true,
+    val isInternal: Boolean = false,
     val signer: Signer,
     val processingTryIndex: Int? = null
 )
@@ -178,4 +178,20 @@ data class FunctionHeader(
     val expire: Long?,
     val time: Long?,
     val pubkey: String?,
+)
+
+data class ParamsOfEncodeInternalMessage(
+    val abi: Abi,
+    val address: String? = null,
+    val deploySet: DeploySet? = null,
+    val callSet: CallSet? = null,
+    val value: String,
+    val bounce: Boolean? = null,
+    val enableIhr: Boolean? = null
+)
+
+data class ResultOfEncodeInternalMessage(
+    val message: String,
+    val address: String,
+    val messageId: String
 )
