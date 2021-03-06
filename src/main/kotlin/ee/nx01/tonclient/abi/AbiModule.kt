@@ -45,6 +45,30 @@ class AbiModule(private val tonClient: TonClient) {
     }
 
     /**
+     * ## encode_internal_message
+
+    Encodes an internal ABI-compatible message
+
+    Allows to encode deploy and function call messages.
+
+    Use cases include messages of any possible type:
+    - deploy with initial function call (i.e. `constructor` or any other function that is used for some kind
+    of initialization);
+    - deploy without initial function call;
+    - simple function call
+
+    There is an optional public key can be provided in deploy set in order to substitute one
+    in TVM file.
+
+    Public key resolving priority:
+    1. Public key from deploy set.
+    2. Public key, specified in TVM file.
+     */
+    suspend fun encodeInternalMessage(params: ParamsOfEncodeInternalMessage): ResultOfEncodeInternalMessage {
+        return tonClient.request("abi.encode_internal_message", params)
+    }
+
+    /**
      * ## decode_message_body
      * Decodes message body using provided body BOC and ABI.
      */
@@ -82,5 +106,3 @@ class AbiModule(private val tonClient: TonClient) {
         return tonClient.request("abi.attach_signature_to_message_body", params)
     }
 }
-
-

@@ -73,6 +73,34 @@ class AbiModuleTest : StringSpec({
 
     }
 
+
+    "Should be able encode internal message" {
+        val client = TonClient()
+
+        val params = ParamsOfEncodeInternalMessage(
+            abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
+            address = "0:ee946898dee44b9b7d4ed452fae4dba773ec339974b2e75223e868214ac01dfe",
+            callSet = CallSet(
+                "submitTransaction",
+                input = mapOf(
+                    "dest" to "0:ee946898dee44b9b7d4ed452fae4dba773ec339974b2e75223e868214ac01dfe",
+                    "value" to TonUtils.convertToken(BigDecimal(0.1)),
+                    "bounce" to false,
+                    "allBalance" to false,
+                    "payload" to ""
+                ),
+                header = null
+            ),
+            value = TonUtils.convertToken(BigDecimal.ONE).toString()
+        )
+
+        val response = client.abi.encodeInternalMessage(params)
+
+        response shouldNotBe null
+        response.message shouldNotBe  null
+
+    }
+
     "Should be able decode message body" {
         val client = TonClient()
 
@@ -174,7 +202,7 @@ class AbiModuleTest : StringSpec({
             client.abi.decodeMessage(ParamsOfDecodeMessage(abi, message))
         }
 
-        exception.tonClientError.code shouldBe TonClientErrorCode.InvalidBase64
+        exception.tonClientError.code shouldBe TonClientErrorCode.InvalidMessage
 
     }
 

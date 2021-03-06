@@ -168,7 +168,7 @@ class CryptoModuleTest : StringSpec({
             ParamsOfHDKeyPublicFromXPrv("xprvA3rCvXp37apThYKCF3SQKDfQXH3mZKv2vo1z1tGG4kf5VAfCM6AJa3eg1XEJRbZ4jTjCUrNXzMv8ihqSrv928Uz1DautEjQsPQ6CioSbRzY")
         )
 
-        response.public shouldBe "038919503f8e39a4ff0fc676870537e6b1481d67829582aa5a14914fbc251a55f0"
+        response.public shouldBe "7ef364d02bdf489a56714553dd66260666d52d4b03c5abd6ce62ec7ffbc0a2ca"
 
     }
 
