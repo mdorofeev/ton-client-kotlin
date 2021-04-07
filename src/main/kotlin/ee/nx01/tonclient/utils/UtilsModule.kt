@@ -17,7 +17,31 @@ class UtilsModule(private val tonClient: TonClient) {
             mapOf("address" to address, "output_format" to outputFormat)
         )["address"] ?: throw RuntimeException()
     }
+
+
+    /**
+     *   #calc_storage_fee
+     *   Calculates storage fee for an account over a specified time period
+     *   @param period Time period in seconds
+     *   @return  Storage fee over a period of time in nanotokens
+     */
+    suspend fun calcStorageFee(
+        address: String,
+        period: Int
+    ): Long {
+        val feeString = tonClient.request<Map<String, String>>(
+            "utils.calc_storage_fee",
+            ParamsOfCalcStorageFee(address, period)
+        )["fee"] ?: throw RuntimeException()
+
+        return feeString.toLong()
+    }
 }
+
+data class ParamsOfCalcStorageFee(
+    val account: String,
+    val period: Int
+)
 
 data class AddressStringFormat(
     val type: AddressType,

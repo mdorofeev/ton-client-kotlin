@@ -1,11 +1,11 @@
 package ee.nx01.tonclient.utils
 
-import ee.nx01.tonclient.TonClient
-import ee.nx01.tonclient.TonClientErrorCode
-import ee.nx01.tonclient.TonClientException
+import ee.nx01.tonclient.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.longs.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
+import io.kotest.mpp.log
 
 class UtilsModuleTest : StringSpec({
 
@@ -44,5 +44,14 @@ class UtilsModuleTest : StringSpec({
 
         exception.tonClientError.code shouldBe TonClientErrorCode.InvalidAddress
 
+    }
+
+    "Should be able calculate storage fee" {
+        val client = TonClient()
+
+        val boc = client.net.accounts.getAccount(TestConstants.WALLET_ADDRESS)?.boc ?: error("Account not found")
+        val fee = client.utils.calcStorageFee(boc, 24 * 60 * 60 * 30 * 12)
+
+        fee shouldBeGreaterThan 0
     }
 })
