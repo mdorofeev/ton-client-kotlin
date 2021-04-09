@@ -126,4 +126,14 @@ class BocModuleTest : StringSpec({
 
     }
 
+    "Should be able encode boc" {
+        val client = TonClient()
+
+        val response = client.boc.encodeBoc(ParamsOfEncodeBoc(listOf(BuilderOp(BuilderOpType.Integer, size = 4, value = "123")), BocCacheType()))
+
+        response shouldNotBe null
+        response.boc shouldBe "*72aa2f825294ca27c3febecaa3d8900331bcd86f359683cf4eb7908a1d5e6c75"
+
+    }
+
 })

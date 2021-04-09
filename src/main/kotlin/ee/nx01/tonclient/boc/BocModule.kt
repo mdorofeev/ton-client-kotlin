@@ -53,9 +53,9 @@ class BocModule(private val tonClient: TonClient) {
 
     /**
      * #parse_shardstate
-        Parses shardstate boc into a JSON
+    Parses shardstate boc into a JSON
 
-        JSON structure is compatible with GraphQL API shardstate object
+    JSON structure is compatible with GraphQL API shardstate object
      */
     suspend fun parseShardstate(params: ParamsOfParseShardstate): ResultOfParse {
         return tonClient.request("boc.parse_shardstate", params)
@@ -63,7 +63,7 @@ class BocModule(private val tonClient: TonClient) {
 
     /**
      *  #get_code_from_tvc
-        Extracts code from TVC contract image
+    Extracts code from TVC contract image
      */
     suspend fun getCodeFromTvc(params: ParamsOfGetCodeFromTvc): ResultOfGetCodeFromTvc {
         return tonClient.request("boc.get_code_from_tvc", params)
@@ -77,42 +77,11 @@ class BocModule(private val tonClient: TonClient) {
     }
 
 
+    /**
+     * Encodes BOC from builder operations.
+     */
+    suspend fun encodeBoc(params: ParamsOfEncodeBoc): ResultOfEncodeBoc {
+        return tonClient.request("boc.encode_boc", params)
+    }
+
 }
-
-data class ResultOfGetBocHash(
-    val hash: String
-)
-
-data class ParamsOfGetBocHash(
-    val boc: String
-)
-
-data class ParamsOfGetCodeFromTvc(
-    val tvc: String
-)
-
-data class  ResultOfGetCodeFromTvc(
-    val code: String
-)
-
-data class ParamsOfParseShardstate(
-    val boc: String,
-    val id: String,
-    val workchainId: Int
-)
-
-data class ResultOfGetBlockchainConfig(
-    val configBoc: String
-)
-
-data class ParamsOfGetBlockchainConfig(
-    val blockBoc: String
-)
-
-data class ParamsOfParse(
-    val boc: String
-)
-
-data class ResultOfParse(
-    val parsed: Map<String, Any>
-)
