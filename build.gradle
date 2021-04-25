@@ -1,7 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.0'
     id 'com.adarshr.test-logger' version '2.1.0'
-    id 'org.jetbrains.dokka' version "1.4.10.2"
+    id 'org.jetbrains.dokka' version "1.4.32"
     id 'maven'
     id 'signing'
 }
@@ -13,7 +13,6 @@ sourceCompatibility = 8
 targetCompatibility = 8
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
