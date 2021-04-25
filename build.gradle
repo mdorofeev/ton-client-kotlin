@@ -7,7 +7,6 @@ plugins {
 }
 
 group 'ee.nx-01.tonclient'
-version "0.0.29"
 
 
 sourceCompatibility = 8
