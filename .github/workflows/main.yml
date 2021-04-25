@@ -25,7 +25,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew -Pversion=${{ steps.get_version.outputs.VERSION }} dokkaJavadoc uploadArchives closeAndReleaseRepository
+        run: ./gradlew -Pversion=${{ steps.get_version.outputs.VERSION }} dokkaJavadoc uploadArchives
       - uses: actions/upload-artifact@v1
         with:
           name: Package
