@@ -6,6 +6,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.longs.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
 import io.kotest.mpp.log
+import java.util.*
 
 class UtilsModuleTest : StringSpec({
 
@@ -53,5 +54,21 @@ class UtilsModuleTest : StringSpec({
         val fee = client.utils.calcStorageFee(boc, 24 * 60 * 60 * 30 * 12)
 
         fee shouldBeGreaterThan 0
+    }
+
+    "Should be able compress data" {
+        val client = TonClient()
+
+        val response = client.utils.compressZstd(Base64.getEncoder().encodeToString("Test string".encodeToByteArray()))
+
+        response shouldBe "KLUv/QBYWQAAVGVzdCBzdHJpbmc="
+    }
+
+    "Should be able decompress data" {
+        val client = TonClient()
+
+        val response = client.utils.decompressZstd("KLUv/QBYWQAAVGVzdCBzdHJpbmc=")
+
+        String(Base64.getDecoder().decode(response)) shouldBe "Test string"
     }
 })
