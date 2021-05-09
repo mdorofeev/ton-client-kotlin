@@ -1,11 +1,13 @@
 package ee.nx01.tonclient.utils
 
-import ee.nx01.tonclient.*
+import ee.nx01.tonclient.TestConstants
+import ee.nx01.tonclient.TonClient
+import ee.nx01.tonclient.TonClientErrorCode
+import ee.nx01.tonclient.TonClientException
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.longs.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
-import io.kotest.mpp.log
 import java.util.*
 
 class UtilsModuleTest : StringSpec({

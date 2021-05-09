@@ -44,8 +44,7 @@ class UtilsModule(private val tonClient: TonClient) {
      *   @param level Compression level, from 1 to 21. Where: 1 - lowest compression level (fastest compression); 21 - highest compression level (slowest compression). If level is omitted, the default compression level is used (currently 3).
      *   @return  Compressed data. Must be encoded as base64.
      */
-    suspend fun compressZstd(uncompressed: String, level: Int? = null
-    ): String {
+    suspend fun compressZstd(uncompressed: String, level: Int? = null): String {
         val compressed = tonClient.request<Map<String, String>>(
             "utils.compress_zstd",
             ParamsOfCompressZstd(uncompressed, level)
