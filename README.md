@@ -1,7 +1,7 @@
 # TON-CLIENT-KOTLIN
 
 ![Maven Central](https://img.shields.io/maven-central/v/ee.nx-01.tonclient/ton-client-kotlin)
-![Main build and publish to bintray](https://github.com/mdorofeev/ton-client-kotlin/workflows/Main%20build%20and%20publish%20to%20bintray/badge.svg)
+![Main build and publish](https://github.com/mdorofeev/ton-client-kotlin/workflows/Main%20build%20and%20publish/badge.svg)
 
 TON-CLIENT-KOTLIN - is an async Kotlin bindings for TON SDK Library 
 
@@ -20,7 +20,7 @@ repositories {
 ```
 
 ```groovy
-implementation "ee.nx-01.tonclient:ton-client-kotlin:0.0.28"
+implementation "ee.nx-01.tonclient:ton-client-kotlin:0.0.30"
 ```
 
 ## Supported OS 

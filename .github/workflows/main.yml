@@ -1,4 +1,4 @@
-name: Main build and publish to bintray
+name: Main build and publish
 
 on:
   push:
