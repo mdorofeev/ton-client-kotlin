@@ -6,8 +6,9 @@ on:
       - '*'
 
 env:
-  BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
-  BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
+  OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+  GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
+  ORG_GRADLE_PROJECT_gpgKey: ${{ secrets.GPG_KEY }}
 
 jobs:
   build:
@@ -24,7 +25,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew -Pversion=${{ steps.get_version.outputs.VERSION }} dokkaJavadoc build bintrayUpload
+        run: ./gradlew -Pversion=${{ steps.get_version.outputs.VERSION }} dokkaJavadoc uploadArchives
       - uses: actions/upload-artifact@v1
         with:
           name: Package
