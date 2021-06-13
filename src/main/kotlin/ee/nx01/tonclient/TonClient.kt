@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import ee.nx01.tonclient.abi.AbiModule
 import ee.nx01.tonclient.boc.BocModule
 import ee.nx01.tonclient.crypto.CryptoModule
+import ee.nx01.tonclient.debot.DeBotModule
 import ee.nx01.tonclient.net.NetModule
 import ee.nx01.tonclient.process.ProcessModule
 import ee.nx01.tonclient.tvm.TvmModule
@@ -27,6 +28,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     val processing = ProcessModule(this)
     val boc = BocModule(this)
     val utils = UtilsModule(this)
+    val debot = DeBotModule(this)
 
     init {
         val result = TONSDKJsonApi.createContext(JsonUtils.write(config))
@@ -128,6 +130,8 @@ enum class TonResponseType(val code: Int) {
     Success(0),
     Error(1),
     Nop(2),
+    AppRequest(3),
+    AppNotify(4),
     Custom(100);
 
     companion object {
