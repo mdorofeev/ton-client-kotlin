@@ -1,15 +1,17 @@
 package ee.nx01.tonclient.debot
 
+import ee.nx01.tonclient.NetworkConfig
 import ee.nx01.tonclient.TonClient
+import ee.nx01.tonclient.TonClientConfig
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldNotBe
 
 class DeBotModuleTest : StringSpec({
 
     "Should be able init and start deboot" {
-        val client = TonClient()
+        val client = TonClient(TonClientConfig(network = NetworkConfig("main.ton.dev")))
 
-        val response = client.debot.init(ParamsOfInit("0:09403116d2d04f3d86ab2de138b390f6ec1b0bc02363dbf006953946e807051e")) {
+        val response = client.debot.init(ParamsOfInit("0:038081930f6b5211ba2c9e36cb28945954c35ccd913872a4b17b2671b83f2a88")) {
             println(it)
         }
 
@@ -21,9 +23,9 @@ class DeBotModuleTest : StringSpec({
     }
 
     "Should be able fetch" {
-        val client = TonClient()
+        val client = TonClient(TonClientConfig(network = NetworkConfig("main.ton.dev")))
 
-        val response = client.debot.fetch(ParamsOfFetch("0:09403116d2d04f3d86ab2de138b390f6ec1b0bc02363dbf006953946e807051e"))
+        val response = client.debot.fetch(ParamsOfFetch("0:038081930f6b5211ba2c9e36cb28945954c35ccd913872a4b17b2671b83f2a88"))
 
         response shouldNotBe  null
     }
