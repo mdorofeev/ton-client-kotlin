@@ -79,7 +79,7 @@ class NetModuletTest : StringSpec({
     "Query transaction tree" {
         val client = TonClient()
 
-        val response = client.net.queryTransactionTree(ParamsOfQueryTransactionTree("94a29f117ef5c1afbc0ee129e9a9c014aa9261ce285b1e7597d0282e0aa29cf5"))
+        val response = client.net.queryTransactionTree(ParamsOfQueryTransactionTree(TestConstants.MESSAGE_ID))
 
         response.messages shouldNotBe null
 
