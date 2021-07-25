@@ -105,4 +105,14 @@ class AbiModule(private val tonClient: TonClient) {
     suspend fun attachSignatureToMessageBody(params: ParamsOfAttachSignatureToMessageBody): ResultOfAttachSignatureToMessageBody {
         return tonClient.request("abi.attach_signature_to_message_body", params)
     }
+
+    /**
+     * Decodes account data using provided data BOC and ABI.
+
+        Note: this feature requires ABI 2.1 or higher.
+     */
+    suspend fun decodeAccountData(params: ParamsOfDecodeAccountData): ResultOfDecodeData {
+        return tonClient.request("abi.decode_account_data", params)
+    }
 }
+

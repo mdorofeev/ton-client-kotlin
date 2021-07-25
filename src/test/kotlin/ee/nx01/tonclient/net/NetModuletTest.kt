@@ -6,6 +6,7 @@ import ee.nx01.tonclient.TonClient
 import ee.nx01.tonclient.TonClientConfig
 import ee.nx01.tonclient.types.AccountFilterInput
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import kotlinx.coroutines.sync.Mutex
 
@@ -84,4 +85,25 @@ class NetModuletTest : StringSpec({
         response.messages shouldNotBe null
 
     }
+
+    "Should be able get block with block iterator" {
+        val client = TonClient(TonClientConfig(NetworkConfig(endpoints = listOf("main.ton.dev"))))
+
+        val iterator = client.net.createBlockIterator(ParamsOfCreateBlockIterator(shardFilter = listOf("0:8000000000000000")))
+
+        val next = ParamsOfIteratorNext(iterator= iterator.handle, returnResumeState = true)
+
+        val listItem = mutableListOf<ResultOfIteratorNext>()
+
+        for (i in 1..10) {
+            listItem += client.net.iteratorNext(next)
+        }
+
+        client.net.removeIterator(iterator)
+
+        listItem.size shouldBe 10
+
+    }
+
+
 })

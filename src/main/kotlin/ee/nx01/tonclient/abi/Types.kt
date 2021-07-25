@@ -195,3 +195,12 @@ data class ResultOfEncodeInternalMessage(
     val address: String,
     val messageId: String
 )
+
+data class ParamsOfDecodeAccountData(
+    val abi: Abi,
+    val data: String
+)
+
+data class ResultOfDecodeData(
+    val data: Any
+)

@@ -98,3 +98,44 @@ data class ResultOfQueryTransactionTree(
     val messages: List<MessageNode>,
     val transactions: List<TransactionNode>
 )
+
+data class ParamsOfResumeBlockIterator(
+    val resume_state: Any
+)
+
+data class RegisteredIterator(
+    val handle: Long
+)
+
+data class ParamsOfCreateBlockIterator(
+    val startTime: Long? = null,
+    val endTime: Long? = null,
+    val shardFilter: List<String>? = null,
+    val result: String? = null
+)
+
+data class ParamsOfIteratorNext(
+    val iterator: Long,
+    val limit: Long? = null,
+    val returnResumeState: Boolean? = null
+)
+
+data class ResultOfIteratorNext(
+    val items: List<Any>,
+    val hasMore: Boolean,
+    val resumeState: Any? = null
+)
+
+data class ParamsOfCreateTransactionIterator(
+    val startTime: Long? = null,
+    val endTime: Long? = null,
+    val shardFilter: List<String>? = null,
+    val accountsFilter: List<String>? = null,
+    val result: String? = null,
+    val includeTransfers: Boolean? = null
+)
+
+data class ParamsOfResumeTransactionIterator(
+    val resumeState: Any,
+    val accountsFilter: List<String>? = null
+)
