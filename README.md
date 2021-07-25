@@ -20,7 +20,7 @@ repositories {
 ```
 
 ```groovy
-implementation "ee.nx-01.tonclient:ton-client-kotlin:0.0.32"
+implementation "ee.nx-01.tonclient:ton-client-kotlin:0.0.34"
 ```
 
 ## Supported OS 
