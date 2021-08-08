@@ -86,6 +86,15 @@ class NetModuletTest : StringSpec({
 
     }
 
+    "Should be able call aggregate collection" {
+        val client = TonClient()
+
+        val response = client.net.aggregateCollection(ParamsOfAggregateCollection("transactions"))
+
+        response.values shouldNotBe null
+
+    }
+
     "Should be able get block with block iterator" {
         val client = TonClient(TonClientConfig(NetworkConfig(endpoints = listOf("main.ton.dev"))))
 

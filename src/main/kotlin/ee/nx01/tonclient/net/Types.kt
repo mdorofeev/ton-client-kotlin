@@ -17,7 +17,7 @@ data class EndpointsSet(
 data class ParamsOfAggregateCollection(
     val collection: String,
     val filter: Any? = null,
-    val fields: List<FieldAggregation>
+    val fields: List<FieldAggregation>? = listOf()
 )
 
 data class FieldAggregation(
@@ -41,6 +41,10 @@ data class ParamsOfQuery(
 
 data class ResultOfQuery(
     val result: Any
+)
+
+data class ResultOfAggregateCollection(
+    val values: Any
 )
 
 

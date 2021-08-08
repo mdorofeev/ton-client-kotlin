@@ -67,7 +67,7 @@ class NetModule(private val tonClient: TonClient) {
      *   Aggregates collection data.
      *   Aggregates values from the specified fields for records that satisfies the filter conditions,
      */
-    suspend fun aggregateCollection(params: ParamsOfAggregateCollection): ResultOfQuery {
+    suspend fun aggregateCollection(params: ParamsOfAggregateCollection): ResultOfAggregateCollection {
         return tonClient.request("net.aggregate_collection", params)
     }
 
