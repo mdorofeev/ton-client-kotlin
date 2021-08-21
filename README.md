@@ -20,7 +20,7 @@ repositories {
 ```
 
 ```groovy
-implementation "ee.nx-01.tonclient:ton-client-kotlin:0.0.34"
+implementation "ee.nx-01.tonclient:ton-client-kotlin:0.0.36"
 ```
 
 ## Supported OS 
@@ -83,7 +83,7 @@ val accountList = client.net.accounts.query(
 ```
 
 ## Related Links
-
+- [Android project example](https://github.com/mdorofeev/ton-client-kotlin-android-example)
 - [TON SDK docs](https://github.com/tonlabs/TON-SDK/blob/master/docs/modules.md)
 - [TON SDK repository](https://github.com/tonlabs/TON-SDK)
 
