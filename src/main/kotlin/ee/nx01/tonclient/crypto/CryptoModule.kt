@@ -210,9 +210,40 @@ class CryptoModule(private val tonClient: TonClient) {
             ?: error("Incorrect response")
     }
 
+    suspend fun createEncryptionBox(params: ParamsOfCreateEncryptionBox): RegisteredEncryptionBox {
+        return this.tonClient.request("crypto.create_encryption_box", params)
+    }
+
     companion object {
         val HD_PATH = "m/44'/396'/0'/0/0"
     }
 
 }
 
+data class ParamsOfCreateEncryptionBox(
+    val algorithm: EncryptionAlgorithm
+)
+
+data class EncryptionAlgorithm(
+    val type: String = "AES",
+    val value: AesParam
+)
+
+data class AesParam(
+    val mode: CipherMode,
+    val key: String,
+    val iv: String? = null,
+)
+
+
+enum class CipherMode {
+    CBC,
+    CFB,
+    CTR,
+    ECB,
+    OFB
+}
+
+data class RegisteredEncryptionBox(
+    val handle: Long
+)
