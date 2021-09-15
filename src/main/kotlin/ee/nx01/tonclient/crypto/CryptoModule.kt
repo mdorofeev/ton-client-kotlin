@@ -220,30 +220,3 @@ class CryptoModule(private val tonClient: TonClient) {
 
 }
 
-data class ParamsOfCreateEncryptionBox(
-    val algorithm: EncryptionAlgorithm
-)
-
-data class EncryptionAlgorithm(
-    val type: String = "AES",
-    val value: AesParam
-)
-
-data class AesParam(
-    val mode: CipherMode,
-    val key: String,
-    val iv: String? = null,
-)
-
-
-enum class CipherMode {
-    CBC,
-    CFB,
-    CTR,
-    ECB,
-    OFB
-}
-
-data class RegisteredEncryptionBox(
-    val handle: Long
-)
