@@ -84,4 +84,46 @@ class BocModule(private val tonClient: TonClient) {
         return tonClient.request("boc.encode_boc", params)
     }
 
+    /**
+     * Returns the contract code's salt if it is present.
+     */
+    suspend fun getCodeSalt(params: ParamsOfGetCodeSalt): ResultOfGetCodeSalt {
+        return tonClient.request("boc.get_code_salt", params)
+    }
+
+    /**
+     * Sets new salt to contract code.
+     */
+    suspend fun setCodeSalt(params: ParamsOfSetCodeSalt): ResultOfSetCodeSalt {
+        return tonClient.request("boc.set_code_salt", params)
+    }
+
+    /**
+     * Encodes tvc from code, data, libraries ans special options (see input params)
+     */
+    suspend fun encodeTvc(params: ParamsOfEncodeTvc): ResultOfEncodeTvc {
+        return tonClient.request("boc.encode_tvc", params)
+    }
+
+    /**
+     * Decodes tvc into code, data, libraries and special options.
+     */
+    suspend fun decodeTvc(params: ParamsOfDecodeTvc): ResultOfDecodeTvc {
+        return tonClient.request("boc.decode_tvc", params)
+    }
+
+    /**
+     * Returns the compiler version used to compile the code.
+     */
+    suspend fun getCompilerVersion(params: ParamsOfGetCompilerVersion): ResultOfGetCompilerVersion {
+        return tonClient.request("boc.get_compiler_version", params)
+    }
+
+    /**
+     * Calculates BOC depth
+     */
+    suspend fun getBocDepth(params: ParamsOfGetBocDepth): ResultOfGetBocDepth {
+        return tonClient.request("boc.get_boc_depth", params)
+    }
+
 }

@@ -1,5 +1,6 @@
 package ee.nx01.tonclient.abi
 
+import ee.nx01.tonclient.boc.BocCacheType
 import java.math.BigInteger
 
 
@@ -203,4 +204,26 @@ data class ParamsOfDecodeAccountData(
 
 data class ResultOfDecodeData(
     val data: Any
+)
+
+data class ParamsOfDecodeInitialData(
+    val abi: Abi? = null,
+    val data: String
+)
+
+data class ResultOfDecodeInitialData(
+    val initialData: Any?,
+    val initialPubkey: String
+)
+
+data class ParamsOfUpdateInitialData(
+    val abi: Abi? = null,
+    val data: String,
+    val initial_data: Any? = null,
+    val initial_pubkey: String? = null,
+    val bocCache: BocCacheType? = null
+)
+
+data class ResultOfUpdateInitialData(
+    val data: String
 )

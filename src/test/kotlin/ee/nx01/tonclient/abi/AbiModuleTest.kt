@@ -207,4 +207,22 @@ class AbiModuleTest : StringSpec({
     }
 
 
+    "Should be able updates initial account data " {
+        val client = TonClient()
+
+        val response = client.abi.updateInitialData(ParamsOfUpdateInitialData(data = "te6ccgEBBwEARwABAcABAgPPoAQCAQFIAwAWc29tZSBzdHJpbmcCASAGBQADHuAAQQiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIoA=="))
+
+        response shouldNotBe null
+
+    }
+
+    "Should be able decode initial account data " {
+        val client = TonClient()
+
+        val response = client.abi.decodeInitialData(ParamsOfDecodeInitialData(data = "te6ccgEBBwEARwABAcABAgPPoAQCAQFIAwAWc29tZSBzdHJpbmcCASAGBQADHuAAQQiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIoA=="))
+
+        response shouldNotBe null
+
+    }
+
 })

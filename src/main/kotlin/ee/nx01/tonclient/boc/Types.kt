@@ -113,3 +113,72 @@ data class ParamsOfParse(
 data class ResultOfParse(
     val parsed: Map<String, Any>
 )
+
+
+data class ResultOfGetCompilerVersion(
+    val version: String?
+)
+
+data class ParamsOfGetCompilerVersion(
+    val code: String
+)
+
+data class ResultOfDecodeTvc(
+    val code: String? = null,
+    val code_hash: String? = null,
+    val code_depth: Int? = null,
+    val data: String? = null,
+    val dataHash: String? = null,
+    val data_depth: Int? = null,
+    val library: String? = null,
+    val tick: Boolean? = null,
+    val tock: Boolean? = null,
+    val split_depth: Int? = null,
+    val compilerVersion: String? = null
+)
+
+data class ParamsOfDecodeTvc(
+    val tvc: String,
+    val bocCache: BocCacheType? = null
+)
+
+data class ParamsOfEncodeTvc(
+    val code: String? = null,
+    val data: String? = null,
+    val library: String? = null,
+    val tick: Boolean? = null,
+    val tock: Boolean? = null,
+    val splitDepth: Int? = null,
+    val bocCache: BocCacheType? = null
+)
+
+data class ResultOfEncodeTvc(
+    val tvc: String
+)
+
+data class ResultOfSetCodeSalt(
+    val code: String
+)
+
+data class ParamsOfSetCodeSalt(
+    val code: String,
+    val salt: String,
+    val bocCache: BocCacheType? = null
+)
+
+data class ParamsOfGetCodeSalt(
+    val code: String,
+    val bocCache: BocCacheType? = null
+)
+
+data class ResultOfGetCodeSalt(
+    val salt: String?
+)
+
+data class ParamsOfGetBocDepth(
+    val boc: String
+)
+
+data class ResultOfGetBocDepth(
+    val depth: Int
+)
