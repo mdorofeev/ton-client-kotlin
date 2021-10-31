@@ -8,7 +8,8 @@ class TonClientTest : StringSpec({
 
     "Should be able get version" {
         val client = TonClient()
-        client.version() shouldStartWith "1."
+        val version = client.version()
+        version shouldStartWith "1."
     }
 
     "Should be able get build info" {

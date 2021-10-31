@@ -1,6 +1,7 @@
 package ee.nx01.tonclient.abi
 
 import ee.nx01.tonclient.TonClient
+import ee.nx01.tonclient.boc.BocCacheType
 
 /**
 # Module abi
@@ -114,5 +115,22 @@ class AbiModule(private val tonClient: TonClient) {
     suspend fun decodeAccountData(params: ParamsOfDecodeAccountData): ResultOfDecodeData {
         return tonClient.request("abi.decode_account_data", params)
     }
-}
 
+    /**
+     * Updates initial account data with initial values for the contract's static variables and owner's public key.
+     * This operation is applicable only for initial account data (before deploy). If the contract is already deployed,
+     * its data doesn't contain this data section any more.
+     */
+    suspend fun updateInitialData(params: ParamsOfUpdateInitialData): ResultOfUpdateInitialData {
+        return tonClient.request("abi.update_initial_data", params)
+    }
+
+    /**
+     * Decodes initial values of a contract's static variables and owner's public key from account initial data This
+     * operation is applicable only for initial account data (before deploy). If the contract is already deployed,
+     * its data doesn't contain this data section any more.
+     */
+    suspend fun decodeInitialData(params: ParamsOfDecodeInitialData): ResultOfDecodeInitialData {
+        return tonClient.request("abi.decode_initial_data", params)
+    }
+}
