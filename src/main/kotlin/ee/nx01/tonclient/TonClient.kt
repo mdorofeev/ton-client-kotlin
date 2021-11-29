@@ -7,6 +7,7 @@ import ee.nx01.tonclient.crypto.CryptoModule
 import ee.nx01.tonclient.debot.DeBotModule
 import ee.nx01.tonclient.net.NetModule
 import ee.nx01.tonclient.process.ProcessModule
+import ee.nx01.tonclient.proofs.ProofsModule
 import ee.nx01.tonclient.tvm.TvmModule
 import ee.nx01.tonclient.utils.UtilsModule
 import mu.KotlinLogging
@@ -29,6 +30,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     val boc = BocModule(this)
     val utils = UtilsModule(this)
     val debot = DeBotModule(this)
+    val proofs = ProofsModule(this)
 
     init {
         val result = TONSDKJsonApi.createContext(JsonUtils.write(config))

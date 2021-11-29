@@ -116,7 +116,13 @@ enum class TonClientErrorCode(val code: Int) {
     InvalidServerResponse(605),
     ClockOutOfSync(606),
     WaitForTimeout(607),
-    GraphqlError(608);
+    GraphqlError(608),
+
+    //Proofs
+    ProofsInvalidData(901),
+    ProofsCheckFailed(902),
+    ProofsInternalError(903),
+    DataDiffersFromProven(904);
 
 
     companion object {
