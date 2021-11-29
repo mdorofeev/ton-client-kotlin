@@ -2,6 +2,7 @@ package ee.nx01.tonclient.tvm
 
 import ee.nx01.tonclient.abi.Abi
 import ee.nx01.tonclient.abi.MessageBodyType
+import ee.nx01.tonclient.boc.BocCacheType
 import java.math.BigInteger
 
 
@@ -14,7 +15,9 @@ data class ParamsOfRunTvm(
     val message: String,
     val account: String,
     val executionOptions: ExecutionOptions? = null,
-    val abi: Abi? = null
+    val abi: Abi? = null,
+    val bocCache: BocCacheType? = null,
+    val returnUpdatedAccount: Boolean? = null
 )
 
 data class ResultOfRunTvm(
@@ -35,7 +38,7 @@ data class ResultOfRunExecutor(
     val transaction: Any? = null,
     val outMessages: List<String>? = null,
     val decoded: DecodedOutput? = null,
-    val account: Any? = null,
+    val account: String? = null,
     val fees: TransactionFees
 )
 
@@ -64,7 +67,11 @@ data class ParamsOfRunExecutor(
     val message: String,
     val account: AccountForExecutor? = null,
     val mode: ExecutionMode = ExecutionMode.Full,
-    val executionOptions: ExecutionOptions? = null
+    val executionOptions: ExecutionOptions? = null,
+    val abi: Abi? = null,
+    val skipTransactionCheck: Boolean? = null,
+    val bocCache: BocCacheType? = null,
+    val returnUpdatedAccount: Boolean? = null
 )
 
 data class AccountForExecutor(
