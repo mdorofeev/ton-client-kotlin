@@ -1,9 +1,6 @@
 package ee.nx01.tonclient.abi
 
-import ee.nx01.tonclient.TonClient
-import ee.nx01.tonclient.TonClientErrorCode
-import ee.nx01.tonclient.TonClientException
-import ee.nx01.tonclient.TonUtils
+import ee.nx01.tonclient.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -220,6 +217,17 @@ class AbiModuleTest : StringSpec({
         val client = TonClient()
 
         val response = client.abi.decodeInitialData(ParamsOfDecodeInitialData(data = "te6ccgEBBwEARwABAcABAgPPoAQCAQFIAwAWc29tZSBzdHJpbmcCASAGBQADHuAAQQiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIoA=="))
+
+        response shouldNotBe null
+
+    }
+
+    "Should be able encode initial account data " {
+        val client = TonClient()
+
+        val abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json")
+
+        val response = client.abi.encodeInitialData(ParamsOfEncodeInitialData(initialData = mapOf("test" to "test"), abi = abi, initialPubkey = TestConstants.WALLET_PUBLIC))
 
         response shouldNotBe null
 
