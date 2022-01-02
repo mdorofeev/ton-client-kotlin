@@ -227,3 +227,14 @@ data class ParamsOfUpdateInitialData(
 data class ResultOfUpdateInitialData(
     val data: String
 )
+
+data class ParamsOfEncodeInitialData(
+    val abi: Abi? = null,
+    val initialData: Any? = null,
+    val initialPubkey: String? = null,
+    val bocCache: BocCacheType? = null
+)
+
+data class ResultOfEncodeInitialData(
+    val data: String
+)

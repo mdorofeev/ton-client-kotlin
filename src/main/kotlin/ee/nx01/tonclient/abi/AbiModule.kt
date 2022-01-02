@@ -1,7 +1,6 @@
 package ee.nx01.tonclient.abi
 
 import ee.nx01.tonclient.TonClient
-import ee.nx01.tonclient.boc.BocCacheType
 
 /**
 # Module abi
@@ -132,5 +131,13 @@ class AbiModule(private val tonClient: TonClient) {
      */
     suspend fun decodeInitialData(params: ParamsOfDecodeInitialData): ResultOfDecodeInitialData {
         return tonClient.request("abi.decode_initial_data", params)
+    }
+
+    /**
+     * Encodes initial account data with initial values for the contract's static variables and owner's public key
+     * into a data BOC that can be passed to encode_tvc function afterwards
+     */
+    suspend fun encodeInitialData(params: ParamsOfEncodeInitialData): ResultOfEncodeInitialData {
+        return tonClient.request("abi.encode_initial_data", params)
     }
 }
