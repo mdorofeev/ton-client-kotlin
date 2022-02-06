@@ -126,4 +126,11 @@ class BocModule(private val tonClient: TonClient) {
         return tonClient.request("boc.get_boc_depth", params)
     }
 
+    /**
+     * Allows to encode any external inbound message.
+     */
+    suspend fun encodeExternalInMessage(params: ParamsOfEncodeExternalInMessage): ResultOfEncodeExternalInMessage {
+        return tonClient.request("boc.encode_external_in_message", params)
+    }
+
 }
