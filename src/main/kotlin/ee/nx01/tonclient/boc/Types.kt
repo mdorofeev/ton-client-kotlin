@@ -182,3 +182,16 @@ data class ParamsOfGetBocDepth(
 data class ResultOfGetBocDepth(
     val depth: Int
 )
+
+data class ParamsOfEncodeExternalInMessage(
+    val src: String? = null,
+    val dst: String,
+    val init: String? = null,
+    val body: String? = null,
+    val boc_cache: BocCacheType? = null
+)
+
+data class ResultOfEncodeExternalInMessage(
+    val message: String,
+    val message_id: String
+)
