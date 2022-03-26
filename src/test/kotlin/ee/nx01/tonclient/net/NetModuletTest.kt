@@ -12,7 +12,7 @@ import kotlinx.coroutines.sync.Mutex
 
 class NetModuletTest : StringSpec({
 
-    "Subscribe on account and suspend and resume" {
+    "Subscribe on account and suspend and resume".config(enabled = true) {
         val client = TonClient()
 
         val mutex = Mutex(true)

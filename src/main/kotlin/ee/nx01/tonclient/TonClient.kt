@@ -45,8 +45,14 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
         logger.info { "Request to TONSDK: requestId=$requestId context=$context" }
         TONSDKJsonApi.jsonRequestAsync(context, requestId, method, params, object : Handler {
             override fun invoke(result: String, error: String, responseType: Int) {
+                val tonResponseType = TonResponseType.fromIntRepresentation(responseType)
+
+                if (tonResponseType == TonResponseType.Nop) {
+                    return
+                }
+
                 try {
-                    onResult(TonClientResponse(result, error, TonResponseType.fromIntRepresentation(responseType)))
+                    onResult(TonClientResponse(result, error, tonResponseType))
                 } catch (e: Exception) {
                     logger.error(e.message, e)
                 }
