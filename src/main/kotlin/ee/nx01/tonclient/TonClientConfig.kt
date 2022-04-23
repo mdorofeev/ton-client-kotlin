@@ -16,7 +16,8 @@ data class NetworkConfig(
     val messageProcessingTimeout: Int? = null,
     val waitForTimeout: Int? = null,
     val outOfSyncThreshold: Int? = null,
-    val accessKey: String? = null
+    val accessKey: String? = null,
+    val queriesProtocol: String? = null
 )
 
 data class CryptoConfig(
