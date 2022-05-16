@@ -202,7 +202,10 @@ class CryptoModule(private val tonClient: TonClient) {
     }
 
     suspend fun naclSignDetachedVerify(params: ParamsOfNaclSignDetachedVerify): Boolean {
-        return this.tonClient.request<Map<String, String>>("crypto.nacl_sign_detached_verify", params)["succeeded"].toBoolean()
+        return this.tonClient.request<Map<String, String>>(
+            "crypto.nacl_sign_detached_verify",
+            params
+        )["succeeded"].toBoolean()
     }
 
     suspend fun chacha20(params: ParamsOfChaCha20): String {
@@ -212,6 +215,34 @@ class CryptoModule(private val tonClient: TonClient) {
 
     suspend fun createEncryptionBox(params: ParamsOfCreateEncryptionBox): RegisteredEncryptionBox {
         return this.tonClient.request("crypto.create_encryption_box", params)
+    }
+
+    suspend fun createCryptoBox(params: ParamsOfCreateCryptoBox): RegisteredEncryptionBox {
+        return this.tonClient.request("crypto.create_crypto_box", params)
+    }
+
+    suspend fun removeCryptoBox(params: RegisteredCryptoBox) {
+        return this.tonClient.request("crypto.remove_crypto_box", params)
+    }
+
+    suspend fun getCryptoBoxSeedPhrase(params: RegisteredCryptoBox): ResultOfGetCryptoBoxSeedPhrase {
+        return this.tonClient.request("crypto.get_crypto_box_seed_phrase", params)
+    }
+
+    suspend fun getCryptoBoxInfo(params: RegisteredCryptoBox): ResultOfGetCryptoBoxInfo {
+        return this.tonClient.request("crypto.get_crypto_box_info", params)
+    }
+
+    suspend fun getSigningBoxFromCryptoBox(params: ParamsOfGetSigningBoxFromCryptoBox): RegisteredSigningBox {
+        return this.tonClient.request("crypto.get_signing_box_from_crypto_box", params)
+    }
+
+    suspend fun getEncryptionBoxFromCryptoBox(params: ParamsOfGetEncryptionBoxFromCryptoBox): RegisteredEncryptionBox {
+        return this.tonClient.request("crypto.get_encryption_box_from_crypto_box", params)
+    }
+
+    suspend fun clearCryptoBoxSecretCache(params: RegisteredCryptoBox) {
+        return this.tonClient.request("crypto.clear_crypto_box_secret_cache", params)
     }
 
     companion object {

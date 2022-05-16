@@ -205,3 +205,39 @@ enum class CipherMode {
 data class RegisteredEncryptionBox(
     val handle: Long
 )
+
+data class ParamsOfGetEncryptionBoxFromCryptoBox(
+    val handle: Int,
+    val hdpath: String? = null,
+    val algorithm: String,
+    val secretLifetime: Int? = null
+)
+
+data class ResultOfGetCryptoBoxInfo(
+    val encrypted_secret: String
+)
+
+data class RegisteredSigningBox(
+    val handle: Int
+)
+
+data class ParamsOfGetSigningBoxFromCryptoBox(
+    val handle: Int,
+    val hdpath: String? = null,
+    val secretLifetime: Int? = null
+)
+
+data class ResultOfGetCryptoBoxSeedPhrase(
+    val phrase: String,
+    val dictionary: Int,
+    val wordcount: Int
+)
+
+data class ParamsOfCreateCryptoBox(
+    val secret_encryption_salt: String,
+    val secret: Int
+)
+
+data class RegisteredCryptoBox(
+    val handle: Int
+)
