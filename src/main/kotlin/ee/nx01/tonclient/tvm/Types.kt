@@ -49,6 +49,9 @@ data class TransactionFees(
     val outMsgsFwdFee: Long,
     val totalAccountFees: Long,
     val totalOutput: Long,
+    val extInMsgFee: Long,
+    val totalFwdFees: Long,
+    val accountFees: Long
 )
 
 data class DecodedOutput(

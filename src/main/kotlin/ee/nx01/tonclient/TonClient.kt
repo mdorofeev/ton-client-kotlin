@@ -73,6 +73,11 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
         return JsonUtils.read<Map<String, String>>(response)["version"] ?: error("Incorrect response")
     }
 
+    suspend fun config() : Map<String, String> {
+        val response = requestString("client.config", "")
+        return JsonUtils.read(response)
+    }
+
     suspend fun buildInfo(): Any {
         val response = requestString("client.build_info", "")
         return JsonUtils.read<Map<String, Any>>(response)["build_number"] ?: error("Incorrect response")
