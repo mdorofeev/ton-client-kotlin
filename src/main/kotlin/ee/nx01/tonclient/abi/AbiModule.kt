@@ -1,6 +1,7 @@
 package ee.nx01.tonclient.abi
 
 import ee.nx01.tonclient.TonClient
+import ee.nx01.tonclient.boc.BocCacheType
 
 /**
 # Module abi
@@ -139,5 +140,12 @@ class AbiModule(private val tonClient: TonClient) {
      */
     suspend fun encodeInitialData(params: ParamsOfEncodeInitialData): ResultOfEncodeInitialData {
         return tonClient.request("abi.encode_initial_data", params)
+    }
+
+    /**
+     * Encodes given parameters in JSON into a BOC using param types from ABI.
+     */
+    suspend fun encodeBoc(params: ParamsOfAbiEncodeBoc): ResultOfAbiEncodeBoc {
+        return tonClient.request("abi.encode_boc", params)
     }
 }

@@ -238,3 +238,19 @@ data class ParamsOfEncodeInitialData(
 data class ResultOfEncodeInitialData(
     val data: String
 )
+
+data class ParamsOfAbiEncodeBoc(
+    val params: List<AbiParam>? = null,
+    val data: Any,
+    val bocCache: BocCacheType? = null
+)
+
+data class ResultOfAbiEncodeBoc(
+    val boc: String
+)
+
+data class AbiParam(
+    val name: String,
+    val type: String,
+    val components: List<AbiParam>? = null
+)
