@@ -14,7 +14,8 @@ data class ParamsOfEncodeAccount(
 data class ParamsOfDecodeMessageBody(
     val abi: Abi,
     val body: String,
-    val isInternal: Boolean
+    val isInternal: Boolean,
+    val allowPartial: Boolean? = null
 )
 
 data class StateInitSource(
@@ -208,7 +209,8 @@ data class ResultOfDecodeData(
 
 data class ParamsOfDecodeInitialData(
     val abi: Abi? = null,
-    val data: String
+    val data: String,
+    val allowPartial: Boolean? = null
 )
 
 data class ResultOfDecodeInitialData(
