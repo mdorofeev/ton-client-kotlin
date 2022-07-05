@@ -93,7 +93,8 @@ data class ExecutionOptions(
     val blockchainConfig: String? = null,
     val blockTime: Long? = null,
     val blockLt: BigInteger? = null,
-    val transactionLt: BigInteger? = null
+    val transactionLt: BigInteger? = null,
+    val chksigAlwaysSucceed: Boolean? = null
 )
 
 /**

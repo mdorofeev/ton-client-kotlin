@@ -256,3 +256,13 @@ data class AbiParam(
     val type: String,
     val components: List<AbiParam>? = null
 )
+
+data class ParamsOfCalcFunctionId(
+    val abi: Abi,
+    val functionName: String,
+    val output: Boolean? = null
+)
+
+data class ResultOfCalcFunctionId(
+    val function_id: Long
+)

@@ -148,4 +148,11 @@ class AbiModule(private val tonClient: TonClient) {
     suspend fun encodeBoc(params: ParamsOfAbiEncodeBoc): ResultOfAbiEncodeBoc {
         return tonClient.request("abi.encode_boc", params)
     }
+
+    /**
+     * Calculates contract function ID by contract ABI
+     */
+    suspend fun calcFunctionId(params: ParamsOfCalcFunctionId): ResultOfCalcFunctionId {
+        return tonClient.request("abi.calc_function_id", params)
+    }
 }
