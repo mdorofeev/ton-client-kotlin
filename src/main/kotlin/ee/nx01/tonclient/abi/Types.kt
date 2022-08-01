@@ -45,7 +45,8 @@ data class ParamsOfEncodeMessageBody(
     val callSet: CallSet,
     val isInternal: Boolean = false,
     val signer: Signer,
-    val processingTryIndex: Int? = null
+    val processingTryIndex: Int? = null,
+    val address: String? = null
 )
 
 data class ResultOfEncodeMessageBody(
