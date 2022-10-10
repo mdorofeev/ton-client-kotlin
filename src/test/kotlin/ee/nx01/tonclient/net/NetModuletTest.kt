@@ -13,7 +13,7 @@ import kotlinx.coroutines.sync.Mutex
 class NetModuletTest : StringSpec({
 
     "Subscribe on account and suspend and resume".config(enabled = true) {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val mutex = Mutex(true)
 
@@ -40,7 +40,7 @@ class NetModuletTest : StringSpec({
     }
 
     "Get last shard block" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val response = client.net.findLastShardBlock(ParamsOfFindLastShardBlock(TestConstants.WALLET_ADDRESS))
 
@@ -49,7 +49,7 @@ class NetModuletTest : StringSpec({
     }
 
     "Query raw GraphQL request" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val response = client.net.query(ParamsOfQuery("{info{version}}", variables = null))
 
@@ -57,16 +57,7 @@ class NetModuletTest : StringSpec({
     }
 
     "Should be able set endpoints" {
-        val client = TonClient(
-            TonClientConfig(
-                NetworkConfig(
-                    endpoints = listOf(
-                        "https://net.ton.dev",
-                        "https://rustnet.ton.dev"
-                    )
-                )
-            )
-        )
+        val client = TonClient(TestConstants.CONFIG)
 
         val endpointSet = EndpointsSet(listOf("https://net.ton.dev", "https://rustnet.ton.dev"))
 
@@ -78,7 +69,7 @@ class NetModuletTest : StringSpec({
     }
 
     "Query transaction tree" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val response = client.net.queryTransactionTree(ParamsOfQueryTransactionTree(TestConstants.MESSAGE_ID))
 
@@ -87,7 +78,7 @@ class NetModuletTest : StringSpec({
     }
 
     "Should be able call aggregate collection" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val response = client.net.aggregateCollection(ParamsOfAggregateCollection("transactions"))
 
@@ -96,7 +87,7 @@ class NetModuletTest : StringSpec({
     }
 
     "Should be able get block with block iterator" {
-        val client = TonClient(TonClientConfig(NetworkConfig(endpoints = listOf("main.ton.dev"))))
+        val client = TonClient(TestConstants.CONFIG)
 
         val iterator = client.net.createBlockIterator(ParamsOfCreateBlockIterator(shardFilter = listOf("0:8000000000000000")))
 

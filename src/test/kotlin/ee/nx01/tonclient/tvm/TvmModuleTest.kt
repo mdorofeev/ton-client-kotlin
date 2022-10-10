@@ -12,7 +12,7 @@ class TvmModuleTest : StringSpec({
 
     "Should be able run get method" {
 
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val elector =
             client.net.accounts.getAccount("-1:3333333333333333333333333333333333333333333333333333333333333333")!!
@@ -51,7 +51,7 @@ class TvmModuleTest : StringSpec({
     }
 
     "Should be able execute message" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val message = ParamsOfEncodeMessage(
             abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
@@ -88,7 +88,7 @@ class TvmModuleTest : StringSpec({
 
 
     "Should be able run tvm" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val message = ParamsOfEncodeMessage(
             abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
@@ -124,7 +124,7 @@ class TvmModuleTest : StringSpec({
     }
 
     "Should be able run tvm depool" {
-        val client = TonClient(TonClientConfig(network = NetworkConfig(serverAddress = "main.ton.dev")))
+        val client = TonClient(TestConstants.CONFIG_MAIN)
 
         val abi = TonUtils.readAbi("depool/DePool.abi.json")
         val message = ParamsOfEncodeMessage(
@@ -156,7 +156,7 @@ class TvmModuleTest : StringSpec({
 
 
     "Should be error with wrong secret on run contract" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val message = ParamsOfEncodeMessage(
             abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json"),
