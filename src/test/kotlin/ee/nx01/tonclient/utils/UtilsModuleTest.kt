@@ -13,7 +13,7 @@ import java.util.*
 class UtilsModuleTest : StringSpec({
 
     "Should be able convert address" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val accountId = "fcb91a3a3816d0f7b8c2c76108b8a9bc5a6b7a55bd79f8ab101c52db29232260"
         val hex = "-1:fcb91a3a3816d0f7b8c2c76108b8a9bc5a6b7a55bd79f8ab101c52db29232260"
@@ -50,7 +50,7 @@ class UtilsModuleTest : StringSpec({
     }
 
     "Should be able calculate storage fee" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val boc = client.net.accounts.getAccount(TestConstants.WALLET_ADDRESS)?.boc ?: error("Account not found")
         val fee = client.utils.calcStorageFee(boc, 24 * 60 * 60 * 30 * 12)

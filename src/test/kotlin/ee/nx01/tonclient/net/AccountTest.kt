@@ -13,7 +13,7 @@ import java.math.BigDecimal
 
 class AccountTest : StringSpec({
     "Get account list from blockchain" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val accountList = client.net.accounts.query(
             AccountFilterInput(id = StringFilterInput(eq = TestConstants.WALLET_ADDRESS)),
@@ -27,7 +27,7 @@ class AccountTest : StringSpec({
     }
 
     "Subscribe on account" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val mutex = Mutex(true)
 
@@ -50,7 +50,7 @@ class AccountTest : StringSpec({
     }
 
     "search account with wrong id" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val account =
             client.net.accounts.getAccount("0:c1c52894eb07f12ba110ff4be2d115ab09d0b06ba44ff9d6d31459a00d4e58ed")

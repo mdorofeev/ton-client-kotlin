@@ -10,7 +10,7 @@ import io.kotest.matchers.shouldNotBe
 
 class MessagesTest : StringSpec({
     "Get message from blockchain" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val filter =
             MessageFilterInput(id = StringFilterInput(eq = TestConstants.MESSAGE_ID))

@@ -13,7 +13,7 @@ import kotlinx.coroutines.sync.Mutex
 
 class TransactionTest : StringSpec({
     "Get transaction list from blockchain" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val transactionList = client.net.transactions.query(
             TransactionFilterInput(id = StringFilterInput(eq = TestConstants.TRANSACTION_ID)),
@@ -26,7 +26,7 @@ class TransactionTest : StringSpec({
     }
 
     "Get transaction list from blockchain with limit and order" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val transactionList = client.net.transactions.query(
             TransactionFilterInput(id = StringFilterInput(gt = TestConstants.TRANSACTION_ID)),
@@ -39,7 +39,7 @@ class TransactionTest : StringSpec({
     }
 
     "Wait for collection for transaction" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val transaction = client.net.transactions.waitForCollection(
             TransactionFilterInput(id = StringFilterInput(eq = TestConstants.TRANSACTION_ID)),
@@ -51,7 +51,7 @@ class TransactionTest : StringSpec({
     }
 
     "Subscribe on transactions" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val mutex = Mutex(true)
 

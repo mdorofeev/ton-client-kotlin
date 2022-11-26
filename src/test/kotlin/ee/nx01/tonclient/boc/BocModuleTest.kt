@@ -75,7 +75,7 @@ class BocModuleTest : StringSpec({
 
 
     "Should be able get blockchain config" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val blockResponse = client.net.blocks.query(
             BlockFilterInput(id = StringFilterInput(eq = TestConstants.KEY_BLOCK_ID)),

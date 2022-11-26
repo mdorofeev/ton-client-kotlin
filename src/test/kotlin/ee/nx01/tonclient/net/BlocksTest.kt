@@ -11,7 +11,7 @@ import io.kotest.matchers.shouldNotBe
 
 class BlocksTest : StringSpec({
     "Get block from blockchain" {
-        val client = TonClient()
+        val client = TonClient(TestConstants.CONFIG)
 
         val filter = BlockFilterInput(
             seq_no = FloatFilterInput(eq = TestConstants.BLOCK_ID),
