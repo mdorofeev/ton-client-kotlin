@@ -69,7 +69,7 @@ data class BuilderOp(
 )
 
 enum class BuilderOpType {
-    Integer, BitString, Cell, CellBoc
+    Integer, BitString, Cell, CellBoc, Address
 }
 
 data class ResultOfEncodeBoc(
