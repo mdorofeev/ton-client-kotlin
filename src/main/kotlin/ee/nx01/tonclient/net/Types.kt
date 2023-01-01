@@ -95,7 +95,9 @@ data class TransactionNode(
 
 data class ParamsOfQueryTransactionTree(
     val in_msg: String,
-    val abiRegistry: List<Abi>? = null
+    val abiRegistry: List<Abi>? = null,
+    val timeout: Int? = null,
+    val transactionMaxCount: Int? = null
 )
 
 data class ResultOfQueryTransactionTree(
