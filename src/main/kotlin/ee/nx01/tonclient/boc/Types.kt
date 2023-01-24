@@ -65,7 +65,8 @@ data class BuilderOp(
     val size: Int? = null,
     val value: Any? = null,
     val builder: List<BuilderOp>? = null,
-    val boc: String? = null
+    val boc: String? = null,
+    val address: String? = null
 )
 
 enum class BuilderOpType {
