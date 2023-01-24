@@ -53,12 +53,15 @@ data class ParamsOfEncodeBoc(
     Append ref to nested cell
 
     boc: string – Nested cell BOC encoded with base64 or BOC cache key.
+    
+    address: string - Address in a common `workchain:account` or base64 format.
     Variant constructors:
 
     function builderOpInteger(size: number, value: any): BuilderOp;
     function builderOpBitString(value: string): BuilderOp;
     function builderOpCell(builder: BuilderOp[]): BuilderOp;
     function builderOpCellBoc(boc: string): BuilderOp;
+    function builderOpCellBoc(address: string): BuilderOp;
  */
 data class BuilderOp(
     val type: BuilderOpType,
