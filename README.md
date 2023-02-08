@@ -45,7 +45,7 @@ suspend fun main() {
     val keyPair = client.crypto.ed25519Keypair()
 }
 ```
-##### Process transaction with TON
+##### Process transaction with EVER
 
 ```kotlin
 import ee.nx01.tonclient.NetworkConfig
@@ -112,6 +112,6 @@ suspend fun main() {
 
 ## Related Links
 - [Android project example](https://github.com/mdorofeev/ton-client-kotlin-android-example)
-- [TON SDK docs](https://github.com/tonlabs/ever-sdk/blob/master/docs/reference/types-and-methods/modules.md)
-- [TON SDK repository](https://github.com/tonlabs/ever-sdk)
+- [EVER SDK docs](https://github.com/tonlabs/ever-sdk/blob/master/docs/reference/types-and-methods/modules.md)
+- [EVER SDK repository](https://github.com/tonlabs/ever-sdk)
 
