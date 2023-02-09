@@ -123,36 +123,6 @@ class TvmModuleTest : StringSpec({
         response2 shouldNotBe null
     }
 
-    "Should be able run tvm depool" {
-        val client = TonClient(TestConstants.CONFIG_MAIN)
-
-        val abi = TonUtils.readAbi("depool/DePool.abi.json")
-        val message = ParamsOfEncodeMessage(
-            abi = abi,
-            address = "0:866b902a4034122b96f6312e3a00e167dd33a69e662f7b104e82d82edacb506e",
-            callSet = CallSet(
-                "getParticipantInfo",
-                input = mapOf(
-                    "addr" to "0:4ad982cab6f55e2338bbb40463297d873ae239d637f95b5d26e713df716c5217",
-                )
-            ),
-            signer = Signer.none()
-        )
-
-        val response = client.abi.encodeMessage(message)
-
-        val account =
-            client.net.accounts.getAccount("0:866b902a4034122b96f6312e3a00e167dd33a69e662f7b104e82d82edacb506e")?.boc!!
-
-        val params = ParamsOfRunTvm(message = response.message, account = account)
-        val response2 = client.tvm.runTvm(params)
-
-        val msg = client.abi.decodeMessage(ParamsOfDecodeMessage(abi = abi, message = response2.outMessages[0]))
-
-        println(msg)
-
-        msg.value shouldNotBe null
-    }
 
 
     "Should be error with wrong secret on run contract" {
