@@ -267,3 +267,14 @@ data class ParamsOfCalcFunctionId(
 data class ResultOfCalcFunctionId(
     val function_id: Long
 )
+
+data class ParamsOfGetSignatureData(
+    val abi: Abi,
+    val message: String,
+    val signature_id: Int? = null
+)
+
+data class ResultOfGetSignatureData(
+    val signature: String,
+    val unsigned: String
+)

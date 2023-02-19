@@ -4,7 +4,8 @@ package ee.nx01.tonclient
 data class TonClientConfig(
     val network: NetworkConfig = NetworkConfig(),
     val crypto: CryptoConfig? = null,
-    val abi: AbiConfig? = null
+    val abi: AbiConfig? = null,
+    val binding: Map<String, String> = mapOf("library" to "ton-client-kotlin", "version" to "0.0.59" )
 )
 
 
@@ -31,3 +32,4 @@ data class AbiConfig(
     val messageExpirationTimeout: Int? = null,
     val messageExpirationTimeoutGrowFactor: Int? = null
 )
+

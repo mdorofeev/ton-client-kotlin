@@ -233,4 +233,15 @@ class AbiModuleTest : StringSpec({
 
     }
 
+    "Should be able call get signature data " {
+        val client = TonClient()
+
+        val abi = TonUtils.readAbi("setcodemultisig/SetcodeMultisigWallet.abi.json")
+
+        val response = client.abi.getSignatureData(ParamsOfGetSignatureData(abi, "te6ccgEBBAEA0QABRYgAIOUk2QkCZir6x9GC0jec83d6iyaPfI+1cKptIHEpXWYMAQHh9w7spN3GKgAeE8SSmvi/Q6Scw7SVwnsVRjvNxXPh1E/qDF1GTgGA/LZwnQOlAYVq/9oxrJuv4wPCZA+XfyuYB1+82TQK99ImlZxRVPdZiYGZtUtSwPFq9bOYux/+8CiygAAAXVAHUH8X41XhBMdgs2ACAWOAHdKNExvciXNvqdqKX1ybdO59hnMullzqRH0NBClYA7/AAAAAAAAAAAAAAAAAvrwgBAMAAA=="))
+
+        response shouldNotBe null
+
+    }
+
 })

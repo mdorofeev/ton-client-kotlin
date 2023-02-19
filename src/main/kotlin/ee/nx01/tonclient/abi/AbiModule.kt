@@ -1,7 +1,6 @@
 package ee.nx01.tonclient.abi
 
 import ee.nx01.tonclient.TonClient
-import ee.nx01.tonclient.boc.BocCacheType
 
 /**
 # Module abi
@@ -110,7 +109,7 @@ class AbiModule(private val tonClient: TonClient) {
     /**
      * Decodes account data using provided data BOC and ABI.
 
-        Note: this feature requires ABI 2.1 or higher.
+    Note: this feature requires ABI 2.1 or higher.
      */
     suspend fun decodeAccountData(params: ParamsOfDecodeAccountData): ResultOfDecodeData {
         return tonClient.request("abi.decode_account_data", params)
@@ -154,5 +153,12 @@ class AbiModule(private val tonClient: TonClient) {
      */
     suspend fun calcFunctionId(params: ParamsOfCalcFunctionId): ResultOfCalcFunctionId {
         return tonClient.request("abi.calc_function_id", params)
+    }
+
+    /**
+     * Extracts signature from message body and calculates hash to verify the signature
+     */
+    suspend fun getSignatureData(params: ParamsOfGetSignatureData): ResultOfGetSignatureData {
+        return tonClient.request("abi.get_signature_data", params)
     }
 }
