@@ -244,4 +244,16 @@ class AbiModuleTest : StringSpec({
 
     }
 
+
+    "Should be able decode boc " {
+        val client = TonClient()
+
+        val abiParams = listOf(AbiParam("a", "uint32"), AbiParam("b", "ref(int64)"), AbiParam("c", "bool"))
+
+        val response = client.abi.decodeBoc(ParamsOfDecodeBoc(abiParams, "te6ccgEBAgEAEgABCQAAAADAAQAQAAAAAAAAAHs=", true))
+
+        response shouldNotBe null
+
+    }
+
 })

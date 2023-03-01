@@ -278,3 +278,13 @@ data class ResultOfGetSignatureData(
     val signature: String,
     val unsigned: String
 )
+
+data class ParamsOfDecodeBoc(
+    val params: List<AbiParam>,
+    val boc: String,
+    val allow_partial: Boolean
+)
+
+data class ResultOfDecodeBoc(
+    val data: Any
+)
