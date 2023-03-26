@@ -48,6 +48,14 @@ class ProcessModule(private val tonClient: TonClient) {
     }
 
     /**
+    ## send_messages
+    Sends specified messages to the blockchain.
+     */
+    suspend fun sendMessages(params: ParamsOfSendMessages): ResultOfSendMessages {
+        return tonClient.request("processing.send_messages", params)
+    }
+
+    /**
     ## wait_for_transaction
 
     Performs monitoring of the network for the result transaction of the external inbound message processing.

@@ -57,3 +57,36 @@ enum class ProcessingEventType {
     MessageExpired,
     TransactionReceived
 }
+
+data class ParamsOfSendMessages(
+    val messages: List<MessageSendingParams>,
+    val monitorQueue: String? = null
+)
+
+data class ResultOfSendMessages(
+    val messages: List<MessageMonitoringParams>
+)
+
+data class MessageSendingParams(
+    val boc: String,
+    val waitUntil: Int,
+    val userData: Any? = null
+)
+
+data class ParamsOfMonitorMessages(
+    val queue: String,
+    val messages: List<MessageMonitoringParams>
+)
+
+data class MessageMonitoringParams(
+    val message: MonitoredMessage,
+    val waitUntil: Int,
+    val userData: Any? = null
+)
+
+data class MonitoredMessage(
+    val type: String,
+    val boc: String? = null,
+    val hash: String? = null,
+    val address: String? = null
+)
