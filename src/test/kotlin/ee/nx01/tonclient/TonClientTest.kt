@@ -17,7 +17,7 @@ class TonClientTest : StringSpec({
         client.buildInfo() shouldNotBe null
     }
 
-    "Should be able get api referance" {
+    "Should be able get api reference" {
         val client = TonClient()
         client.getApiReference() shouldNotBe null
     }
