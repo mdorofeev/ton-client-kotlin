@@ -20,7 +20,8 @@ repositories {
 ```
 
 ```groovy
-implementation "ee.nx-01.tonclient:ton-client-kotlin:0.0.59"
+implementation "ee.nx-01.tonclient:ton-client-kotlin:0.0.63"
+implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 ```
 
 ## Supported OS 
@@ -29,8 +30,8 @@ implementation "ee.nx-01.tonclient:ton-client-kotlin:0.0.59"
 |----------|--------------------|
 | Windows  | x64                |
 | Linux    | x64                |
-| Mac OS X | x64                |
-| Android  | arm64, armeabi-v7a |
+| Mac OS X | x64, arm64         |
+
 
 ## Example
 

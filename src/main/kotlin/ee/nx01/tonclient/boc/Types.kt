@@ -146,7 +146,12 @@ data class ParamsOfDecodeTvc(
     val bocCache: BocCacheType? = null
 )
 
-data class ParamsOfEncodeTvc(
+data class ParamsOfDecodeStateInit(
+    val stateInit: String,
+    val bocCache: BocCacheType? = null
+)
+
+data class ParamsOfEncodeStateInit(
     val code: String? = null,
     val data: String? = null,
     val library: String? = null,
@@ -156,8 +161,22 @@ data class ParamsOfEncodeTvc(
     val bocCache: BocCacheType? = null
 )
 
-data class ResultOfEncodeTvc(
-    val tvc: String
+data class ResultOfDecodeStateInit(
+    val code: String? = null,
+    val code_hash: String? = null,
+    val code_depth: Int? = null,
+    val data: String? = null,
+    val dataHash: String? = null,
+    val data_depth: Int? = null,
+    val library: String? = null,
+    val tick: Boolean? = null,
+    val tock: Boolean? = null,
+    val split_depth: Int? = null,
+    val compilerVersion: String? = null
+)
+
+data class ResultOfEncodeStateInit(
+    val stateInit: String
 )
 
 data class ResultOfSetCodeSalt(

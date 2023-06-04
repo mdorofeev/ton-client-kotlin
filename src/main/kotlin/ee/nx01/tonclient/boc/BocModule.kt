@@ -101,9 +101,14 @@ class BocModule(private val tonClient: TonClient) {
     /**
      * Encodes tvc from code, data, libraries ans special options (see input params)
      */
-    suspend fun encodeTvc(params: ParamsOfEncodeTvc): ResultOfEncodeTvc {
-        return tonClient.request("boc.encode_tvc", params)
+    suspend fun encodeStateInit(params: ParamsOfEncodeStateInit): ResultOfEncodeStateInit {
+        return tonClient.request("boc.encode_state_init", params)
     }
+
+    suspend fun decodeStateInit(params: ParamsOfDecodeStateInit): ResultOfDecodeStateInit {
+        return tonClient.request("boc.decode_state_init", params)
+    }
+
 
     /**
      * Decodes tvc into code, data, libraries and special options.

@@ -5,7 +5,7 @@ data class TonClientConfig(
     val network: NetworkConfig = NetworkConfig(),
     val crypto: CryptoConfig? = null,
     val abi: AbiConfig? = null,
-    val binding: Map<String, String> = mapOf("library" to "ton-client-kotlin", "version" to "0.0.59" )
+    val binding: Map<String, String> = mapOf("library" to "ton-client-kotlin", "version" to "0.0.63" )
 )
 
 

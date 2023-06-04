@@ -171,22 +171,22 @@ class BocModuleTest : StringSpec({
         response shouldNotBe null
     }
 
-    "Should be able encodes tvc" {
+    "Should be able encodes state init" {
         val client = TonClient()
 
-        val response = client.boc.encodeTvc(
-            ParamsOfEncodeTvc()
+        val response = client.boc.encodeStateInit(
+            ParamsOfEncodeStateInit()
         )
 
         response shouldNotBe null
-        response.tvc shouldBe "te6ccgEBAQEAAwAAAQQ="
+        response.stateInit shouldBe "te6ccgEBAQEAAwAAAQQ="
     }
 
-    "Should be able decode tvc" {
+    "Should be able decode state init" {
         val client = TonClient()
 
-        val response = client.boc.decodeTvc(
-            ParamsOfDecodeTvc(tvc = "te6ccgEBAQEAAwAAAQQ=")
+        val response = client.boc.decodeStateInit(
+            ParamsOfDecodeStateInit(stateInit = "te6ccgEBAQEAAwAAAQQ=")
         )
 
         response shouldNotBe null
@@ -195,8 +195,8 @@ class BocModuleTest : StringSpec({
     "Should be get compiler version" {
         val client = TonClient()
 
-        val tvc = client.boc.decodeTvc(
-            ParamsOfDecodeTvc("te6ccgECEwEAAbYAAgE0AwEBAcACAEPQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgBCSK7VMg4wMgwP/jAiDA/uMC8gsQBQQSAoTtRNDXScMB+GYh2zzTAAGfgQIA1xgg+QFY+EL5EPKo3tM/AfhDIbnytCD4I4ED6KiCCBt3QKC58rT4Y9MfAds88jwIBgNK7UTQ10nDAfhmItDXCwOpOADcIccA4wIh1w0f8rwh4wMB2zzyPA8PBgIoIIIQBoFGw7rjAiCCEGi1Xz+64wILBwIiMPhCbuMA+Ebyc9H4ANs88gAIDAIW7UTQ10nCAYqOgOIOCQFccO1E0PQFcSGAQPQOk9cLB5Fw4vhqciGAQPQPjoDf+GuAQPQO8r3XC//4YnD4YwoBAogSA3Aw+Eby4Ez4Qm7jANHbPCKOICTQ0wH6QDAxyM+HIM6AYs9AXgHPkhoFGw7LB8zJcPsAkVvi4wDyAA4NDAAq+Ev4SvhD+ELIy//LP8+DywfMye1UAAj4SvhLACztRNDT/9M/0wAx0wfU0fhr+Gr4Y/hiAAr4RvLgTAIK9KQg9KESEQAUc29sIDAuNTEuMAAA")
+        val tvc = client.boc.decodeStateInit(
+            ParamsOfDecodeStateInit("te6ccgECEwEAAbYAAgE0AwEBAcACAEPQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgBCSK7VMg4wMgwP/jAiDA/uMC8gsQBQQSAoTtRNDXScMB+GYh2zzTAAGfgQIA1xgg+QFY+EL5EPKo3tM/AfhDIbnytCD4I4ED6KiCCBt3QKC58rT4Y9MfAds88jwIBgNK7UTQ10nDAfhmItDXCwOpOADcIccA4wIh1w0f8rwh4wMB2zzyPA8PBgIoIIIQBoFGw7rjAiCCEGi1Xz+64wILBwIiMPhCbuMA+Ebyc9H4ANs88gAIDAIW7UTQ10nCAYqOgOIOCQFccO1E0PQFcSGAQPQOk9cLB5Fw4vhqciGAQPQPjoDf+GuAQPQO8r3XC//4YnD4YwoBAogSA3Aw+Eby4Ez4Qm7jANHbPCKOICTQ0wH6QDAxyM+HIM6AYs9AXgHPkhoFGw7LB8zJcPsAkVvi4wDyAA4NDAAq+Ev4SvhD+ELIy//LP8+DywfMye1UAAj4SvhLACztRNDT/9M/0wAx0wfU0fhr+Gr4Y/hiAAr4RvLgTAIK9KQg9KESEQAUc29sIDAuNTEuMAAA")
         )
 
         val response = client.boc.getCompilerVersion(ParamsOfGetCompilerVersion(tvc.code!!))

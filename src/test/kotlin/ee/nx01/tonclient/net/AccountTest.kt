@@ -53,7 +53,7 @@ class AccountTest : StringSpec({
         val client = TonClient(TestConstants.CONFIG)
 
         val account =
-            client.net.accounts.getAccount("0:c1c52894eb07f12ba110ff4be2d115ab09d0b06ba44ff9d6d31459a00d4e58ed")
+            client.net.accounts.getAccount("0:a1c52894eb07f12ba110ff4be2d115ab09d0b06ba44ff9d6d31459a00d4e58ed")
 
         account shouldBe null
 
