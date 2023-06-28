@@ -55,7 +55,7 @@ class AccountTest : StringSpec({
         val account =
             client.net.accounts.getAccount("0:a1c52894eb07f12ba110ff4be2d115ab09d0b06ba44ff9d6d31459a00d4e58ed")
 
-        account shouldBe null
+        account?.accType shouldBe AccountType.NON_EXIST
 
         client.destroy()
     }
