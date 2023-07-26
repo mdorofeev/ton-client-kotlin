@@ -271,7 +271,7 @@ data class ResultOfCalcFunctionId(
 data class ParamsOfGetSignatureData(
     val abi: Abi,
     val message: String,
-    val signature_id: Int? = null
+    val signature_id: Int? = 1
 )
 
 data class ResultOfGetSignatureData(

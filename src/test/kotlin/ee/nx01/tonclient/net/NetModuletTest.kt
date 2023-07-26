@@ -1,9 +1,7 @@
 package ee.nx01.tonclient.net
 
-import ee.nx01.tonclient.NetworkConfig
 import ee.nx01.tonclient.TestConstants
 import ee.nx01.tonclient.TonClient
-import ee.nx01.tonclient.TonClientConfig
 import ee.nx01.tonclient.types.AccountFilterInput
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -89,9 +87,10 @@ class NetModuletTest : StringSpec({
     "Should be able get block with block iterator" {
         val client = TonClient(TestConstants.CONFIG)
 
-        val iterator = client.net.createBlockIterator(ParamsOfCreateBlockIterator(shardFilter = listOf("0:8000000000000000")))
+        val iterator =
+            client.net.createBlockIterator(ParamsOfCreateBlockIterator(shardFilter = listOf("0:8000000000000000")))
 
-        val next = ParamsOfIteratorNext(iterator= iterator.handle, returnResumeState = true)
+        val next = ParamsOfIteratorNext(iterator = iterator.handle, returnResumeState = true)
 
         val listItem = mutableListOf<ResultOfIteratorNext>()
 

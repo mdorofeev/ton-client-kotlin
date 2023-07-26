@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import ee.nx01.tonclient.abi.AbiModule
 import ee.nx01.tonclient.boc.BocModule
 import ee.nx01.tonclient.crypto.CryptoModule
-import ee.nx01.tonclient.debot.DeBotModule
 import ee.nx01.tonclient.net.NetModule
 import ee.nx01.tonclient.process.ProcessModule
 import ee.nx01.tonclient.proofs.ProofsModule
@@ -29,7 +28,6 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
     val processing = ProcessModule(this)
     val boc = BocModule(this)
     val utils = UtilsModule(this)
-    val debot = DeBotModule(this)
     val proofs = ProofsModule(this)
 
     init {
@@ -73,7 +71,7 @@ class TonClient(val config: TonClientConfig = TonClientConfig()) {
         return JsonUtils.read<Map<String, String>>(response)["version"] ?: error("Incorrect response")
     }
 
-    suspend fun config() : Map<String, String> {
+    suspend fun config(): Map<String, String> {
         val response = requestString("client.config", "")
         return JsonUtils.read(response)
     }

@@ -23,32 +23,7 @@ class TvmModuleTest : StringSpec({
         response.output shouldNotBe null
     }
 
-    "Should be able run get method on rust network".config(enabled = false) {
 
-        val client = TonClient(TonClientConfig(NetworkConfig(serverAddress = "rustnet.ton.dev")))
-
-        val elector =
-            client.net.accounts.getAccount("-1:3333333333333333333333333333333333333333333333333333333333333333")!!
-
-        val message = ParamsOfEncodeMessage(
-            abi = TonUtils.readAbi("elector/Elector.abi.json"),
-            address = "-1:3333333333333333333333333333333333333333333333333333333333333333",
-            callSet = CallSet(
-                "get",
-                input = mapOf(
-                )
-            ),
-            signer = Signer.none()
-        )
-
-        val response = client.abi.encodeMessage(message)
-
-        val params = ParamsOfRunTvm(message = response.message, account = elector.boc!!, abi = TonUtils.readAbi("elector/Elector.abi.json"))
-        val response2 = client.tvm.runTvm(params)
-
-        response2 shouldNotBe null
-
-    }
 
     "Should be able execute message" {
         val client = TonClient(TestConstants.CONFIG)
